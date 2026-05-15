@@ -1,20 +1,19 @@
 services:
   db:
-    image: postgres:16-alpine
-    container_name: smartcampus-db
+    image: mysql:8.0
+    container_name: smartcampus-mysql
     environment:
-      POSTGRES_USER: smartcampus
-      POSTGRES_PASSWORD: smartcampus
-      POSTGRES_DB: smartcampus
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: smartcampus
     ports:
-      - "5432:5432"
+      - "3306:3306"
     volumes:
-      - postgres-data:/var/lib/postgresql/data
+      - mysql-data:/var/lib/mysql
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U smartcampus"]
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-uroot", "-proot"]
       interval: 5s
       timeout: 5s
-      retries: 5
+      retries: 10
 
   api:
     build:
@@ -24,7 +23,7 @@ services:
     ports:
       - "8000:8000"
     environment:
-      DATABASE_URL: postgresql://smartcampus:smartcampus@db:5432/smartcampus
+      DATABASE_URL: mysql+pymysql://root:root@db:3306/smartcampus?charset=utf8mb4
       JWT_SECRET: change-me-in-docker
       DEMO_MODE: "true"
     depends_on:
@@ -35,4 +34,4 @@ services:
     command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
 
 volumes:
-  postgres-data:
+  mysql-data:

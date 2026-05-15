@@ -393,9 +393,7 @@ Le projet peut utiliser plusieurs agents spécialisés.
 
 ## Base de Données
 
-* SQLite
-* PostgreSQL
-* MySQL
+* MySQL (Laragon)
 
 ## Communication
 

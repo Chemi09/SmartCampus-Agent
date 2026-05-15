@@ -1,7 +1,7 @@
 # Plan backend — étape par étape
 
 **Projet :** SmartCampus AgentAI  
-**Stack :** Python 3.11+ · FastAPI · SQLAlchemy · PostgreSQL / SQLite · JWT  
+**Stack :** Python 3.11+ · FastAPI · SQLAlchemy · **MySQL** (Laragon) · JWT  
 **Équipe backend :** **Bradley** (ERP) · **Yamify** (CRM + Agent IA)
 
 **Documents liés :** [PLAN-CONCEPTION.md](./PLAN-CONCEPTION.md) · [architecture_et _structure_arboresente.md](./architecture_et%20_structure_arboresente.md) · [PROJET.md](./PROJET.md)
@@ -101,7 +101,7 @@ Fournir une **API REST unique** (`/api/v1`) qui :
 
 - [ ] **0.1** Valider ce plan + routes [PLAN-CONCEPTION §6](./PLAN-CONCEPTION.md)
 - [ ] **0.2** Créer dossier `backend/` ([arborescence](./architecture_et%20_structure_arboresente.md))
-- [ ] **0.3** Choisir BDD : SQLite (dev) ou PostgreSQL (démo) → noter dans `.env.example`
+- [ ] **0.3** BDD **MySQL** (Laragon) — base `smartcampus` + `.env.example`
 - [ ] **0.4** Convention : `student_id` + `phone` = clés de liaison ERP ↔ CRM ↔ agent
 - [ ] **0.5** Canal équipe pour bloquants API (Discord / WhatsApp)
 
@@ -128,7 +128,7 @@ Fournir une **API REST unique** (`/api/v1`) qui :
 - [x] **1.5** Route `GET /health` → `{"status": "ok"}`
 - [x] **1.6** Router `/api/v1` monté (vide pour l’instant)
 - [x] **1.7** `StaticFiles` → `../frontend` (optionnel)
-- [x] **1.8** `docker-compose.yml` (PostgreSQL si choisi)
+- [x] **1.8** `docker-compose.yml` (MySQL + API)
 - [x] **1.9** `backend/.env.example` + `backend/README.md` (install)
 
 **Vérification**
@@ -165,7 +165,7 @@ Fournir une **API REST unique** (`/api/v1`) qui :
 
 - [ ] **2.14** Alembic initialisé
 - [ ] **2.15** Migration `001_initial_schema.py`
-- [ ] **2.16** `alembic upgrade head` OK (SQLite local)
+- [ ] **2.16** `alembic upgrade head` OK (MySQL Laragon)
 
 **Phase 2 terminée :** [ ]
 
@@ -354,7 +354,7 @@ Fournir une **API REST unique** (`/api/v1`) qui :
 
 - [ ] **10.1** `.env` prod (hors Git)
 - [ ] **10.2** API déployée sur infra Texaf / Yamify
-- [ ] **10.3** PostgreSQL local sur cloud souverain
+- [ ] **10.3** MySQL local sur cloud souverain
 - [ ] **10.4** HTTPS + reverse proxy
 - [ ] **10.5** `GET /agent/health` accessible publiquement
 - [ ] **10.6** Aucune donnée académique vers LLM étranger
@@ -430,7 +430,7 @@ psycopg2-binary>=2.9.9
 ### `.env.example`
 
 ```env
-DATABASE_URL=sqlite:///./smartcampus.db
+DATABASE_URL=mysql+pymysql://root:@localhost:3306/smartcampus?charset=utf8mb4
 JWT_SECRET=change-me-in-production
 AGENT_SERVICE_KEY=agent-demo-key
 LLM_ENDPOINT=http://localhost:11434/v1

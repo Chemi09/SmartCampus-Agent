@@ -2,7 +2,7 @@
 
 **Hackathon OpenClaw · Yamify (cloud souverain, Kinshasa)**
 
-📐 **Plan de conception :** [PLAN-CONCEPTION.md](./PLAN-CONCEPTION.md) · **Backend (étapes) :** [PLAN-BACKEND.md](./PLAN-BACKEND.md) · **Arborescence :** [architecture_et _structure_arboresente.md](./architecture_et%20_structure_arboresente.md)
+📐 **Plans :** [PLAN-CONCEPTION](./PLAN-CONCEPTION.md) · [Backend](./PLAN-BACKEND.md) · [Frontend](./PLAN-FRONTEND.md) · [Arborescence](./architecture_et%20_structure_arboresente.md)
 
 > Le premier mini-ERP de campus universitaire congolais, avec suivi relationnel étudiants et un agent IA autonome hébergé localement — accessible 24h/24 via WhatsApp/SMS, en français ou en lingala.
 
@@ -163,7 +163,7 @@ Un seul fil narratif pour le pitch :
 
 - **Repo / workspace :** `SmartCampus Agent`
 - **Frontend (Joel + Michée) :** HTML5, CSS3, JavaScript vanilla, Bootstrap 5 — **pas React**
-- **Backend (Bradley + Yamify) :** Python FastAPI · PostgreSQL / SQLite
+- **Backend (Bradley + Yamify) :** Python FastAPI · MySQL (Laragon)
 - **IA / infra (Yamify) :** OpenClaw, LangChain, cloud souverain Kinshasa
 - **Structure détaillée :** [architecture_et _structure_arboresente.md](./architecture_et%20_structure_arboresente.md)
 

@@ -1,6 +1,24 @@
 # SmartCampus AgentAI — Backend
 
-API FastAPI · Python 3.11+
+API FastAPI · Python 3.11+ · **MySQL** (Laragon)
+
+## Prérequis MySQL (Laragon)
+
+1. Démarrer **MySQL** dans Laragon.
+2. Créer la base `smartcampus` (HeidiSQL ou phpMyAdmin).
+3. Copier `.env.example` → `.env` et adapter `DATABASE_URL`.
+
+Exemple (utilisateur `root`, mot de passe vide — classique Laragon) :
+
+```env
+DATABASE_URL=mysql+pymysql://root:@localhost:3306/smartcampus?charset=utf8mb4
+```
+
+Avec mot de passe :
+
+```env
+DATABASE_URL=mysql+pymysql://root:ton_mdp@localhost:3306/smartcampus?charset=utf8mb4
+```
 
 ## Installation
 
@@ -12,40 +30,18 @@ pip install -r requirements.txt
 copy .env.example .env
 ```
 
-## Lancer l'API (développement)
+## Lancer l'API
 
 ```powershell
-cd backend
-.\venv\Scripts\Activate.ps1
 uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
 ```
 
-## Vérifications Phase 1
-
 | URL | Attendu |
 |-----|---------|
-| http://localhost:8000/health | `{"status":"ok",...}` |
+| http://localhost:8000/health | `{"status":"ok"}` |
 | http://localhost:8000/docs | Swagger UI |
-| http://localhost:8000/api/v1 | Infos modules |
 
-## Docker (PostgreSQL + API)
+## Plans
 
-Depuis la racine du projet :
-
-```powershell
-docker compose up -d
-```
-
-Puis définir dans `backend/.env` :
-
-```env
-DATABASE_URL=postgresql://smartcampus:smartcampus@localhost:5432/smartcampus
-```
-
-## Structure
-
-Voir [docs/architecture_et _structure_arboresente.md](../docs/architecture_et%20_structure_arboresente.md)
-
-## Plan de développement
-
-[docs/PLAN-BACKEND.md](../docs/PLAN-BACKEND.md)
+- [PLAN-BACKEND.md](../docs/PLAN-BACKEND.md)
+- [PLAN-FRONTEND.md](../docs/PLAN-FRONTEND.md)

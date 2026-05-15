@@ -6,6 +6,11 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 BACKEND_DIR = Path(__file__).resolve().parent.parent
 PROJECT_ROOT = BACKEND_DIR.parent
 
+# MySQL (Laragon) — chaîne par défaut dev
+DEFAULT_DATABASE_URL = (
+    "mysql+pymysql://root:@localhost:3306/smartcampus?charset=utf8mb4"
+)
+
 
 class Settings(BaseSettings):
     model_config = SettingsConfigDict(
@@ -17,7 +22,7 @@ class Settings(BaseSettings):
     app_name: str = "SmartCampus AgentAI"
     debug: bool = True
 
-    database_url: str = f"sqlite:///{BACKEND_DIR / 'smartcampus.db'}"
+    database_url: str = DEFAULT_DATABASE_URL
 
     jwt_secret: str = "change-me-in-development"
     jwt_algorithm: str = "HS256"

@@ -127,8 +127,8 @@ flowchart LR
         └────────────────────┼────────────────────────┘
                              ▼
                     ┌─────────────────┐
-                    │   PostgreSQL    │
-                    │  (ou SQLite MVP) │
+                    │     MySQL       │
+                    │     MySQL       │
                     └────────┬────────┘
                              ▼
                     ┌─────────────────┐
@@ -143,7 +143,7 @@ flowchart LR
 |--------|-------|------------------------|
 | Frontend | **HTML5, CSS3, JavaScript vanilla, Bootstrap 5** (pas React) | **Joel + Michée** — Joel : ERP + shell ; Michée : CRM |
 | Backend | **Python + FastAPI** | Flask si préférence équipe |
-| BDD | **PostgreSQL** (prod) / **SQLite** (dev rapide) | Une seule instance partagée |
+| BDD | **MySQL** (Laragon) | Base `smartcampus` partagée |
 | IA | OpenClaw, LangChain, API LLM locale ou souveraine | Pas d’appel cloud étranger en démo |
 | Messaging | WhatsApp Business API **ou** webhook mock | Simulateur pour jury sans compte Meta |
 | Hébergement | Yamify · infra locale Texaf | Docker compose sur machine hackathon |
@@ -709,7 +709,7 @@ SmartCampus-Agent/
 
 | Variable | Description |
 |----------|-------------|
-| `DATABASE_URL` | PostgreSQL / SQLite |
+| `DATABASE_URL` | MySQL (`mysql+pymysql`) |
 | `JWT_SECRET` | Secret auth |
 | `AGENT_SERVICE_KEY` | Clé agent → API |
 | `LLM_ENDPOINT` | URL LLM souverain |
@@ -721,6 +721,7 @@ SmartCampus-Agent/
 - Vision équipe & pitch : [PROJET.md](./PROJET.md)
 - Catalogue fonctionnel complet : [Documentation.md](./Documentation.md)
 - Arborescence repo : [architecture_et _structure_arboresente.md](./architecture_et%20_structure_arboresente.md)
+- Plan frontend : [PLAN-FRONTEND.md](./PLAN-FRONTEND.md)
 
 ---
 

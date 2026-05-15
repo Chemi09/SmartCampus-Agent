@@ -22,7 +22,7 @@ Utilisateur
 (Bradley) (Yamify)  (Yamify)
               │
               ▼
-         PostgreSQL / SQLite
+         MySQL (Laragon)
               │
               ▼
          Yamify (cloud local Kinshasa)
@@ -185,6 +185,8 @@ app.mount("/", StaticFiles(directory="../frontend", html=True), name="frontend")
 |----------|---------|
 | [Documentation.md](./Documentation.md) §11 | HTML5, CSS3, JavaScript, Bootstrap — **confirmé, pas React** |
 | [PLAN-CONCEPTION.md](./PLAN-CONCEPTION.md) §3.2, §9 | Stack et écrans MVP |
+| [PLAN-FRONTEND.md](./PLAN-FRONTEND.md) | Plan frontend Joel & Michée |
+| [PLAN-BACKEND.md](./PLAN-BACKEND.md) | Plan backend Bradley & Yamify |
 | [PROJET.md](./PROJET.md) | Vision équipe et backlog |
 
 *Dernière mise à jour : mai 2026 — stack frontend validée HTML/CSS/JS.*
@@ -351,7 +353,7 @@ SmartCampus-Agent/
 | `backend/app/agent/` | Agent IA & WhatsApp (**Yamify**) |
 | `frontend/pages/admin/` (ERP) | Frontend (**Joel**) |
 | `frontend/pages/admin/` (CRM) | Frontend (**Michée**) |
-| `backend/app/models/` | Tables PostgreSQL / SQLite |
+| `backend/app/models/` | Tables MySQL |
 | `seeds/demo_data.py` | Jeu de données pour la démo jury |
 
 ### Fichiers optionnels (post-MVP)

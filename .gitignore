@@ -41,3 +41,5 @@ postgres-data/
 # Secrets
 .env.*
 !.env.example
+# Local project configuration with secrets
+test-frontend/.project-config.json

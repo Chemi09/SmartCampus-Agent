@@ -594,12 +594,13 @@ L’étudiant demande de l’aide sur du code.
 
 # 20. Répartition des Tâches dans l’Équipe
 
-## Backend (Bradley + Yamify)
+## Backend (Bradley + Ephraim)
 
 | Membre | Responsabilité |
 |--------|----------------|
 | **Bradley** | ERP académique — API, modèles, notes, inscriptions |
-| **Yamify** | CRM (API), agent IA autonome, déploiement cloud souverain |
+| **Ephraim** | CRM (API), agent IA autonome |
+| **Yamify** *(partenaire)* | Cloud souverain Kinshasa, hébergement OpenClaw |
 
 ## Frontend (Joel + Michée)
 

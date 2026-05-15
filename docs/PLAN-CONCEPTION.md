@@ -34,8 +34,8 @@
 | Pilier | Backend | Frontend |
 |--------|---------|----------|
 | ERP académique | **Bradley** — API, modèles, notes | **Joel** — `students.html`, `grades.html`, JS ERP |
-| CRM campus | **Yamify** — API paiements, relances | **Michée** — `payments.html`, `communications.html` |
-| Agent IA autonome | **Yamify** — orchestration, intents, OpenClaw | **Joel** — `demo/chat.html`, simulateur WhatsApp |
+| CRM campus | **Ephraim** — API paiements, relances | **Michée** — `payments.html`, `communications.html` |
+| Agent IA autonome | **Ephraim** — orchestration, intents, OpenClaw | **Joel** — `demo/chat.html`, simulateur WhatsApp |
 
 ### 1.2 Objectifs (alignés documentation)
 
@@ -73,7 +73,7 @@ flowchart LR
   AG --> API[API Backend]
   FE --> API
   API --> ERP[ERP Bradley]
-  API --> CRM[CRM Yamify]
+  API --> CRM[CRM Ephraim]
 ```
 
 | Acteur | Besoins principaux | Canaux |
@@ -85,7 +85,7 @@ flowchart LR
 
 ### 2.2 Matrice responsabilités (équipe)
 
-| Livrable | Bradley (BE) | Yamify (BE) | Michée (FE) | Joel (FE) |
+| Livrable | Bradley (BE) | Ephraim (BE) | Michée (FE) | Joel (FE) |
 |----------|--------------|-------------|-------------|-----------|
 | Schéma BDD + API ERP | ● | ○ | | ○ |
 | Schéma BDD + API CRM | ○ | ● | | ○ |
@@ -120,7 +120,7 @@ flowchart LR
         ▼                      ▼                      ▼
 ┌───────────────┐    ┌───────────────┐    ┌───────────────────────┐
 │  MODULE ERP   │    │  MODULE CRM   │    │   ORCHESTRATEUR IA    │
-│   (Bradley)   │◄──►│   (Yamify)    │◄──►│      (Yamify)         │
+│   (Bradley)   │◄──►│   (Ephraim)   │◄──►│      (Ephraim)        │
 │  /api/erp/*   │    │  /api/crm/*   │    │  OpenClaw · LangChain │
 └───────┬───────┘    └───────┬───────┘    └───────────┬───────────┘
         │                    │                        │
@@ -308,7 +308,7 @@ erDiagram
 
 ---
 
-### 5.3 MODULE AGENT IA — Yamify
+### 5.3 MODULE AGENT IA — Ephraim
 
 #### 5.3.1 User stories MVP
 
@@ -332,11 +332,11 @@ erDiagram
 |-----------|-------------|-------------|
 | Shell app, login, `api.js` | **Joel** | Structure `frontend/`, auth, appels API communs |
 | Pages ERP (étudiants, notes) | **Joel** | Consomme API Bradley |
-| Pages CRM (paiements, comm.) | **Michée** | Consomme API Yamify |
+| Pages CRM (paiements, comm.) | **Michée** | Consomme API Ephraim |
 | Dashboard admin / étudiant | **Joel + Michée** | Joel : vue académique ; Michée : bloc finances |
-| Simulateur WhatsApp | **Joel** | `demo/chat.html` → API agent Yamify |
+| Simulateur WhatsApp | **Joel** | `demo/chat.html` → API agent Ephraim |
 
-*Backend : endpoint `/api/students/{id}/summary` — Bradley ou Yamify.*
+*Backend : endpoint `/api/students/{id}/summary` — Bradley ou Ephraim.*
 
 ---
 
@@ -355,8 +355,8 @@ erDiagram
 |---------|-------|-------------|--------------|
 | GET | `/erp/students` | Liste (filtres program, status) | Frontend |
 | GET | `/erp/students/{id}` | Fiche complète | Joel (FE), Agent |
-| GET | `/erp/students/by-phone/{phone}` | Identification agent | Yamify |
-| GET | `/erp/students/{id}/grades?semester_id=` | Notes + moyenne calculée | Yamify |
+| GET | `/erp/students/by-phone/{phone}` | Identification agent | Ephraim |
+| GET | `/erp/students/{id}/grades?semester_id=` | Notes + moyenne calculée | Ephraim |
 | POST | `/erp/students` | Création | Admin |
 | POST | `/erp/grades` | Encoder note | Admin |
 | GET | `/erp/semesters/active` | Semestre courant | Tous |
@@ -380,8 +380,8 @@ erDiagram
 | Méthode | Route | Description | Consommateur |
 |---------|-------|-------------|--------------|
 | GET | `/crm/payments?status=unpaid` | Liste impayés | Michée (dashboard) |
-| GET | `/crm/students/{id}/payments` | Historique paiements | Yamify |
-| GET | `/crm/students/{id}/balance` | Solde actuel semestre | Yamify |
+| GET | `/crm/students/{id}/payments` | Historique paiements | Ephraim |
+| GET | `/crm/students/{id}/balance` | Solde actuel semestre | Ephraim |
 | POST | `/crm/payments/{id}/record` | Enregistrer paiement mock | Admin |
 | POST | `/crm/relances` | Déclencher relance | Admin, Agent (option) |
 | GET | `/crm/communications?student_id=` | Historique messages | Admin |
@@ -400,7 +400,7 @@ erDiagram
 }
 ```
 
-### 6.4 Agent — endpoints Yamify
+### 6.4 Agent — endpoints Ephraim
 
 | Méthode | Route | Description |
 |---------|-------|-------------|
@@ -485,10 +485,10 @@ sequenceDiagram
   participant E as Étudiant
   participant W as WhatsApp
   participant J as Joel webhook FE
-  participant Y as Orchestrateur Yamify
+  participant Y as Orchestrateur Ephraim
   participant API as Backend
   participant ERP as ERP Bradley
-  participant CRM as CRM Yamify BE
+  participant CRM as CRM Ephraim BE
 
   E->>W: Quelle est ma moyenne ?
   W->>J: POST webhook
@@ -563,11 +563,11 @@ sequenceDiagram
 
 | # | Acteur | Action | Module | Durée |
 |---|--------|--------|--------|-------|
-| 1 | Admin | Ouvre dashboard → voit 2 impayés | Michée (UI) · Yamify (API) | 20 s |
+| 1 | Admin | Ouvre dashboard → voit 2 impayés | Michée (UI) · Ephraim (API) | 20 s |
 | 2 | Admin | Clique « Relancer » sur ETU-2026-001 | CRM | 15 s |
-| 3 | Étudiant | Envoie WhatsApp : « Napesaki frais S2 ? » | Yamify | 30 s |
-| 4 | Agent | Répond avec solde exact | Yamify + CRM | 20 s |
-| 5 | Étudiant | « Moyenne ya semestre ? » | Yamify + ERP | 30 s |
+| 3 | Étudiant | Envoie WhatsApp : « Napesaki frais S2 ? » | Ephraim | 30 s |
+| 4 | Agent | Répond avec solde exact | Ephraim + CRM | 20 s |
+| 5 | Étudiant | « Moyenne ya semestre ? » | Ephraim + ERP | 30 s |
 | 6 | Présentateur | Slide souveraineté : données à Kinshasa | Yamify | 25 s |
 
 ### 10.2 Cas d’utilisation (Documentation → priorisation)
@@ -603,9 +603,9 @@ sequenceDiagram
 | J1 | Modèles SQLAlchemy académiques, migrations, seed |
 | J1 | Endpoints `/erp/*` : students, grades, by-phone |
 | J2 | Calcul moyenne, tests Postman, doc OpenAPI |
-| J2 | Support frontend (Joel) + agent (Yamify) |
+| J2 | Support frontend (Joel) + agent (Ephraim) |
 
-#### Yamify — Backend CRM + Agent
+#### Ephraim — Backend CRM + Agent
 
 | Jour | Tâches |
 |------|--------|

@@ -2,7 +2,8 @@
 
 **Projet :** SmartCampus AgentAI  
 **Stack :** Python 3.11+ · FastAPI · SQLAlchemy · **MySQL** (Laragon) · JWT  
-**Équipe backend :** **Bradley** (ERP) · **Yamify** (CRM + Agent IA)
+**Équipe backend :** **Bradley** (ERP) · **Ephraim** (CRM + Agent IA)  
+**Partenaire infra :** **Yamify** (cloud souverain Kinshasa)
 
 **Documents liés :** [PLAN-CONCEPTION.md](./PLAN-CONCEPTION.md) · [architecture_et _structure_arboresente.md](./architecture_et%20_structure_arboresente.md) · [PROJET.md](./PROJET.md)
 
@@ -17,11 +18,11 @@
 
 - [ ] **Phase 0** — Cadrage commun (2–4 h)
 - [x] **Phase 1** — Socle technique (4–6 h)
-- [ ] **Phase 2** — Base de données (6–8 h)
-- [ ] **Phase 3** — Authentification & sécurité (3–4 h)
-- [ ] **Phase 4** — Module ERP — Bradley (10–12 h)
-- [ ] **Phase 5** — Module CRM — Yamify (8–10 h)
-- [ ] **Phase 6** — Module Agent IA — Yamify (10–12 h)
+- [x] **Phase 2** — Base de données (6–8 h)
+- [x] **Phase 3** — Authentification & sécurité (3–4 h)
+- [x] **Phase 4** — Module ERP — Bradley (10–12 h)
+- [ ] **Phase 5** — Module CRM — Ephraim (8–10 h)
+- [ ] **Phase 6** — Module Agent IA — Ephraim (10–12 h)
 - [ ] **Phase 7** — API agrégée & intégration (4–6 h)
 - [ ] **Phase 8** — Seeds & données démo (3–4 h)
 - [ ] **Phase 9** — Tests & documentation API (4–6 h)
@@ -31,14 +32,14 @@
 
 **Bradley**
 
-- [ ] Socle + auth terminés *(socle OK — auth phase 3)*
-- [ ] Module ERP terminé
+- [x] Socle + auth terminés
+- [x] Module ERP terminé
 - [ ] Seeds académiques OK
 - [ ] API `summary` OK
 
-**Yamify**
+**Ephraim**
 
-- [ ] Modèles CRM terminés
+- [x] Modèles CRM terminés (tables partagées phase 2)
 - [ ] Module CRM terminé
 - [ ] Agent IA terminé
 - [ ] Déploiement cloud local OK
@@ -89,14 +90,14 @@ Fournir une **API REST unique** (`/api/v1`) qui :
 |--------|---------|-------------|-------------|
 | Socle, auth, summary | `app/core/`, `app/api/` | **Bradley** (lead) | `/api/v1` |
 | ERP | `app/erp/` | **Bradley** | `/api/v1/erp` |
-| CRM | `app/crm/` | **Yamify** | `/api/v1/crm` |
-| Agent IA | `app/agent/` | **Yamify** | `/api/v1/agent` |
+| CRM | `app/crm/` | **Ephraim** | `/api/v1/crm` |
+| Agent IA | `app/agent/` | **Ephraim** | `/api/v1/agent` |
 
 ---
 
 ## Phase 0 — Cadrage commun (2–4 h)
 
-**Qui :** Bradley + Yamify  
+**Qui :** Bradley + Ephraim  
 **But :** figer routes et schéma avant de coder.
 
 - [ ] **0.1** Valider ce plan + routes [PLAN-CONCEPTION §6](./PLAN-CONCEPTION.md)
@@ -109,8 +110,8 @@ Fournir une **API REST unique** (`/api/v1`) qui :
 
 - [ ] `backend/socle` créée (Bradley)
 - [ ] `backend/erp` créée (Bradley)
-- [ ] `backend/crm` créée (Yamify)
-- [ ] `backend/agent` créée (Yamify)
+- [ ] `backend/crm` créée (Ephraim)
+- [ ] `backend/agent` créée (Ephraim)
 
 **Phase 0 terminée :** [ ]
 
@@ -143,31 +144,31 @@ Fournir une **API REST unique** (`/api/v1`) qui :
 
 ## Phase 2 — Base de données (6–8 h)
 
-**Qui :** Bradley (ERP) + Yamify (CRM) — review croisée obligatoire.
+**Qui :** Bradley (ERP) + Ephraim (CRM) — review croisée obligatoire.
 
 ### Modèles
 
-- [ ] **2.1** `app/models/base.py`
-- [ ] **2.2** Modèle `faculty`
-- [ ] **2.3** Modèle `program`
-- [ ] **2.4** Modèle `student` (index unique `matricule`, `phone`)
-- [ ] **2.5** Modèle `semester`
-- [ ] **2.6** Modèle `course`
-- [ ] **2.7** Modèle `enrollment`
-- [ ] **2.8** Modèle `grade`
-- [ ] **2.9** Modèle `fee_type`
-- [ ] **2.10** Modèle `payment` (FK → `student`)
-- [ ] **2.11** Modèle `payment_transaction`
-- [ ] **2.12** Modèle `communication`
-- [ ] **2.13** FK `payment.student_id` → `student.id` validée
+- [x] **2.1** `app/models/base.py`
+- [x] **2.2** Modèle `faculty`
+- [x] **2.3** Modèle `program`
+- [x] **2.4** Modèle `student` (index unique `matricule`, `phone`)
+- [x] **2.5** Modèle `semester`
+- [x] **2.6** Modèle `course`
+- [x] **2.7** Modèle `enrollment`
+- [x] **2.8** Modèle `grade`
+- [x] **2.9** Modèle `fee_type`
+- [x] **2.10** Modèle `payment` (FK → `student`)
+- [x] **2.11** Modèle `payment_transaction`
+- [x] **2.12** Modèle `communication`
+- [x] **2.13** FK `payment.student_id` → `student.id` validée
 
 ### Migrations
 
-- [ ] **2.14** Alembic initialisé
-- [ ] **2.15** Migration `001_initial_schema.py`
-- [ ] **2.16** `alembic upgrade head` OK (MySQL Laragon)
+- [x] **2.14** Alembic initialisé
+- [x] **2.15** Migration `001_initial_schema.py`
+- [x] **2.16** `alembic upgrade head` OK (MySQL Laragon)
 
-**Phase 2 terminée :** [ ]
+**Phase 2 terminée :** [x]
 
 ---
 
@@ -175,22 +176,22 @@ Fournir une **API REST unique** (`/api/v1`) qui :
 
 **Qui :** Bradley.
 
-- [ ] **3.1** `app/core/security.py` — hash + JWT
-- [ ] **3.2** `app/schemas/auth.py` — `LoginRequest`, `TokenResponse`
-- [ ] **3.3** `POST /api/v1/auth/login`
-- [ ] **3.4** `GET /api/v1/auth/me`
-- [ ] **3.5** `app/dependencies.py` — `get_current_user`
-- [ ] **3.6** Rôles : `admin`, `student`, `agent_service`
-- [ ] **3.7** Routes ERP/CRM protégées (admin)
-- [ ] **3.8** Clé `AGENT_SERVICE_KEY` pour routes agent
-- [ ] **3.9** `app/core/exceptions.py` — 401, 403, 404
+- [x] **3.1** `app/core/security.py` — hash + JWT
+- [x] **3.2** `app/schemas/auth.py` — `LoginRequest`, `TokenResponse`
+- [x] **3.3** `POST /api/v1/auth/login`
+- [x] **3.4** `GET /api/v1/auth/me`
+- [x] **3.5** `app/dependencies.py` — `get_current_user`
+- [x] **3.6** Rôles : `admin`, `student`, `agent_service`
+- [x] **3.7** Routes ERP/CRM protégées (admin)
+- [x] **3.8** Clé `AGENT_SERVICE_KEY` pour routes agent
+- [x] **3.9** `app/core/exceptions.py` — 401, 403, 404
 
 **Vérification**
 
-- [ ] Login admin démo → token reçu
-- [ ] Route ERP sans token → 401
+- [x] Login admin démo → token reçu
+- [x] Route ERP sans token → 401
 
-**Phase 3 terminée :** [ ]
+**Phase 3 terminée :** [x]
 
 ---
 
@@ -200,33 +201,33 @@ Fournir une **API REST unique** (`/api/v1`) qui :
 
 ### Fichiers module
 
-- [ ] **4.1** `erp/schemas.py` — Student, Grade, GradesSummary
-- [ ] **4.2** `erp/repositories.py`
-- [ ] **4.3** `erp/services.py` — moyenne pondérée par crédits
-- [ ] **4.4** `erp/routes.py` — router enregistré dans `main`
+- [x] **4.1** `erp/schemas.py` — Student, Grade, GradesSummary
+- [x] **4.2** `erp/repositories.py`
+- [x] **4.3** `erp/services.py` — moyenne pondérée par crédits
+- [x] **4.4** `erp/routes.py` — router enregistré dans `main`
 
 ### Endpoints
 
-- [ ] **4.5** `GET /erp/semesters/active` (P0)
-- [ ] **4.6** `GET /erp/students` (P0)
-- [ ] **4.7** `GET /erp/students/{id}` (P0)
-- [ ] **4.8** `GET /erp/students/by-phone/{phone}` (P0 — agent)
-- [ ] **4.9** `GET /erp/students/{id}/grades` (P0 — agent)
-- [ ] **4.10** `POST /erp/students` (P1)
-- [ ] **4.11** `POST /erp/grades` (P1)
-- [ ] **4.12** `PUT /erp/students/{id}` (P2)
+- [x] **4.5** `GET /erp/semesters/active` (P0)
+- [x] **4.6** `GET /erp/students` (P0)
+- [x] **4.7** `GET /erp/students/{id}` (P0)
+- [x] **4.8** `GET /erp/students/by-phone/{phone}` (P0 — agent)
+- [x] **4.9** `GET /erp/students/{id}/grades` (P0 — agent)
+- [x] **4.10** `POST /erp/students` (P1)
+- [x] **4.11** `POST /erp/grades` (P1)
+- [x] **4.12** `PUT /erp/students/{id}` (P2)
 
 ### Tests
 
-- [ ] **4.13** Liste filtrée par `program_id` OK
-- [ ] **4.14** `by-phone` → `ETU-2026-001` OK
-- [ ] **4.15** Moyenne cohérente avec seed OK
+- [ ] **4.13** Liste filtrée par `program_id` OK *(nécessite seed phase 8)*
+- [ ] **4.14** `by-phone` → `ETU-2026-001` OK *(nécessite seed phase 8)*
+- [ ] **4.15** Moyenne cohérente avec seed OK *(nécessite seed phase 8)*
 
-**Phase 4 terminée :** [ ]
+**Phase 4 terminée :** [x]
 
 ---
 
-## Phase 5 — Module CRM — Yamify (8–10 h)
+## Phase 5 — Module CRM — Ephraim (8–10 h)
 
 **Dossier :** `app/crm/` · **Préfixe :** `/api/v1/crm`
 
@@ -256,7 +257,7 @@ Fournir une **API REST unique** (`/api/v1`) qui :
 
 ---
 
-## Phase 6 — Module Agent IA — Yamify (10–12 h)
+## Phase 6 — Module Agent IA — Ephraim (10–12 h)
 
 **Dossier :** `app/agent/` · **Préfixe :** `/api/v1/agent`
 
@@ -303,7 +304,7 @@ Fournir une **API REST unique** (`/api/v1`) qui :
 
 ## Phase 7 — API agrégée & intégration (4–6 h)
 
-**Qui :** Bradley + Yamify.
+**Qui :** Bradley + Ephraim.
 
 - [ ] **7.1** `app/api/v1/summary.py` — `GET /students/{id}/summary`
 - [ ] **7.2** Agrégation ERP (student + moyenne) + CRM (balance)
@@ -317,7 +318,7 @@ Fournir une **API REST unique** (`/api/v1`) qui :
 
 ## Phase 8 — Seeds & données démo (3–4 h)
 
-**Qui :** Bradley (académique) + Yamify (paiements).
+**Qui :** Bradley (académique) + Ephraim (paiements).
 
 - [ ] **8.1** 1 faculté + 1 programme (L2 Informatique)
 - [ ] **8.2** 1 semestre actif S2 2025-2026
@@ -335,7 +336,7 @@ Fournir une **API REST unique** (`/api/v1`) qui :
 
 ## Phase 9 — Tests & documentation API (4–6 h)
 
-**Qui :** Bradley + Yamify.
+**Qui :** Bradley + Ephraim.
 
 - [ ] **9.1** Descriptions Swagger sur chaque route
 - [ ] **9.2** Fichier `backend/tests/api.http`
@@ -350,7 +351,7 @@ Fournir une **API REST unique** (`/api/v1`) qui :
 
 ## Phase 10 — Déploiement Yamify (4–6 h)
 
-**Qui :** Yamify (lead).
+**Qui :** Ephraim (lead déploiement) · infra **Yamify**
 
 - [ ] **10.1** `.env` prod (hors Git)
 - [ ] **10.2** API déployée sur infra Texaf / Yamify
@@ -366,7 +367,7 @@ Fournir une **API REST unique** (`/api/v1`) qui :
 
 ## Planning synthétique 48 h
 
-| Heure | Bradley | Yamify |
+| Heure | Bradley | Ephraim |
 |-------|---------|--------|
 | H0–4 | Phase 0 + 1 | Phase 0 + revue schéma |
 | H4–12 | Phase 2 ERP + 3 auth | Phase 2 CRM |
@@ -421,10 +422,11 @@ sqlalchemy>=2.0.0
 alembic>=1.13.0
 pydantic-settings>=2.0.0
 python-jose[cryptography]>=3.3.0
-passlib[bcrypt]>=1.7.4
+bcrypt>=4.1.0
 python-multipart>=0.0.9
 httpx>=0.27.0
-psycopg2-binary>=2.9.9
+pymysql>=1.1.0
+cryptography>=42.0.0
 ```
 
 ### `.env.example`
@@ -457,4 +459,4 @@ Content-Type: application/json
 
 ---
 
-*Plan backend v1.1 — cases à cocher · SmartCampus AgentAI · Bradley & Yamify*
+*Plan backend v1.2 — SmartCampus AgentAI · Bradley & Ephraim · infra Yamify*

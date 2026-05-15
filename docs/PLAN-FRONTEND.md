@@ -59,8 +59,8 @@ Interfaces **HTML statiques** enrichies en JavaScript qui consomment l’API Fas
 |------|-------|-------------|-------------|
 | Shell | login, layout, `api.js` | Joel | `/auth/*` |
 | ERP | étudiants, notes, fiche | Joel | `/erp/*` (Bradley) |
-| CRM | paiements, communications | Michée | `/crm/*` (Yamify) |
-| Agent | chat démo | Joel | `/agent/chat` (Yamify) |
+| CRM | paiements, communications | Michée | `/crm/*` (Ephraim) |
+| Agent | chat démo | Joel | `/agent/chat` (Ephraim) |
 | Étudiant | mon espace | Joel | ERP + CRM |
 
 ### 1.2 Principes
@@ -194,7 +194,7 @@ frontend/
 
 ## Phase 4 — Pages CRM — Michée (8–10 h)
 
-**API :** `/api/v1/crm/*` (Yamify)
+**API :** `/api/v1/crm/*` (Ephraim)
 
 ### Paiements & impayés
 
@@ -250,7 +250,7 @@ frontend/
 
 ## Phase 7 — Simulateur WhatsApp / agent (4–6 h)
 
-**Qui :** Joel · **API :** `POST /api/v1/agent/chat` (Yamify)
+**Qui :** Joel · **API :** `POST /api/v1/agent/chat` (Ephraim)
 
 - [ ] **7.1** `pages/demo/chat.html` — interface type messagerie
 - [ ] **7.2** `assets/js/demo/chat.js` — envoi message, affichage réponse
@@ -317,7 +317,7 @@ frontend/
 | 3 | Ouvrir liste paiements, cliquer relance | `payments.html` | Michée |
 | 4 | Ouvrir fiche `ETU-2026-001` | `student-detail.html` | Joel |
 | 5 | Simulateur : « Ai-je payé mes frais S2 ? » | `demo/chat.html` | Joel |
-| 6 | Réponse agent affichée | chat | Yamify (backend) |
+| 6 | Réponse agent affichée | chat | Ephraim (backend) |
 
 ---
 

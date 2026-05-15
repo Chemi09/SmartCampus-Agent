@@ -31,7 +31,7 @@ uvicorn app.main:app --reload --port 8000
 - [PLAN-CONCEPTION.md](docs/PLAN-CONCEPTION.md) — conception détaillée
 - [Documentation.md](docs/Documentation.md) — catalogue fonctionnel
 - [architecture_et _structure_arboresente.md](docs/architecture_et%20_structure_arboresente.md) — arborescence complète
-- [PLAN-BACKEND.md](docs/PLAN-BACKEND.md) — conception backend (Bradley & Yamify)
+- [PLAN-BACKEND.md](docs/PLAN-BACKEND.md) — conception backend (Bradley & Ephraim)
 - [PLAN-FRONTEND.md](docs/PLAN-FRONTEND.md) — conception frontend (Joel & Michée)
 
 ## Équipe
@@ -39,7 +39,7 @@ uvicorn app.main:app --reload --port 8000
 | Membre | Couche | Rôle |
 |--------|--------|------|
 | **Bradley** | Backend | ERP académique (API, modèles, notes) |
-| **Yamify** | Backend | CRM (API), agent IA, cloud souverain |
+| **Ephraim** | Backend | CRM (API), agent IA |
 | **Michée** | Frontend | Pages CRM (paiements, communications) |
 | **Joel** | Frontend | Pages ERP, shell app, simulateur WhatsApp |
 

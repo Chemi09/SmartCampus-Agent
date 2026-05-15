@@ -19,7 +19,7 @@ Utilisateur
     ┌─────────┼─────────┐
     ▼         ▼         ▼
   ERP       CRM      Agent IA
-(Bradley) (Yamify)  (Yamify)
+(Bradley) (Ephraim)  (Ephraim)
               │
               ▼
          MySQL (Laragon)
@@ -54,7 +54,7 @@ frontend/
 │   │   ├── students.html      # Joel — liste étudiants (API Bradley)
 │   │   ├── student-detail.html
 │   │   ├── grades.html        # Joel — notes
-│   │   ├── payments.html      # Michée — frais, relances (API Yamify)
+│   │   ├── payments.html      # Michée — frais, relances (API Ephraim)
 │   │   └── communications.html  # Michée
 │   ├── student/
 │   │   └── dashboard.html     # Mes notes, mon solde, notifications
@@ -88,12 +88,12 @@ frontend/
 | Page | API (backend) | Frontend |
 |------|---------------|----------|
 | `students.html`, `grades.html` | ERP — **Bradley** | **Joel** |
-| `payments.html`, `communications.html` | CRM — **Yamify** | **Michée** |
-| `demo/chat.html` | Agent — **Yamify** | **Joel** |
+| `payments.html`, `communications.html` | CRM — **Ephraim** | **Michée** |
+| `demo/chat.html` | Agent — **Ephraim** | **Joel** |
 
 ---
 
-## BACKEND (Bradley + Yamify) — Python FastAPI
+## BACKEND (Bradley + Ephraim) — Python FastAPI
 
 ```
 backend/
@@ -106,12 +106,12 @@ backend/
 │   │   ├── schemas.py
 │   │   ├── routes.py          # /api/v1/erp/*
 │   │   └── services.py
-│   ├── crm/                   # Module Yamify (backend)
+│   ├── crm/                   # Module Ephraim (backend)
 │   │   ├── models.py
 │   │   ├── schemas.py
 │   │   ├── routes.py          # /api/v1/crm/*
 │   │   └── services.py
-│   └── agent/                 # Module Yamify
+│   └── agent/                 # Module Ephraim
 │       ├── routes.py          # /api/v1/agent/*
 │       ├── intents.py         # grades, payment, enrollment…
 │       └── orchestrator.py    # OpenClaw / LangChain
@@ -146,7 +146,7 @@ SmartCampus-Agent/
 │   ├── PLAN-CONCEPTION.md
 │   └── architecture_et _structure_arboresente.md   # ce fichier
 ├── frontend/                  # HTML · CSS · JS (Joel)
-├── backend/                   # FastAPI (Bradley, Michée, Yamify)
+├── backend/                   # FastAPI (Bradley, Ephraim)
 ├── docker-compose.yml
 └── README.md
 ```
@@ -186,7 +186,7 @@ app.mount("/", StaticFiles(directory="../frontend", html=True), name="frontend")
 | [Documentation.md](./Documentation.md) §11 | HTML5, CSS3, JavaScript, Bootstrap — **confirmé, pas React** |
 | [PLAN-CONCEPTION.md](./PLAN-CONCEPTION.md) §3.2, §9 | Stack et écrans MVP |
 | [PLAN-FRONTEND.md](./PLAN-FRONTEND.md) | Plan frontend Joel & Michée |
-| [PLAN-BACKEND.md](./PLAN-BACKEND.md) | Plan backend Bradley & Yamify |
+| [PLAN-BACKEND.md](./PLAN-BACKEND.md) | Plan backend Bradley & Ephraim |
 | [PROJET.md](./PROJET.md) | Vision équipe et backlog |
 
 *Dernière mise à jour : mai 2026 — stack frontend validée HTML/CSS/JS.*
@@ -258,7 +258,7 @@ SmartCampus-Agent/
 │       ├── footer.html
 │       └── sidebar-admin.html
 │
-└── backend/                               # Bradley (ERP) · Yamify (CRM + agent)
+└── backend/                               # Bradley (ERP) · Ephraim (CRM + agent)
     ├── requirements.txt
     ├── .env.example
     ├── alembic.ini                        # optionnel — migrations
@@ -321,13 +321,13 @@ SmartCampus-Agent/
         │   ├── services.py
         │   └── repositories.py
         │
-        ├── crm/                           # Yamify (backend)
+        ├── crm/                           # Ephraim (backend)
         │   ├── __init__.py
         │   ├── routes.py                  # /api/v1/crm/*
         │   ├── services.py                # relances, mock Mobile Money
         │   └── repositories.py
         │
-        └── agent/                         # Yamify
+        └── agent/                         # Ephraim
             ├── __init__.py
             ├── routes.py                  # /api/v1/agent/*, webhook WhatsApp
             ├── orchestrator.py            # OpenClaw / LangChain
@@ -349,8 +349,8 @@ SmartCampus-Agent/
 | `frontend/pages/` | Pages HTML servies au navigateur |
 | `frontend/assets/js/` | Logique UI, appels `fetch` vers l’API |
 | `backend/app/erp/` | Backend ERP (**Bradley**) |
-| `backend/app/crm/` | Backend CRM (**Yamify**) |
-| `backend/app/agent/` | Agent IA & WhatsApp (**Yamify**) |
+| `backend/app/crm/` | Backend CRM (**Ephraim**) |
+| `backend/app/agent/` | Agent IA & WhatsApp (**Ephraim**) |
 | `frontend/pages/admin/` (ERP) | Frontend (**Joel**) |
 | `frontend/pages/admin/` (CRM) | Frontend (**Michée**) |
 | `backend/app/models/` | Tables MySQL |

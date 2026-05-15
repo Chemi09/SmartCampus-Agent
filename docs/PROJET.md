@@ -13,7 +13,7 @@
 | Membre | Couche | Rôle principal |
 |--------|--------|----------------|
 | **Bradley** *(toi)* | **Backend** | ERP académique — API, modèles, notes, filières, emplois du temps, dossiers |
-| **Yamify** | **Backend** | CRM (API) + agent IA — paiements, relances, orchestration OpenClaw, cloud souverain Kinshasa |
+| **Ephraim** | **Backend** | CRM (API) + agent IA — paiements, relances, orchestration OpenClaw |
 | **Michée** | **Frontend** | Pages CRM — tableau de bord impayés, paiements, communications, relances |
 | **Joel** | **Frontend** | Pages ERP + shell app — étudiants, notes, login, simulateur WhatsApp, `api.js` |
 
@@ -35,14 +35,14 @@ Trois visions fusionnées en **un seul produit** :
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
-│                    Agent IA (Yamify local)                   │
+│              Agent IA (cloud souverain Yamify)               │
 │     WhatsApp / SMS · FR + Lingala · 24h/24                  │
 └──────────────────────────┬──────────────────────────────────┘
                            │ interroge / déclenche
          ┌─────────────────┴─────────────────┐
          ▼                                   ▼
 ┌─────────────────┐               ┌─────────────────┐
-│  ERP (Bradley)  │               │ CRM (Yamify)     │
+│  ERP (Bradley)  │               │ CRM (Ephraim)    │
 │  Académique     │◄─────────────►│ Relationnel     │
 │  Notes, EDt,    │   données     │ Paiements,      │
 │  inscriptions   │   liées       │ relances, msgs  │
@@ -68,7 +68,7 @@ Moteur interne de l’application :
 
 ---
 
-## 2. CRM campus — Yamify (backend) · Michée (frontend)
+## 2. CRM campus — Ephraim (backend) · Michée (frontend)
 
 Le campus vit grâce à ses étudiants et à la confiance (paiements, communication, rétention) :
 
@@ -80,11 +80,11 @@ Le campus vit grâce à ses étudiants et à la confiance (paiements, communicat
 
 ---
 
-## 3. Agent IA autonome — Yamify (backend) · Joel (simulateur frontend)
+## 3. Agent IA autonome — Ephraim (backend) · Joel (simulateur frontend)
 
 Différenciateur hackathon (pas un simple chatbot FAQ) :
 
-- Déployé sur le **cloud souverain** (infra OpenClaw / OADC Texaf, Kinshasa) — **backend Yamify**.
+- Déployé sur le **cloud souverain** (infra OpenClaw / OADC Texaf, Kinshasa — **Yamify**).
 - **Assistant WhatsApp/SMS** : l’étudiant envoie par ex. *« Est-ce que j’ai soldé les frais du semestre ? »* ou *« Quelle est ma moyenne en [UE] ? »* — l’agent interroge ERP + CRM et répond de façon sécurisée.
 - **Souveraineté** : notes, dossiers, transactions restent stockées localement (mineurs/adultes, données sensibles) — pas de fuite vers l’étranger.
 - Capacités attendues par le jury : lecture BDD, relances, traduction / langue locale, tâches en arrière-plan.
@@ -139,7 +139,7 @@ Un seul fil narratif pour le pitch :
 - [ ] Endpoints : fiche étudiant, relevé, statut inscription, `by-phone`
 - [ ] Seed académique : 5–10 étudiants, 1 promo
 
-### Backend — Yamify
+### Backend — Ephraim
 - [ ] Modèles & API CRM : paiement, échéance, relances (mock Mobile Money)
 - [ ] Agent IA : 3–5 intents, lecture ERP + CRM
 - [ ] Déploiement OpenClaw / cloud local + slide souveraineté
@@ -163,7 +163,7 @@ Un seul fil narratif pour le pitch :
 
 - **Repo / workspace :** `SmartCampus Agent`
 - **Frontend (Joel + Michée) :** HTML5, CSS3, JavaScript vanilla, Bootstrap 5 — **pas React**
-- **Backend (Bradley + Yamify) :** Python FastAPI · MySQL (Laragon)
+- **Backend (Bradley + Ephraim) :** Python FastAPI · MySQL (Laragon)
 - **IA / infra (Yamify) :** OpenClaw, LangChain, cloud souverain Kinshasa
 - **Structure détaillée :** [architecture_et _structure_arboresente.md](./architecture_et%20_structure_arboresente.md)
 

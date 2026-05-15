@@ -6,6 +6,8 @@ from fastapi.staticfiles import StaticFiles
 
 from app.api.v1.router import api_router
 from app.config import get_settings
+from app.core.exceptions import register_exception_handlers
+import app.models  # noqa: F401 — métadonnées SQLAlchemy
 
 settings = get_settings()
 
@@ -23,6 +25,8 @@ app = FastAPI(
     docs_url="/docs",
     redoc_url="/redoc",
 )
+
+register_exception_handlers(app)
 
 app.add_middleware(
     CORSMiddleware,
@@ -44,7 +48,19 @@ app.add_middleware(
 
 @app.get("/health", tags=["health"])
 def health_check() -> dict:
-    return {"status": "ok", "app": settings.app_name}
+    db_status = "unknown"
+    try:
+        from sqlalchemy import text
+
+        from app.database import engine
+
+        with engine.connect() as conn:
+            conn.execute(text("SELECT 1"))
+        db_status = "connected"
+    except Exception as exc:
+        db_status = f"error: {exc.__class__.__name__}"
+
+    return {"status": "ok", "app": settings.app_name, "database": db_status}
 
 
 app.include_router(api_router, prefix="/api/v1")

@@ -1,0 +1,47 @@
+### Health
+GET http://localhost:8000/health
+
+### Login admin démo
+POST http://localhost:8000/api/v1/auth/login
+Content-Type: application/json
+
+{
+  "email": "admin@smartcampus.local",
+  "password": "demo1234"
+}
+
+### Me (remplacer TOKEN)
+GET http://localhost:8000/api/v1/auth/me
+Authorization: Bearer TOKEN
+
+### ERP protégé — doit retourner 401 sans token
+GET http://localhost:8000/api/v1/erp/status
+
+### ERP protégé — avec token admin
+GET http://localhost:8000/api/v1/erp/status
+Authorization: Bearer TOKEN
+
+### ERP — semestre actif
+GET http://localhost:8000/api/v1/erp/semesters/active
+Authorization: Bearer TOKEN
+
+### ERP — liste étudiants
+GET http://localhost:8000/api/v1/erp/students
+Authorization: Bearer TOKEN
+
+### ERP — étudiant par téléphone (agent)
+GET http://localhost:8000/api/v1/erp/students/by-phone/+243810000001
+Authorization: Bearer TOKEN
+
+### ERP — notes + moyenne
+GET http://localhost:8000/api/v1/erp/students/1/grades
+Authorization: Bearer TOKEN
+
+### Agent chat (phase 6)
+POST http://localhost:8000/api/v1/agent/chat
+Content-Type: application/json
+
+{
+  "phone": "+243810000001",
+  "message": "Quelle est ma moyenne?"
+}

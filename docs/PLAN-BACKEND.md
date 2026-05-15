@@ -24,7 +24,7 @@
 - [ ] **Phase 5** — Module CRM — Ephraim (8–10 h)
 - [ ] **Phase 6** — Module Agent IA — Ephraim (10–12 h)
 - [ ] **Phase 7** — API agrégée & intégration (4–6 h)
-- [ ] **Phase 8** — Seeds & données démo (3–4 h)
+- [x] **Phase 8** — Seeds & données démo (3–4 h)
 - [ ] **Phase 9** — Tests & documentation API (4–6 h)
 - [ ] **Phase 10** — Déploiement Yamify (4–6 h)
 
@@ -34,7 +34,7 @@
 
 - [x] Socle + auth terminés
 - [x] Module ERP terminé
-- [ ] Seeds académiques OK
+- [x] Seeds académiques OK
 - [ ] API `summary` OK
 
 **Ephraim**
@@ -219,9 +219,9 @@ Fournir une **API REST unique** (`/api/v1`) qui :
 
 ### Tests
 
-- [ ] **4.13** Liste filtrée par `program_id` OK *(nécessite seed phase 8)*
-- [ ] **4.14** `by-phone` → `ETU-2026-001` OK *(nécessite seed phase 8)*
-- [ ] **4.15** Moyenne cohérente avec seed OK *(nécessite seed phase 8)*
+- [x] **4.13** Liste filtrée par `program_id` OK
+- [x] **4.14** `by-phone` → `ETU-2026-001` OK
+- [x] **4.15** Moyenne cohérente avec seed OK
 
 **Phase 4 terminée :** [x]
 
@@ -320,17 +320,17 @@ Fournir une **API REST unique** (`/api/v1`) qui :
 
 **Qui :** Bradley (académique) + Ephraim (paiements).
 
-- [ ] **8.1** 1 faculté + 1 programme (L2 Informatique)
-- [ ] **8.2** 1 semestre actif S2 2025-2026
-- [ ] **8.3** 3 UE avec crédits
-- [ ] **8.4** 8–10 étudiants en base
-- [ ] **8.5** Étudiant démo `ETU-2026-001` / `+243810000001` / Jean Mukendi
-- [ ] **8.6** Notes → moyenne ~72,5 % pour ETU-2026-001
-- [ ] **8.7** Paiements : 2 `unpaid`, 1 `partial` (ETU-2026-001), reste `paid`
-- [ ] **8.8** Compte admin démo documenté
-- [ ] **8.9** Script seed : `python -m seeds.demo_data` fonctionne
+- [x] **8.1** 1 faculté + 1 programme (L2 Informatique)
+- [x] **8.2** 1 semestre actif S2 2025-2026
+- [x] **8.3** 3 UE avec crédits
+- [x] **8.4** 8–10 étudiants en base
+- [x] **8.5** Étudiant démo `ETU-2026-001` / `+243810000001` / Jean Mukendi
+- [x] **8.6** Notes → moyenne ~72,5 % pour ETU-2026-001
+- [x] **8.7** Paiements : 2 `unpaid`, 1 `partial` (ETU-2026-001), reste `paid`
+- [x] **8.8** Compte admin démo documenté
+- [x] **8.9** Script seed : `python -m seeds.demo_data` fonctionne
 
-**Phase 8 terminée :** [ ]
+**Phase 8 terminée :** [x]
 
 ---
 

@@ -47,9 +47,14 @@ Vérifier : `alembic current` doit afficher `002`.
 
 ```powershell
 python -m scripts.seed_admin
+python -m seeds.demo_data
 ```
 
 Compte admin démo : `admin@smartcampus.local` / `demo1234`
+
+Étudiant démo : `ETU-2026-001` — Jean Mukendi — `+243810000001` (moyenne ~72,5 %, paiement partiel 300 000 CDF restants)
+
+Recréer les données : `python -m seeds.demo_data --reset`
 
 ## Lancer l'API
 

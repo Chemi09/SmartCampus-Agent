@@ -319,7 +319,7 @@ SmartCampus-Agent/
         │   ├── services.py
         │   └── repositories.py
         │
-        ├── crm/                           # Michée
+        ├── crm/                           # Yamify (backend)
         │   ├── __init__.py
         │   ├── routes.py                  # /api/v1/crm/*
         │   ├── services.py                # relances, mock Mobile Money

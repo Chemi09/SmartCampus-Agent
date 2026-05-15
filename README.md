@@ -17,6 +17,7 @@ ERP universitaire + CRM campus + agent IA autonome — hackathon **OpenClaw** ·
 - [PLAN-CONCEPTION.md](docs/PLAN-CONCEPTION.md) — conception détaillée
 - [Documentation.md](docs/Documentation.md) — catalogue fonctionnel
 - [architecture_et _structure_arboresente.md](docs/architecture_et%20_structure_arboresente.md) — arborescence complète
+- [PLAN-BACKEND.md](docs/PLAN-BACKEND.md) — conception backend étape par étape (Bradley & Yamify)
 
 ## Équipe
 

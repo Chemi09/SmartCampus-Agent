@@ -2,7 +2,7 @@
 
 **Hackathon OpenClaw · Yamify (cloud souverain, Kinshasa)**
 
-📐 **Plan de conception :** [PLAN-CONCEPTION.md](./PLAN-CONCEPTION.md) · **Arborescence :** [architecture_et _structure_arboresente.md](./architecture_et%20_structure_arboresente.md)
+📐 **Plan de conception :** [PLAN-CONCEPTION.md](./PLAN-CONCEPTION.md) · **Backend (étapes) :** [PLAN-BACKEND.md](./PLAN-BACKEND.md) · **Arborescence :** [architecture_et _structure_arboresente.md](./architecture_et%20_structure_arboresente.md)
 
 > Le premier mini-ERP de campus universitaire congolais, avec suivi relationnel étudiants et un agent IA autonome hébergé localement — accessible 24h/24 via WhatsApp/SMS, en français ou en lingala.
 

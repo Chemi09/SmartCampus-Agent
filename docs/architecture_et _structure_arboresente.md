@@ -19,7 +19,7 @@ Utilisateur
     ┌─────────┼─────────┐
     ▼         ▼         ▼
   ERP       CRM      Agent IA
-(Bradley) (Michée)  (Yamify)
+(Bradley) (Yamify)  (Yamify)
               │
               ▼
          PostgreSQL / SQLite
@@ -30,7 +30,7 @@ Utilisateur
 
 ---
 
-## FRONTEND (Joel) — HTML · CSS · JS
+## FRONTEND (Joel + Michée) — HTML · CSS · JS
 
 Pas de build obligatoire : pages servies par le backend (`StaticFiles`) ou serveur Laragon.
 
@@ -51,11 +51,11 @@ frontend/
 │   ├── login.html
 │   ├── admin/
 │   │   ├── dashboard.html     # KPIs, impayés, stats campus
-│   │   ├── students.html      # Liste étudiants (ERP — Bradley)
+│   │   ├── students.html      # Joel — liste étudiants (API Bradley)
 │   │   ├── student-detail.html
-│   │   ├── grades.html        # Saisie / vue notes
-│   │   ├── payments.html      # Frais, relances (CRM — Michée)
-│   │   └── communications.html
+│   │   ├── grades.html        # Joel — notes
+│   │   ├── payments.html      # Michée — frais, relances (API Yamify)
+│   │   └── communications.html  # Michée
 │   ├── student/
 │   │   └── dashboard.html     # Mes notes, mon solde, notifications
 │   └── demo/
@@ -76,17 +76,24 @@ frontend/
 | `pages/student/` | Portail étudiant |
 | `pages/demo/chat.html` | Démo agent sans WhatsApp réel |
 
-### Pages ↔ modules équipe
+### Répartition frontend
 
-| Page | Module | Responsable |
-|------|--------|-------------|
-| `students.html`, `grades.html` | ERP | Bradley (API) + Joel (UI) |
-| `payments.html`, `communications.html` | CRM | Michée (API) + Joel (UI) |
-| `demo/chat.html` | Agent | Yamify (API) + Joel (webhook UI) |
+| Membre | Fichiers / zone |
+|--------|-----------------|
+| **Joel** | `index.html`, `login.html`, `api.js`, `auth.js`, pages ERP, `demo/chat.html`, `partials/` |
+| **Michée** | `payments.html`, `communications.html`, JS `admin/payments.js`, `admin/communications.js` |
+
+### Pages ↔ API backend
+
+| Page | API (backend) | Frontend |
+|------|---------------|----------|
+| `students.html`, `grades.html` | ERP — **Bradley** | **Joel** |
+| `payments.html`, `communications.html` | CRM — **Yamify** | **Michée** |
+| `demo/chat.html` | Agent — **Yamify** | **Joel** |
 
 ---
 
-## BACKEND (Python FastAPI)
+## BACKEND (Bradley + Yamify) — Python FastAPI
 
 ```
 backend/
@@ -99,7 +106,7 @@ backend/
 │   │   ├── schemas.py
 │   │   ├── routes.py          # /api/v1/erp/*
 │   │   └── services.py
-│   ├── crm/                   # Module Michée
+│   ├── crm/                   # Module Yamify (backend)
 │   │   ├── models.py
 │   │   ├── schemas.py
 │   │   ├── routes.py          # /api/v1/crm/*
@@ -202,7 +209,7 @@ SmartCampus-Agent/
 │   ├── PLAN-CONCEPTION.md
 │   └── architecture_et _structure_arboresente.md
 │
-├── frontend/                              # Joel — HTML · CSS · JS (pas React)
+├── frontend/                              # Joel + Michée — HTML · CSS · JS
 │   ├── index.html
 │   │
 │   ├── assets/
@@ -249,7 +256,7 @@ SmartCampus-Agent/
 │       ├── footer.html
 │       └── sidebar-admin.html
 │
-└── backend/                               # Bradley · Michée · Yamify — FastAPI
+└── backend/                               # Bradley (ERP) · Yamify (CRM + agent)
     ├── requirements.txt
     ├── .env.example
     ├── alembic.ini                        # optionnel — migrations
@@ -339,9 +346,11 @@ SmartCampus-Agent/
 |-------------------|---------------|
 | `frontend/pages/` | Pages HTML servies au navigateur |
 | `frontend/assets/js/` | Logique UI, appels `fetch` vers l’API |
-| `backend/app/erp/` | Module académique (Bradley) |
-| `backend/app/crm/` | Module relationnel & paiements (Michée) |
-| `backend/app/agent/` | Orchestrateur IA & WhatsApp (Yamify) |
+| `backend/app/erp/` | Backend ERP (**Bradley**) |
+| `backend/app/crm/` | Backend CRM (**Yamify**) |
+| `backend/app/agent/` | Agent IA & WhatsApp (**Yamify**) |
+| `frontend/pages/admin/` (ERP) | Frontend (**Joel**) |
+| `frontend/pages/admin/` (CRM) | Frontend (**Michée**) |
 | `backend/app/models/` | Tables PostgreSQL / SQLite |
 | `seeds/demo_data.py` | Jeu de données pour la démo jury |
 

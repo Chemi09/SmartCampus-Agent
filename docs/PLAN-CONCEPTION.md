@@ -31,12 +31,11 @@
 
 **SmartCampus AgentAI** est une plateforme universitaire qui fusionne :
 
-| Pilier | Responsable | Rôle |
-|--------|-------------|------|
-| ERP académique | **Bradley** | Cœur administratif : étudiants, notes, filières, emplois du temps |
-| CRM campus | **Michée** | Relation, paiements, relances, communication, tableau de bord |
-| Agent IA autonome | **Yamify** | Orchestration IA, déploiement cloud souverain, intents métier |
-| Intégrations & front | **Joel** | UI, câblage ERP ↔ CRM ↔ agent, canal WhatsApp/SMS |
+| Pilier | Backend | Frontend |
+|--------|---------|----------|
+| ERP académique | **Bradley** — API, modèles, notes | **Joel** — `students.html`, `grades.html`, JS ERP |
+| CRM campus | **Yamify** — API paiements, relances | **Michée** — `payments.html`, `communications.html` |
+| Agent IA autonome | **Yamify** — orchestration, intents, OpenClaw | **Joel** — `demo/chat.html`, simulateur WhatsApp |
 
 ### 1.2 Objectifs (alignés documentation)
 
@@ -68,13 +67,13 @@ La [Documentation.md](./Documentation.md) décrit une vision large (résumé PDF
 ```mermaid
 flowchart LR
   E[Étudiant] -->|WhatsApp / Web| AG[Agent IA]
-  E -->|Web| FE[Frontend Joel]
+  E -->|Web| FE[Frontend Joel et Michée]
   AD[Admin campus] --> FE
   SEC[Secrétariat] --> FE
   AG --> API[API Backend]
   FE --> API
   API --> ERP[ERP Bradley]
-  API --> CRM[CRM Michée]
+  API --> CRM[CRM Yamify]
 ```
 
 | Acteur | Besoins principaux | Canaux |
@@ -86,19 +85,18 @@ flowchart LR
 
 ### 2.2 Matrice responsabilités (équipe)
 
-| Livrable | Bradley | Michée | Yamify | Joel |
-|----------|---------|--------|--------|------|
-| Schéma BDD ERP | ● | ○ | ○ | ○ |
-| API ERP | ● | | | ○ |
-| Schéma BDD CRM | ○ | ● | | ○ |
-| API CRM | | ● | | ○ |
-| Intents + orchestration agent | | | ● | ○ |
-| Déploiement Yamify / OpenClaw | | | ● | ○ |
-| UI dashboards | | ○ | | ● |
-| Intégration WhatsApp / mock | | | ○ | ● |
+| Livrable | Bradley (BE) | Yamify (BE) | Michée (FE) | Joel (FE) |
+|----------|--------------|-------------|-------------|-----------|
+| Schéma BDD + API ERP | ● | ○ | | ○ |
+| Schéma BDD + API CRM | ○ | ● | | ○ |
+| Agent IA + déploiement | | ● | | ○ |
+| Pages ERP (HTML/JS) | | | ○ | ● |
+| Pages CRM (HTML/JS) | | | ● | ○ |
+| Shell app, `api.js`, login | | | ○ | ● |
+| Simulateur WhatsApp | | ○ | | ● |
 | Script démo 3 min | ○ | ○ | ○ | ● |
 
-● = responsable · ○ = contributeur
+● = responsable · ○ = contributeur · **BE** = backend · **FE** = frontend
 
 ---
 
@@ -109,7 +107,7 @@ flowchart LR
 ```
 ┌──────────────────────────────────────────────────────────────────┐
 │                        CANAUX UTILISATEUR                         │
-│   Frontend Web (Joel)          WhatsApp / SMS (Joel + Yamify)   │
+│   Frontend Web (Joel + Michée)   WhatsApp / SMS (FE Joel · BE Yamify) │
 └────────────────────────────┬─────────────────────────────────────┘
                              │
                              ▼
@@ -122,7 +120,7 @@ flowchart LR
         ▼                      ▼                      ▼
 ┌───────────────┐    ┌───────────────┐    ┌───────────────────────┐
 │  MODULE ERP   │    │  MODULE CRM   │    │   ORCHESTRATEUR IA    │
-│   (Bradley)   │◄──►│   (Michée)    │◄──►│      (Yamify)         │
+│   (Bradley)   │◄──►│   (Yamify)    │◄──►│      (Yamify)         │
 │  /api/erp/*   │    │  /api/crm/*   │    │  OpenClaw · LangChain │
 └───────┬───────┘    └───────┬───────┘    └───────────┬───────────┘
         │                    │                        │
@@ -143,7 +141,7 @@ flowchart LR
 
 | Couche | Choix | Alternative hackathon |
 |--------|-------|------------------------|
-| Frontend | **HTML5, CSS3, JavaScript vanilla, Bootstrap 5** (pas React) | Joel — pages `.html` + `assets/js/api.js` |
+| Frontend | **HTML5, CSS3, JavaScript vanilla, Bootstrap 5** (pas React) | **Joel + Michée** — Joel : ERP + shell ; Michée : CRM |
 | Backend | **Python + FastAPI** | Flask si préférence équipe |
 | BDD | **PostgreSQL** (prod) / **SQLite** (dev rapide) | Une seule instance partagée |
 | IA | OpenClaw, LangChain, API LLM locale ou souveraine | Pas d’appel cloud étranger en démo |
@@ -153,7 +151,7 @@ flowchart LR
 ### 3.3 Principes d’architecture
 
 1. **Monolithe modulaire** — un repo, namespaces `/erp`, `/crm`, `/agent` (évite 3 déploiements en 48h).
-2. **API-first** — Joel et Yamify ne lisent jamais la BDD directement ; tout passe par REST.
+2. **API-first** — le frontend (Joel, Michée) et l’agent ne lisent jamais la BDD directement ; tout passe par REST.
 3. **Agent en lecture seule** sur données sensibles (MVP) ; écritures (relances) via endpoints CRM dédiés.
 4. **Id étudiant unique** (`student_id` / matricule) — clé de liaison ERP ↔ CRM ↔ agent.
 
@@ -328,15 +326,17 @@ erDiagram
 
 ---
 
-### 5.4 MODULE INTÉGRATIONS — Joel
+### 5.4 FRONTEND — Joel & Michée
 
-| Composant | Description |
-|-----------|-------------|
-| **Dashboard admin** | Cartes : nb étudiants, impayés, derniers messages |
-| **Dashboard étudiant** | Notes, statut paiement, prochains examens |
-| **Webhook WhatsApp** | Réception message → appel orchestrateur → réponse |
-| **Simulateur** | Page web « envoyer message comme étudiant » si pas d’API Meta |
-| **Agrégation** | Endpoint `/api/students/{id}/summary` pour l’agent |
+| Composant | Responsable | Description |
+|-----------|-------------|-------------|
+| Shell app, login, `api.js` | **Joel** | Structure `frontend/`, auth, appels API communs |
+| Pages ERP (étudiants, notes) | **Joel** | Consomme API Bradley |
+| Pages CRM (paiements, comm.) | **Michée** | Consomme API Yamify |
+| Dashboard admin / étudiant | **Joel + Michée** | Joel : vue académique ; Michée : bloc finances |
+| Simulateur WhatsApp | **Joel** | `demo/chat.html` → API agent Yamify |
+
+*Backend : endpoint `/api/students/{id}/summary` — Bradley ou Yamify.*
 
 ---
 
@@ -353,8 +353,8 @@ erDiagram
 
 | Méthode | Route | Description | Consommateur |
 |---------|-------|-------------|--------------|
-| GET | `/erp/students` | Liste (filtres program, status) | Joel, Michée |
-| GET | `/erp/students/{id}` | Fiche complète | Joel, Agent |
+| GET | `/erp/students` | Liste (filtres program, status) | Frontend |
+| GET | `/erp/students/{id}` | Fiche complète | Joel (FE), Agent |
 | GET | `/erp/students/by-phone/{phone}` | Identification agent | Yamify |
 | GET | `/erp/students/{id}/grades?semester_id=` | Notes + moyenne calculée | Yamify |
 | POST | `/erp/students` | Création | Admin |
@@ -379,7 +379,7 @@ erDiagram
 
 | Méthode | Route | Description | Consommateur |
 |---------|-------|-------------|--------------|
-| GET | `/crm/payments?status=unpaid` | Liste impayés | Joel (dashboard) |
+| GET | `/crm/payments?status=unpaid` | Liste impayés | Michée (dashboard) |
 | GET | `/crm/students/{id}/payments` | Historique paiements | Yamify |
 | GET | `/crm/students/{id}/balance` | Solde actuel semestre | Yamify |
 | POST | `/crm/payments/{id}/record` | Enregistrer paiement mock | Admin |
@@ -408,7 +408,7 @@ erDiagram
 | POST | `/agent/webhook/whatsapp` | Entrée Meta / mock Joel |
 | GET | `/agent/health` | Statut orchestrateur + LLM |
 
-### 6.5 Agrégation — Joel (facilite l’agent)
+### 6.5 Agrégation — backend (facilite l’agent)
 
 | Méthode | Route | Description |
 |---------|-------|-------------|
@@ -484,11 +484,11 @@ Message entrant (WhatsApp)
 sequenceDiagram
   participant E as Étudiant
   participant W as WhatsApp
-  participant J as Joel webhook
+  participant J as Joel webhook FE
   participant Y as Orchestrateur Yamify
   participant API as Backend
   participant ERP as ERP Bradley
-  participant CRM as CRM Michée
+  participant CRM as CRM Yamify BE
 
   E->>W: Quelle est ma moyenne ?
   W->>J: POST webhook
@@ -534,17 +534,20 @@ sequenceDiagram
 
 ## 9. Interfaces utilisateur
 
-### 9.1 Écrans MVP (Joel)
+### 9.1 Écrans MVP (Joel + Michée)
 
-| Écran | Route | Contenu |
-|-------|-------|---------|
-| Login | `/login` | Admin / étudiant (démo simplifiée OK) |
-| Dashboard admin | `/admin` | KPIs, tableau impayés, bouton relance |
-| Liste étudiants | `/admin/students` | Filtre, lien fiche |
-| Fiche étudiant | `/admin/students/:id` | ERP + CRM fusionnés |
-| Dashboard étudiant | `/student` | Mes notes, mon solde |
-| Simulateur agent | `/demo/chat` | Chat web imitant WhatsApp |
-| Page pitch | `/` | Landing + lien démo |
+| Écran | Route | Responsable | Contenu |
+|-------|-------|-------------|---------|
+| Login | `/login` | Joel | Admin / étudiant |
+| Dashboard admin | `/admin` | Joel + Michée | KPIs (Joel) + impayés (Michée) |
+| Liste étudiants | `/admin/students` | Joel | Filtre, lien fiche |
+| Fiche étudiant | `/admin/students/:id` | Joel + Michée | Notes + solde |
+| Notes | `/admin/grades` | Joel | Saisie / liste |
+| Paiements | `/admin/payments` | Michée | Impayés, relances |
+| Communications | `/admin/communications` | Michée | Historique messages |
+| Dashboard étudiant | `/student` | Joel | Mes notes, mon solde |
+| Simulateur agent | `/demo/chat` | Joel | Chat type WhatsApp |
+| Page pitch | `/` | Joel | Landing + lien démo |
 
 ### 9.2 Charte UI (recommandation)
 
@@ -560,7 +563,7 @@ sequenceDiagram
 
 | # | Acteur | Action | Module | Durée |
 |---|--------|--------|--------|-------|
-| 1 | Admin | Ouvre dashboard → voit 2 impayés | CRM + Joel | 20 s |
+| 1 | Admin | Ouvre dashboard → voit 2 impayés | Michée (UI) · Yamify (API) | 20 s |
 | 2 | Admin | Clique « Relancer » sur ETU-2026-001 | CRM | 15 s |
 | 3 | Étudiant | Envoie WhatsApp : « Napesaki frais S2 ? » | Yamify | 30 s |
 | 4 | Agent | Répond avec solde exact | Yamify + CRM | 20 s |
@@ -587,47 +590,47 @@ sequenceDiagram
 |-------|------------------|-----------|
 | **P0 — Cadrage** | 2–4 h | Ce document validé, repo initialisé, schéma BDD |
 | **P1 — Backend ERP+CRM** | 12–16 h | Migrations, seed, APIs §6 |
-| **P2 — Front + intégration** | 8–12 h | Dashboards Joel, `/summary` |
+| **P2 — Front + intégration** | 8–12 h | Pages Joel + Michée, `/summary` |
 | **P3 — Agent** | 8–12 h | Intents, webhook, déploiement Yamify |
 | **P4 — Démo & pitch** | 4–6 h | Script, slides, tests parcours §10.1 |
 
 ### 11.2 Planning par membre (48h)
 
-#### Bradley — ERP
+#### Bradley — Backend ERP
 
 | Jour | Tâches |
 |------|--------|
-| J1 | Modèles SQLAlchemy, migrations, seed étudiants/notes |
-| J1 | Endpoints students, grades, by-phone |
+| J1 | Modèles SQLAlchemy académiques, migrations, seed |
+| J1 | Endpoints `/erp/*` : students, grades, by-phone |
 | J2 | Calcul moyenne, tests Postman, doc OpenAPI |
-| J2 | Support Joel + Yamify (bugs API) |
+| J2 | Support frontend (Joel) + agent (Yamify) |
 
-#### Michée — CRM
-
-| Jour | Tâches |
-|------|--------|
-| J1 | Tables payments, communications |
-| J1 | Endpoints impayés, balance, record payment |
-| J2 | Logique relance mock + template message |
-| J2 | Dashboard data (JSON) pour Joel |
-
-#### Yamify — Agent IA
+#### Yamify — Backend CRM + Agent
 
 | Jour | Tâches |
 |------|--------|
-| J1 | Orchestrateur, classifier intents (rules-first acceptable) |
-| J1 | Handlers payment + grades branchés API |
-| J2 | Déploiement OpenClaw/Yamify, prompt FR/Lingala |
-| J2 | Tests bout-en-bout avec simulateur Joel |
+| J1 | Tables & API `/crm/*` : paiements, balance, relances |
+| J1 | Orchestrateur agent, intents payment + grades |
+| J2 | Déploiement OpenClaw / cloud local, prompt FR/Lingala |
+| J2 | Webhook agent, tests avec simulateur Joel |
 
-#### Joel — Front & intégrations
+#### Michée — Frontend CRM
 
 | Jour | Tâches |
 |------|--------|
-| J1 | Squelette Bootstrap, login mock, dashboard admin |
-| J1 | Page simulateur chat |
-| J2 | Webhook → `/agent/chat`, polish UI |
-| J2 | Script démo, enregistrement vidéo backup |
+| J1 | `payments.html` + `payments.js` (liste impayés) |
+| J1 | `communications.html` + historique |
+| J2 | Bloc dashboard finances, bouton relance |
+| J2 | Styles cohérents Bootstrap avec Joel |
+
+#### Joel — Frontend ERP & shell
+
+| Jour | Tâches |
+|------|--------|
+| J1 | Structure `frontend/`, `api.js`, `auth.js`, login |
+| J1 | `students.html`, `grades.html`, dashboard admin |
+| J2 | `demo/chat.html`, dashboard étudiant |
+| J2 | Script démo, polish UI, enregistrement vidéo backup |
 
 ### 11.3 Definition of Done (équipe)
 
@@ -667,7 +670,7 @@ sequenceDiagram
 
 | Risque | Impact | Mitigation |
 |--------|--------|------------|
-| API WhatsApp non validée à temps | Démo bloquée | Simulateur web Joel (P0) |
+| API WhatsApp non validée à temps | Démo bloquée | Simulateur web Joel (FE) en P0 |
 | Scope trop large (8 agents, PDF…) | Rien de fini | Ce plan : MVP §1.3 strict |
 | 3 devs backend qui divergent | Intégration J2 catastrophique | Contrats API §6 figés J1 matin |
 | LLM cloud étranger | Contre pitch souveraineté | LLM local Yamify / mock réponses template |

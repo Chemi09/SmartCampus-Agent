@@ -20,12 +20,12 @@ ERP universitaire + CRM campus + agent IA autonome — hackathon **OpenClaw** ·
 
 ## Équipe
 
-| Membre | Rôle |
-|--------|------|
-| Bradley | ERP académique |
-| Michée | CRM campus |
-| Yamify | Agent IA & cloud souverain |
-| Joel | Intégrations & front |
+| Membre | Couche | Rôle |
+|--------|--------|------|
+| **Bradley** | Backend | ERP académique (API, modèles, notes) |
+| **Yamify** | Backend | CRM (API), agent IA, cloud souverain |
+| **Michée** | Frontend | Pages CRM (paiements, communications) |
+| **Joel** | Frontend | Pages ERP, shell app, simulateur WhatsApp |
 
 ## Dépôt
 

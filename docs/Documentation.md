@@ -596,21 +596,21 @@ L’étudiant demande de l’aide sur du code.
 
 # 20. Répartition des Tâches dans l’Équipe
 
-## Membre 1
+## Backend (Bradley + Yamify)
 
-ERP académique.
+| Membre | Responsabilité |
+|--------|----------------|
+| **Bradley** | ERP académique — API, modèles, notes, inscriptions |
+| **Yamify** | CRM (API), agent IA autonome, déploiement cloud souverain |
 
-## Membre 2
+## Frontend (Joel + Michée)
 
-CRM universitaire.
+| Membre | Responsabilité |
+|--------|----------------|
+| **Joel** | Pages ERP, shell app (`api.js`, login), simulateur WhatsApp |
+| **Michée** | Pages CRM — paiements, communications, tableau impayés |
 
-## Membre 3
-
-IA et chatbot.
-
-## Membre 4
-
-Frontend, intégration et présentation.
+> Stack frontend : HTML5, CSS3, JavaScript vanilla, Bootstrap 5 — pas React.
 
 ---
 

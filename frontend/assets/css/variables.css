@@ -1,0 +1,137 @@
+/* SmartCampus AgentAI — thème proche de l’app Next.js (bleu / vert accent, sidebar admin sombre) */
+:root {
+  /* Surfaces — thème clair (zone contenu) */
+  --sc-background: #f4f7fc;
+  --sc-foreground: #0f172a;
+  --sc-card: #ffffff;
+  --sc-card-foreground: #0f172a;
+  --sc-popover: #ffffff;
+  --sc-muted: #eef2f7;
+  --sc-muted-foreground: #64748b;
+  --sc-border: #e2e8f0;
+  --sc-input: #e2e8f0;
+
+  /* Marque */
+  --sc-primary: #4569ff;
+  --sc-primary-foreground: #f8fafc;
+  --sc-secondary: #e8ecf4;
+  --sc-secondary-foreground: #1e293b;
+
+  /* Accent vert / teal (charts-2 / success) */
+  --sc-accent: #14b8a6;
+  --sc-accent-foreground: #042f2e;
+
+  --sc-destructive: #e11d48;
+  --sc-destructive-foreground: #fff1f2;
+  --sc-warning: #f59e0b;
+  --sc-warning-foreground: #422006;
+  --sc-success: #14b8a6;
+  --sc-success-foreground: #042f2e;
+
+  /* Graphiques */
+  --sc-chart-1: #4569ff;
+  --sc-chart-2: #14b8a6;
+  --sc-chart-3: #a855f7;
+  --sc-chart-4: #eab308;
+  --sc-chart-5: #f97316;
+
+  --sc-radius: 0.75rem;
+  --sc-radius-sm: calc(var(--sc-radius) - 4px);
+  --sc-font-sans: "Segoe UI", system-ui, -apple-system, sans-serif;
+
+  /* Sidebar administration — sombre */
+  --sc-sidebar: #0b1220;
+  --sc-sidebar-foreground: #e2e8f0;
+  --sc-sidebar-primary: #4569ff;
+  --sc-sidebar-primary-foreground: #f8fafc;
+  --sc-sidebar-accent: #151d2e;
+  --sc-sidebar-accent-foreground: #e2e8f0;
+  --sc-sidebar-border: #1e293b;
+  --sc-sidebar-muted: rgba(226, 232, 240, 0.55);
+
+  /* Portail étudiant — sidebar claire */
+  --sc-student-sidebar: #ffffff;
+  --sc-student-sidebar-border: #e2e8f0;
+
+  --sc-shadow: 0 1px 3px rgba(15, 23, 42, 0.06);
+  --sc-shadow-lg: 0 10px 40px rgba(15, 23, 42, 0.08);
+}
+
+/* Cartes KPI variantes */
+.sc-stat-success {
+  --sc-stat-surface: rgba(20, 184, 166, 0.12);
+  --sc-stat-border: rgba(20, 184, 166, 0.25);
+}
+.sc-stat-warning {
+  --sc-stat-surface: rgba(245, 158, 11, 0.12);
+  --sc-stat-border: rgba(245, 158, 11, 0.25);
+}
+.sc-stat-danger {
+  --sc-stat-surface: rgba(225, 29, 72, 0.1);
+  --sc-stat-border: rgba(225, 29, 72, 0.22);
+}
+
+/* Mode sombre — aligné sur l’app React (class .dark) */
+html[data-sc-theme='dark'] {
+  /* Fond très sombre — comme l’app React (bg-background ~ slate-950) */
+  --sc-background: #020617;
+  --sc-foreground: #f1f5f9;
+  --sc-card: #0f172a;
+  --sc-card-foreground: #f1f5f9;
+  --sc-popover: #0f172a;
+  --sc-muted: #1e293b;
+  --sc-muted-foreground: #94a3b8;
+  --sc-border: #1e293b;
+  --sc-input: #1e293b;
+
+  --sc-primary: #5b7cff;
+  --sc-primary-foreground: #f1f5f9;
+  --sc-secondary: #1e293b;
+  --sc-secondary-foreground: #e8ecf4;
+
+  --sc-accent: #2dd4bf;
+  --sc-accent-foreground: #042f2e;
+
+  --sc-destructive: #fb7185;
+  --sc-destructive-foreground: #fff1f2;
+  --sc-warning: #fbbf24;
+  --sc-warning-foreground: #422006;
+  --sc-success: #2dd4bf;
+  --sc-success-foreground: #042f2e;
+
+  --sc-chart-1: #5b7cff;
+  --sc-chart-2: #2dd4bf;
+  --sc-chart-3: #c084fc;
+  --sc-chart-4: #facc15;
+  --sc-chart-5: #fb923c;
+
+  --sc-sidebar: #0a0f18;
+  --sc-sidebar-foreground: #e8ecf4;
+  --sc-sidebar-primary: #5b7cff;
+  --sc-sidebar-accent: #151d2e;
+
+  --sc-student-sidebar: #151d2e;
+  --sc-student-sidebar-border: #253044;
+
+  --sc-shadow: 0 1px 3px rgba(0, 0, 0, 0.35);
+  --sc-shadow-lg: 0 10px 40px rgba(0, 0, 0, 0.45);
+
+  color-scheme: dark;
+}
+
+html[data-sc-theme='dark'] .sc-stat-success {
+  --sc-stat-surface: rgba(45, 212, 191, 0.12);
+  --sc-stat-border: rgba(45, 212, 191, 0.28);
+}
+html[data-sc-theme='dark'] .sc-stat-warning {
+  --sc-stat-surface: rgba(251, 191, 36, 0.12);
+  --sc-stat-border: rgba(251, 191, 36, 0.28);
+}
+html[data-sc-theme='dark'] .sc-stat-danger {
+  --sc-stat-surface: rgba(251, 113, 133, 0.12);
+  --sc-stat-border: rgba(251, 113, 133, 0.28);
+}
+
+html[data-sc-theme='light'] {
+  color-scheme: light;
+}

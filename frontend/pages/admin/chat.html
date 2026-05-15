@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Agent IA — SmartCampus</title>
+  <script src="../../assets/js/theme-init.js"></script>
+  <script src="../../assets/js/i18n-init.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="../../assets/css/variables.css">
+  <link rel="stylesheet" href="../../assets/css/main.css">
+</head>
+<body class="sc-app">
+  <div class="sc-backdrop d-none" data-sc-backdrop></div>
+  <button type="button" class="btn btn-light border sc-mobile-toggle d-md-none shadow-sm" data-sc-mobile-menu><i class="bi bi-list"></i></button>
+  <div id="sc-sidebar-host" data-partial="../../partials/sidebar-admin.html"></div>
+  <div class="sc-main-admin">
+    <div class="container-fluid px-3 px-md-4 py-4" style="min-height: calc(100vh - 2rem)">
+      <div class="d-flex align-items-center justify-content-between mb-4">
+        <div class="d-flex align-items-center gap-3">
+          <div class="rounded-3 sc-glow-primary d-flex align-items-center justify-content-center text-white flex-shrink-0" style="width:2.5rem;height:2.5rem;background:var(--sc-primary)"><i class="bi bi-robot"></i></div>
+          <div>
+            <h1 class="h3 fw-bold mb-0" data-i18n="page.agent.title">Agent IA SmartCampus</h1>
+            <p class="text-muted small mb-0">Assistant intelligent disponible 24h/24</p>
+          </div>
+        </div>
+        <span class="badge border sc-badge-status-active d-inline-flex align-items-center gap-1"><span class="rounded-circle bg-success" style="width:6px;height:6px"></span>En ligne</span>
+      </div>
+      <div class="row g-4 flex-grow-1">
+        <div class="col-lg-8 d-flex">
+          <div class="sc-card flex-grow-1 d-flex flex-column w-100" style="min-height: 420px">
+            <div class="flex-grow-1 overflow-auto p-3" id="chat-messages" style="max-height: 55vh">
+              <div class="d-flex gap-2 mb-3">
+                <div class="rounded-circle bg-primary text-white d-flex align-items-center justify-content-center flex-shrink-0" style="width:2rem;height:2rem"><i class="bi bi-robot small"></i></div>
+                <div class="sc-msg-bot px-3 py-2 small" style="max-width:80%"><div style="white-space:pre-wrap">Bonjour! 👋 Je suis l'assistant SmartCampus AgentAI.
+
+Je suis disponible 24h/24 pour répondre à vos questions en **français** ou en **lingala**.
+
+Comment puis-je vous aider aujourd'hui?</div><div class="text-muted mt-1" style="font-size:10px"></div></div>
+              </div>
+              <div id="chat-loading" class="d-none d-flex gap-2 mb-3">
+                <div class="rounded-circle bg-primary text-white d-flex align-items-center justify-content-center" style="width:2rem;height:2rem"><i class="bi bi-robot small"></i></div>
+                <div class="sc-msg-bot px-3 py-2 d-flex align-items-center gap-2 small"><div class="spinner-border spinner-border-sm"></div>En train de réfléchir...</div>
+              </div>
+            </div>
+            <div class="border-top p-3">
+              <div class="input-group">
+                <input type="text" class="form-control" id="chat-input" placeholder="Posez votre question...">
+                <button class="btn btn-primary" type="button" id="chat-send"><i class="bi bi-send"></i> <span class="d-none d-sm-inline">Envoyer</span></button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4 d-none d-lg-block">
+          <div class="sc-card p-3 mb-3">
+            <h2 class="h6 fw-bold mb-3 d-flex align-items-center gap-2"><i class="bi bi-stars text-primary"></i>Questions Suggérées</h2>
+            <div id="suggested-questions"></div>
+          </div>
+          <div class="sc-card p-3 mb-3 border-primary border-opacity-25" style="background: rgba(69,105,255,0.05)">
+            <div class="d-flex gap-2 small">
+              <i class="bi bi-info-circle text-primary fs-5"></i>
+              <div><strong>Simulateur WhatsApp</strong><p class="text-muted mb-0 small">Cette interface simule l'expérience de l'agent IA accessible via WhatsApp/SMS pour les étudiants.</p></div>
+            </div>
+          </div>
+          <div class="sc-card p-3 small">
+            <div class="d-flex justify-content-between mb-2"><span class="text-muted">Messages aujourd'hui</span><strong>247</strong></div>
+            <div class="d-flex justify-content-between mb-2"><span class="text-muted">Temps de réponse moyen</span><strong>&lt; 2s</strong></div>
+            <div class="d-flex justify-content-between"><span class="text-muted">Satisfaction</span><strong class="text-success">94%</strong></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="../../assets/js/theme.js"></script>
+  <script src="../../assets/js/config.js"></script>
+  <script src="../../assets/js/utils.js"></script>
+  <script src="../../assets/js/mock-data.js"></script>
+  <script src="../../assets/js/api.js"></script>
+  <script src="../../assets/js/auth.js"></script>
+  <script src="../../assets/js/layout.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="../../assets/js/i18n.js"></script>
+  <script src="../../assets/js/admin/chat.js"></script>
+  <script>SC_Layout.init({ role: 'admin' });</script>
+</body>
+</html>

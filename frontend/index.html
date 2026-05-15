@@ -3,17 +3,210 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SmartCampus AgentAI</title>
+  <title>SmartCampus AgentAI — Accueil</title>
+  <script src="assets/js/theme-init.js"></script>
+  <script src="assets/js/i18n-init.js"></script>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/variables.css">
+  <link rel="stylesheet" href="assets/css/main.css">
 </head>
-<body class="bg-light">
-  <main class="container py-5 text-center">
-    <h1 class="mb-3">SmartCampus AgentAI</h1>
-    <p class="lead text-muted">ERP universitaire · CRM campus · Agent IA souverain</p>
-    <p class="mt-4">
-      <a class="btn btn-primary" href="/docs" target="_blank">API Swagger</a>
-      <a class="btn btn-outline-secondary" href="/health" target="_blank">Health check</a>
-    </p>
+<body class="sc-app">
+  <header class="sc-landing-header">
+    <div class="container-xxl d-flex align-items-center justify-content-between py-3 px-3 px-lg-4" style="max-width: 1280px; margin: 0 auto">
+      <a href="index.html" class="d-flex align-items-center gap-3 text-decoration-none text-reset">
+        <div class="d-flex align-items-center justify-content-center rounded-3 sc-glow-primary" style="width: 2.5rem; height: 2.5rem; background: var(--sc-primary); color: var(--sc-primary-foreground)">
+          <i class="bi bi-mortarboard-fill"></i>
+        </div>
+        <div>
+          <span class="d-block fw-bold fs-5">SmartCampus</span>
+          <span class="d-block small sc-text-muted" style="font-size: 10px; margin-top: -2px">AgentAI</span>
+        </div>
+      </a>
+      <nav class="d-none d-md-flex gap-4 small sc-landing-nav">
+        <a class="text-decoration-none" href="#features" data-i18n="landing.features">Fonctionnalités</a>
+        <a class="text-decoration-none" href="#demo" data-i18n="landing.demo">Démo</a>
+        <a class="text-decoration-none" href="#about" data-i18n="landing.about">À propos</a>
+      </nav>
+      <div class="d-flex align-items-center gap-2">
+        <div data-sc-lang-mount></div>
+        <button type="button" class="btn btn-sm sc-theme-toggle border" data-sc-theme-toggle data-i18n-aria="common.theme" aria-label="Thème">
+          <i class="bi bi-sun sc-theme-icon-light d-none"></i>
+          <i class="bi bi-moon-stars sc-theme-icon-dark"></i>
+        </button>
+        <a class="btn btn-link btn-sm text-decoration-none" href="pages/login.html" data-i18n="common.login">Connexion</a>
+        <a class="btn btn-primary btn-sm d-flex align-items-center gap-1" href="pages/admin/dashboard.html">
+          <span data-i18n="common.dashboard">Dashboard</span> <i class="bi bi-arrow-right"></i>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="position-relative pt-5 pb-5 overflow-hidden" style="padding-top: 7rem !important">
+      <div class="sc-hero-blur bg-primary opacity-25" style="width: 800px; height: 800px; top: 10%; left: 50%; transform: translate(-50%, -30%)"></div>
+      <div class="sc-hero-blur" style="width: 600px; height: 600px; bottom: -10%; right: -5%; background: var(--sc-accent); opacity: 0.15"></div>
+      <div class="container-xxl px-3 px-lg-4 text-center" style="max-width: 1280px; margin: 0 auto">
+        <div class="mx-auto" style="max-width: 44rem">
+          <div class="d-inline-flex align-items-center gap-2 rounded-pill border sc-card sc-hero-badge px-3 py-2 small mb-4">
+            <span class="rounded-circle d-inline-block bg-success" style="width: 8px; height: 8px"></span>
+            <span data-i18n="landing.badge">Hackathon OpenClaw 2025</span>
+          </div>
+          <h1 class="display-5 fw-bold lh-sm">
+            <span class="sc-gradient-text" data-i18n="landing.hero.title1">Gestion universitaire</span><br>
+            <span data-i18n="landing.hero.title2">intelligente propulsée par l'IA</span>
+          </h1>
+          <p class="lead sc-hero-lead mt-4 mx-auto" style="max-width: 36rem" data-i18n="landing.hero.lead">
+            Le premier mini-ERP de campus universitaire congolais avec un agent IA autonome accessible 24h/24 via WhatsApp/SMS, en français ou en lingala.
+          </p>
+          <div class="d-flex flex-column flex-sm-row justify-content-center gap-3 mt-4">
+            <a class="btn btn-primary btn-lg px-4" href="pages/admin/dashboard.html"><span data-i18n="landing.hero.ctaDashboard">Accéder au Dashboard</span> <i class="bi bi-arrow-right ms-1"></i></a>
+            <a class="btn btn-outline-secondary btn-lg px-4" href="pages/demo/chat.html"><i class="bi bi-robot me-2"></i><span data-i18n="landing.hero.ctaAgent">Essayer l'Agent IA</span></a>
+          </div>
+          <div class="row row-cols-2 row-cols-sm-4 g-4 mt-5 pt-3">
+            <div class="col"><div class="fs-3 fw-bold text-primary">1,200+</div><div class="small sc-hero-stat-label" data-i18n="landing.stat.students">Étudiants gérés</div></div>
+            <div class="col"><div class="fs-3 fw-bold text-primary">98%</div><div class="small sc-hero-stat-label" data-i18n="landing.stat.satisfaction">Satisfaction</div></div>
+            <div class="col"><div class="fs-3 fw-bold text-primary">24/7</div><div class="small sc-hero-stat-label" data-i18n="landing.stat.availability">Disponibilité IA</div></div>
+            <div class="col"><div class="fs-3 fw-bold text-primary">50%</div><div class="small sc-hero-stat-label" data-i18n="landing.stat.admin">Réduction admin</div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="features" class="py-5 border-top border-opacity-50">
+      <div class="container-xxl px-3 px-lg-4" style="max-width: 1280px; margin: 0 auto">
+        <div class="text-center mb-5">
+          <h2 class="fw-bold" data-i18n="landing.features.title">Une plateforme complète</h2>
+          <p class="lead sc-hero-lead mx-auto" style="max-width: 36rem" data-i18n="landing.features.lead">Trois visions fusionnées en un seul produit : ERP, CRM et Agent IA autonome.</p>
+        </div>
+        <div class="row g-4">
+          <div class="col-md-6 col-lg-4">
+            <div class="sc-card sc-card-hover h-100 p-4">
+              <div class="d-flex align-items-center justify-content-center rounded-3 mb-3 bg-primary-subtle text-primary" style="width: 3rem; height: 3rem"><i class="bi bi-mortarboard fs-4"></i></div>
+              <h3 class="h5 fw-bold" data-i18n="landing.feat.erp">ERP Académique</h3>
+              <p class="sc-hero-lead mb-0 small" data-i18n="landing.feat.erp.desc">Gestion complète des inscriptions, notes, filières et emplois du temps universitaires.</p>
+            </div>
+          </div>
+          <div class="col-md-6 col-lg-4">
+            <div class="sc-card sc-card-hover h-100 p-4">
+              <div class="d-flex align-items-center justify-content-center rounded-3 mb-3 bg-primary-subtle text-primary" style="width: 3rem; height: 3rem"><i class="bi bi-people fs-4"></i></div>
+              <h3 class="h5 fw-bold" data-i18n="landing.feat.crm">CRM Étudiant</h3>
+              <p class="sc-hero-lead mb-0 small" data-i18n="landing.feat.crm.desc">Suivi relationnel des étudiants, historique des échanges et satisfaction.</p>
+            </div>
+          </div>
+          <div class="col-md-6 col-lg-4">
+            <div class="sc-card sc-card-hover h-100 p-4">
+              <div class="d-flex align-items-center justify-content-center rounded-3 mb-3 bg-primary-subtle text-primary" style="width: 3rem; height: 3rem"><i class="bi bi-credit-card fs-4"></i></div>
+              <h3 class="h5 fw-bold" data-i18n="landing.feat.pay">Gestion des Paiements</h3>
+              <p class="sc-hero-lead mb-0 small" data-i18n="landing.feat.pay.desc">Suivi des frais, relances automatiques et intégration Mobile Money.</p>
+            </div>
+          </div>
+          <div class="col-md-6 col-lg-4">
+            <div class="sc-card sc-card-hover h-100 p-4">
+              <div class="d-flex align-items-center justify-content-center rounded-3 mb-3 bg-primary-subtle text-primary" style="width: 3rem; height: 3rem"><i class="bi bi-robot fs-4"></i></div>
+              <h3 class="h5 fw-bold" data-i18n="landing.feat.agent">Agent IA Autonome</h3>
+              <p class="sc-hero-lead mb-0 small" data-i18n="landing.feat.agent.desc">Assistant WhatsApp/SMS disponible 24h/24 en français et lingala.</p>
+            </div>
+          </div>
+          <div class="col-md-6 col-lg-4">
+            <div class="sc-card sc-card-hover h-100 p-4">
+              <div class="d-flex align-items-center justify-content-center rounded-3 mb-3 bg-primary-subtle text-primary" style="width: 3rem; height: 3rem"><i class="bi bi-shield-check fs-4"></i></div>
+              <h3 class="h5 fw-bold" data-i18n="landing.feat.cloud">Cloud Souverain</h3>
+              <p class="sc-hero-lead mb-0 small" data-i18n="landing.feat.cloud.desc">Données hébergées localement à Kinshasa pour une souveraineté totale.</p>
+            </div>
+          </div>
+          <div class="col-md-6 col-lg-4">
+            <div class="sc-card sc-card-hover h-100 p-4">
+              <div class="d-flex align-items-center justify-content-center rounded-3 mb-3 bg-primary-subtle text-primary" style="width: 3rem; height: 3rem"><i class="bi bi-chat-dots fs-4"></i></div>
+              <h3 class="h5 fw-bold" data-i18n="landing.feat.comm">Communications</h3>
+              <p class="sc-hero-lead mb-0 small" data-i18n="landing.feat.comm.desc">Notifications intelligentes et annonces personnalisées aux étudiants.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="demo" class="py-5 border-top border-opacity-50">
+      <div class="container-xxl px-3 px-lg-4" style="max-width: 1280px; margin: 0 auto">
+        <div class="sc-card p-4 p-lg-5 text-center border-primary border-opacity-25" style="background: linear-gradient(135deg, rgba(69,105,255,0.06), rgba(45,212,191,0.06))">
+          <div class="d-inline-flex align-items-center justify-content-center rounded-3 mb-3 sc-glow-primary" style="width: 3.5rem; height: 3.5rem; background: var(--sc-primary); color: var(--sc-primary-foreground)">
+            <i class="bi bi-lightning-charge fs-4"></i>
+          </div>
+          <h3 class="fw-bold mb-3" data-i18n="landing.cta.title">Prêt à transformer votre campus?</h3>
+          <p class="sc-hero-lead mx-auto mb-4" style="max-width: 36rem" data-i18n="landing.cta.lead">Découvrez comment SmartCampus AgentAI peut révolutionner la gestion de votre établissement.</p>
+          <div class="d-flex flex-column flex-sm-row justify-content-center gap-3">
+            <a class="btn btn-primary btn-lg" href="pages/admin/dashboard.html"><span data-i18n="landing.cta.start">Commencer maintenant</span> <i class="bi bi-chevron-right ms-1"></i></a>
+            <a class="btn btn-outline-secondary btn-lg" href="pages/demo/chat.html" data-i18n="landing.cta.demo">Voir la démo</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="about" class="py-5 border-top border-opacity-50">
+      <div class="container-xxl px-3 px-lg-4" style="max-width: 1280px; margin: 0 auto">
+        <div class="row g-5 align-items-center">
+          <div class="col-lg-6">
+            <div class="d-inline-flex align-items-center gap-2 rounded-pill border border-success border-opacity-50 px-3 py-1 small text-success mb-3">
+              <i class="bi bi-globe2"></i> <span data-i18n="landing.about.badge">Cloud Souverain</span>
+            </div>
+            <h2 class="fw-bold mb-4" data-i18n="landing.about.title">Vos données restent à Kinshasa</h2>
+            <p class="sc-hero-lead lead fs-6" data-i18n="landing.about.lead">
+              SmartCampus AgentAI est hébergé sur l'infrastructure cloud souveraine Yamify à Kinshasa.
+              Vos données académiques sensibles ne quittent jamais le territoire congolais.
+            </p>
+            <ul class="list-unstyled vstack gap-3 mt-4">
+              <li class="d-flex align-items-center gap-3"><span class="d-flex align-items-center justify-content-center rounded-circle bg-success bg-opacity-25 text-success" style="width: 1.5rem; height: 1.5rem"><i class="bi bi-check-lg small"></i></span><span data-i18n="landing.about.li1">Hébergement local à Texaf/OADC Kinshasa</span></li>
+              <li class="d-flex align-items-center gap-3"><span class="d-flex align-items-center justify-content-center rounded-circle bg-success bg-opacity-25 text-success" style="width: 1.5rem; height: 1.5rem"><i class="bi bi-check-lg small"></i></span><span data-i18n="landing.about.li2">Conformité aux réglementations locales</span></li>
+              <li class="d-flex align-items-center gap-3"><span class="d-flex align-items-center justify-content-center rounded-circle bg-success bg-opacity-25 text-success" style="width: 1.5rem; height: 1.5rem"><i class="bi bi-check-lg small"></i></span><span data-i18n="landing.about.li3">Latence réduite pour les utilisateurs congolais</span></li>
+              <li class="d-flex align-items-center gap-3"><span class="d-flex align-items-center justify-content-center rounded-circle bg-success bg-opacity-25 text-success" style="width: 1.5rem; height: 1.5rem"><i class="bi bi-check-lg small"></i></span><span data-i18n="landing.about.li4">Indépendance vis-à-vis des clouds étrangers</span></li>
+            </ul>
+          </div>
+          <div class="col-lg-6">
+            <div class="sc-card p-4">
+              <div class="vstack gap-4">
+                <div class="d-flex gap-3">
+                  <div class="d-flex align-items-center justify-content-center rounded-3 bg-primary-subtle text-primary flex-shrink-0" style="width: 3rem; height: 3rem"><i class="bi bi-shield-check"></i></div>
+                  <div>
+                    <h4 class="h6 fw-semibold mb-1" data-i18n="landing.about.sec1">Sécurité maximale</h4>
+                    <p class="small sc-hero-lead mb-0" data-i18n="landing.about.sec1.desc">Chiffrement de bout en bout</p>
+                  </div>
+                </div>
+                <div class="d-flex gap-3">
+                  <div class="d-flex align-items-center justify-content-center rounded-3 bg-success bg-opacity-10 text-success flex-shrink-0" style="width: 3rem; height: 3rem"><i class="bi bi-lightning-charge"></i></div>
+                  <div>
+                    <h4 class="h6 fw-semibold mb-1" data-i18n="landing.about.sec2">Performance locale</h4>
+                    <p class="small sc-hero-lead mb-0" data-i18n="landing.about.sec2.desc">Temps de réponse &lt; 100ms</p>
+                  </div>
+                </div>
+                <div class="d-flex gap-3">
+                  <div class="d-flex align-items-center justify-content-center rounded-3 bg-primary-subtle text-primary flex-shrink-0" style="width: 3rem; height: 3rem"><i class="bi bi-globe2"></i></div>
+                  <div>
+                    <h4 class="h6 fw-semibold mb-1" data-i18n="landing.about.sec3">Souveraineté totale</h4>
+                    <p class="small sc-hero-lead mb-0" data-i18n="landing.about.sec3.desc">100% des données en RDC</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
   </main>
+
+  <footer class="py-4 border-top border-opacity-50">
+    <div class="container-xxl px-3 px-lg-4 d-flex flex-column flex-sm-row align-items-center justify-content-between gap-3" style="max-width: 1280px; margin: 0 auto">
+      <div class="d-flex align-items-center gap-2">
+        <div class="d-flex align-items-center justify-content-center rounded-2" style="width: 2rem; height: 2rem; background: var(--sc-primary); color: var(--sc-primary-foreground)">
+          <i class="bi bi-mortarboard-fill small"></i>
+        </div>
+        <span class="fw-semibold">SmartCampus AgentAI</span>
+      </div>
+      <p class="small sc-hero-lead mb-0" data-i18n="landing.footer">Hackathon OpenClaw 2025 — SmartCampus AgentAI · infra Yamify (Kinshasa)</p>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/js/i18n.js"></script>
+  <script src="assets/js/theme.js"></script>
 </body>
 </html>

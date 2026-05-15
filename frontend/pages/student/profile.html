@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mon Profil — SmartCampus</title>
+  <script src="../../assets/js/theme-init.js"></script>
+  <script src="../../assets/js/i18n-init.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="../../assets/css/variables.css">
+  <link rel="stylesheet" href="../../assets/css/main.css">
+</head>
+<body class="sc-app">
+  <div class="sc-student-backdrop d-none" data-sc-student-backdrop></div>
+  <div id="sc-sidebar-host" data-partial="../../partials/sidebar-student.html"></div>
+  <div class="sc-main-student">
+    <header class="sc-student-header d-flex align-items-center justify-content-between px-3 px-lg-4">
+      <button type="button" class="btn btn-link text-dark d-lg-none p-2" data-sc-student-open><i class="bi bi-list fs-5"></i></button>
+      <span class="fw-semibold d-none d-lg-inline">Espace Étudiant</span>
+      <div class="dropdown">
+        <button type="button" class="btn btn-link text-dark dropdown-toggle" data-bs-toggle="dropdown"><span class="rounded-circle bg-primary text-white fw-semibold" style="width:2rem;height:2rem;display:inline-flex;align-items:center;justify-content:center;font-size:.75rem">JM</span></button>
+        <ul class="dropdown-menu dropdown-menu-end"><li><a class="dropdown-item text-danger" href="#" data-sc-logout>Déconnexion</a></li></ul>
+      </div>
+    </header>
+    <main class="p-3 p-lg-4">
+      <div class="d-flex flex-column flex-md-row justify-content-between gap-3 mb-4">
+        <div><h1 class="h3 fw-bold" data-i18n="page.st.profile.title">Mon Profil</h1><p class="text-muted mb-0" data-i18n="page.st.profile.sub">Gérez vos informations personnelles et documents</p></div>
+        <button type="button" class="btn btn-primary" id="pf-edit-toggle"><i class="bi bi-pencil me-1"></i>Modifier</button>
+      </div>
+      <div class="sc-card p-4 mb-4">
+        <div class="d-flex flex-column flex-md-row align-items-center gap-4">
+          <div class="position-relative"><div class="rounded-circle bg-primary text-white d-flex align-items-center justify-content-center fw-bold fs-2" style="width:8rem;height:8rem" id="pf-av">JM</div><button type="button" class="btn btn-sm btn-light border position-absolute bottom-0 end-0 rounded-circle"><i class="bi bi-camera"></i></button></div>
+          <div class="text-center text-md-start flex-grow-1">
+            <h2 class="h4 fw-bold" id="pf-name">—</h2>
+            <p class="text-muted mb-2" id="pf-email">—</p>
+            <div class="d-flex flex-wrap gap-2 justify-content-center justify-content-md-start"><span class="badge bg-primary">Licence 2</span><span class="badge bg-secondary">Sciences Informatiques</span><span class="badge border border-success text-success">Actif</span></div>
+            <p class="small mt-2 mb-0">Matricule: <span class="font-monospace fw-medium" id="pf-mat">—</span></p>
+          </div>
+        </div>
+      </div>
+      <ul class="nav nav-pills mb-3 flex-wrap gap-2" role="tablist">
+        <li class="nav-item"><button class="nav-link active" data-bs-toggle="pill" data-bs-target="#pf-tab-info" type="button">Informations</button></li>
+        <li class="nav-item"><button class="nav-link" data-bs-toggle="pill" data-bs-target="#pf-tab-docs" type="button">Documents</button></li>
+        <li class="nav-item"><button class="nav-link" data-bs-toggle="pill" data-bs-target="#pf-tab-sec" type="button">Sécurité</button></li>
+        <li class="nav-item"><button class="nav-link" data-bs-toggle="pill" data-bs-target="#pf-tab-not" type="button">Notifications</button></li>
+      </ul>
+      <div class="tab-content">
+        <div class="tab-pane fade show active" id="pf-tab-info">
+          <div class="row g-4">
+            <div class="col-md-6"><div class="sc-card p-3"><h3 class="h6 fw-bold mb-3"><i class="bi bi-person me-1"></i>Informations Personnelles</h3>
+              <div class="mb-3"><label class="form-label">Nom complet</label><input class="form-control pf-field" id="pf-nom" disabled></div>
+              <div class="mb-3"><label class="form-label">Date de naissance</label><input class="form-control pf-field" id="pf-dob" disabled></div>
+              <div class="mb-3"><label class="form-label">Lieu de naissance</label><input class="form-control pf-field" id="pf-pob" disabled></div>
+              <div class="mb-0"><label class="form-label">Adresse</label><input class="form-control pf-field" id="pf-addr" disabled></div>
+            </div></div>
+            <div class="col-md-6"><div class="sc-card p-3"><h3 class="h6 fw-bold mb-3"><i class="bi bi-envelope me-1"></i>Contact</h3>
+              <div class="mb-3"><label class="form-label">Email universitaire</label><input class="form-control bg-light" id="pf-mail" disabled><p class="small text-muted">L'email universitaire ne peut pas être modifié</p></div>
+              <div class="mb-0"><label class="form-label">Téléphone</label><input class="form-control pf-field" id="pf-phone" disabled></div>
+            </div></div>
+            <div class="col-12"><div class="sc-card p-3"><h3 class="h6 fw-bold mb-3"><i class="bi bi-mortarboard me-1"></i>Informations Académiques</h3>
+              <div class="row g-2"><div class="col-6 col-lg-3"><div class="border rounded p-3"><div class="small text-muted">Faculté</div><div class="fw-medium" id="pf-fac">—</div></div></div><div class="col-6 col-lg-3"><div class="border rounded p-3"><div class="small text-muted">Département</div><div class="fw-medium" id="pf-dep">—</div></div></div><div class="col-6 col-lg-3"><div class="border rounded p-3"><div class="small text-muted">Niveau</div><div class="fw-medium" id="pf-lev">—</div></div></div><div class="col-6 col-lg-3"><div class="border rounded p-3"><div class="small text-muted">Année Académique</div><div class="fw-medium" id="pf-year">—</div></div></div></div>
+            </div></div>
+          </div>
+        </div>
+        <div class="tab-pane fade" id="pf-tab-docs"><div class="sc-card p-3"><h3 class="h6 fw-bold mb-2"><i class="bi bi-file-text me-1"></i>Mes Documents</h3><p class="small text-muted">Téléchargez vos documents administratifs</p><div id="pf-docs"></div><div class="border border-dashed rounded text-center p-4 mt-3"><i class="bi bi-file-earmark fs-1 text-muted"></i><h4 class="h6 mt-2">Demander un document</h4><p class="small text-muted">Vous pouvez demander d'autres documents administratifs</p><button type="button" class="btn btn-outline-secondary btn-sm">Faire une demande</button></div></div></div>
+        <div class="tab-pane fade" id="pf-tab-sec"><div class="sc-card p-3"><h3 class="h6 fw-bold mb-2"><i class="bi bi-shield-check me-1"></i>Sécurité du Compte</h3><div class="mb-3"><label class="form-label">Mot de passe actuel</label><input type="password" class="form-control" placeholder="••••••••"></div><div class="mb-3"><label class="form-label">Nouveau mot de passe</label><input type="password" class="form-control" placeholder="••••••••"></div><div class="mb-3"><label class="form-label">Confirmer</label><input type="password" class="form-control" placeholder="••••••••"></div><button type="button" class="btn btn-primary btn-sm">Changer le mot de passe</button><hr><div class="d-flex justify-content-between"><div><div class="fw-medium">Authentification à deux facteurs</div><div class="small text-muted">Ajoutez une couche de sécurité</div></div><div class="form-check form-switch"><input class="form-check-input" type="checkbox"></div></div></div></div>
+        <div class="tab-pane fade" id="pf-tab-not"><div class="sc-card p-3"><h3 class="h6 fw-bold mb-3"><i class="bi bi-bell me-1"></i>Préférences de Notification</h3>
+          <div class="d-flex justify-content-between mb-3"><div><div class="fw-medium">Notifications par email</div><div class="small text-muted">Recevoir les notifications importantes</div></div><div class="form-check form-switch"><input class="form-check-input" type="checkbox" checked></div></div>
+          <hr><div class="d-flex justify-content-between mb-3"><div><div class="fw-medium">Notifications SMS</div></div><div class="form-check form-switch"><input class="form-check-input" type="checkbox" checked></div></div>
+          <hr><div class="d-flex justify-content-between"><div><div class="fw-medium">Rappels de paiement</div></div><div class="form-check form-switch"><input class="form-check-input" type="checkbox" checked></div></div>
+        </div></div>
+      </div>
+    </main>
+  </div>
+  <script src="../../assets/js/theme.js"></script>
+  <script src="../../assets/js/config.js"></script><script src="../../assets/js/utils.js"></script><script src="../../assets/js/mock-data.js"></script><script src="../../assets/js/api.js"></script><script src="../../assets/js/auth.js"></script><script src="../../assets/js/layout.js"></script><script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="../../assets/js/i18n.js"></script><script src="../../assets/js/student/profile.js"></script><script>
+    document.getElementById('pf-edit-toggle').addEventListener('click', function () {
+      var editing = this.getAttribute('data-editing') === '1';
+      if (!editing) {
+        this.setAttribute('data-editing', '1');
+        document.querySelectorAll('.pf-field').forEach(function (el) {
+          el.disabled = false;
+        });
+        this.innerHTML = '<i class="bi bi-save me-1"></i>Enregistrer';
+      } else {
+        this.removeAttribute('data-editing');
+        document.querySelectorAll('.pf-field').forEach(function (el) {
+          el.disabled = true;
+        });
+        this.innerHTML = '<i class="bi bi-pencil me-1"></i>Modifier';
+      }
+    });
+    SC_Layout.init({ role: 'student' });
+  </script>
+</body>
+</html>

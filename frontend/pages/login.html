@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Connexion — SmartCampus AgentAI</title>
+  <script src="../assets/js/theme-init.js"></script>
+  <script src="../assets/js/i18n-init.js"></script>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/variables.css">
+  <link rel="stylesheet" href="../assets/css/main.css">
+</head>
+<body class="sc-app d-flex align-items-center justify-content-center min-vh-100 p-3 position-relative">
+  <div class="position-absolute top-0 end-0 m-3 d-flex align-items-center gap-2" style="z-index: 10">
+    <div data-sc-lang-mount data-sc-lang-compact="true"></div>
+  <button type="button" class="btn btn-sm sc-theme-toggle border" data-sc-theme-toggle data-i18n-aria="common.theme" aria-label="Thème">
+    <i class="bi bi-sun sc-theme-icon-light d-none"></i>
+    <i class="bi bi-moon-stars sc-theme-icon-dark"></i>
+  </button>
+  </div>
+  <div class="position-absolute sc-hero-blur bg-primary opacity-25" style="width: 600px; height: 600px; top: 10%; left: 50%; transform: translate(-50%, -50%); z-index: -1"></div>
+
+  <div class="sc-card w-100 p-0 overflow-hidden" style="max-width: 28rem">
+    <div class="text-center p-4 pb-0">
+      <a href="../index.html" class="d-inline-flex align-items-center justify-content-center rounded-3 sc-glow-primary text-decoration-none mb-3" style="width: 3rem; height: 3rem; background: var(--sc-primary); color: var(--sc-primary-foreground)">
+        <i class="bi bi-mortarboard fs-4"></i>
+      </a>
+      <h1 class="h3 fw-bold" data-i18n="login.title">Connexion</h1>
+      <p class="text-muted small" data-i18n="login.subtitle">Accédez à votre espace SmartCampus AgentAI</p>
+    </div>
+    <div class="px-4 pb-4">
+      <div id="login-error" class="alert alert-danger py-2 small d-none" role="alert"></div>
+      <form id="form-login" class="vstack gap-3">
+        <div>
+          <label for="email" class="form-label" data-i18n="login.email">Adresse email</label>
+          <input type="email" class="form-control" id="email" name="email" required autocomplete="username" placeholder="vous@exemple.cd">
+        </div>
+        <div>
+          <div class="d-flex justify-content-between">
+            <label for="password" class="form-label" data-i18n="login.password">Mot de passe</label>
+            <a href="#" class="small text-decoration-none" data-i18n="login.forgot">Mot de passe oublié?</a>
+          </div>
+          <div class="input-group">
+            <input type="password" class="form-control" id="password" required autocomplete="current-password" placeholder="••••••••">
+            <button class="btn btn-outline-secondary" type="button" id="toggle-pw" data-i18n-aria="common.showPassword" aria-label="Afficher"><i class="bi bi-eye"></i></button>
+          </div>
+        </div>
+        <button type="submit" class="btn btn-primary w-100 d-flex align-items-center justify-content-center gap-2" id="btn-submit">
+          <span class="spinner-border spinner-border-sm d-none" id="login-spinner"></span>
+          <span id="login-btn-text" data-i18n="login.submit">Se connecter</span>
+        </button>
+      </form>
+
+      <div class="position-relative my-4">
+        <hr class="text-muted opacity-25">
+        <span class="position-absolute top-50 start-50 translate-middle px-2 small text-muted text-uppercase" style="background: var(--sc-card)" data-i18n="login.demo">Démo</span>
+      </div>
+
+      <div class="rounded p-3 small sc-student-profile-box">
+        <p class="fw-medium text-center mb-2" data-i18n="login.demoQuick">Accès Rapide (Démo)</p>
+        <div class="row g-2">
+          <div class="col-6">
+            <button type="button" class="btn btn-outline-secondary w-100" id="demo-admin" data-i18n="login.demoAdmin">Admin</button>
+          </div>
+          <div class="col-6">
+            <button type="button" class="btn btn-outline-secondary w-100" id="demo-student" data-i18n="login.demoStudent">Étudiant</button>
+          </div>
+        </div>
+        <div class="text-center text-muted pt-2 mt-2 border-top small">
+          <p class="mb-1">Admin: admin@smartcampus.local</p>
+          <p class="mb-1">Mot de passe: demo1234</p>
+          <p class="mb-0">Étudiant: accès portail sans compte (démo)</p>
+        </div>
+      </div>
+
+      <p class="text-center small mt-3 mb-0">
+        <a href="../index.html" class="text-muted text-decoration-none" data-i18n="common.backHome">Retour à l'accueil</a>
+      </p>
+    </div>
+  </div>
+
+  <script src="../assets/js/theme.js"></script>
+  <script src="../assets/js/config.js"></script>
+  <script src="../assets/js/utils.js"></script>
+  <script src="../assets/js/mock-data.js"></script>
+  <script src="../assets/js/api.js"></script>
+  <script src="../assets/js/auth.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="../assets/js/i18n.js"></script>
+  <script>
+    (function () {
+      var params = new URLSearchParams(window.location.search);
+      var redirect = params.get('redirect');
+      var emailEl = document.getElementById('email');
+      var passEl = document.getElementById('password');
+      var errEl = document.getElementById('login-error');
+      var form = document.getElementById('form-login');
+      var spinner = document.getElementById('login-spinner');
+      var btnText = document.getElementById('login-btn-text');
+
+      document.getElementById('toggle-pw').addEventListener('click', function () {
+        var i = passEl.type === 'password';
+        passEl.type = i ? 'text' : 'password';
+        this.querySelector('i').className = i ? 'bi bi-eye-slash' : 'bi bi-eye';
+      });
+
+      function setLoading(v) {
+        document.getElementById('btn-submit').disabled = v;
+        spinner.classList.toggle('d-none', !v);
+      }
+
+      function showErr(msg) {
+        errEl.textContent = msg;
+        errEl.classList.remove('d-none');
+      }
+
+      function hideErr() {
+        errEl.classList.add('d-none');
+      }
+
+      form.addEventListener('submit', async function (e) {
+        e.preventDefault();
+        hideErr();
+        setLoading(true);
+        try {
+          await SC_Auth.login(emailEl.value.trim(), passEl.value);
+          if (SC_Auth.isAdmin()) {
+            window.location.href = 'admin/dashboard.html';
+          } else if (SC_Auth.isStudent()) {
+            window.location.href = 'student/dashboard.html';
+          } else {
+            window.location.href = 'admin/dashboard.html';
+          }
+        } catch (ex) {
+          showErr(ex.message || 'Connexion impossible');
+        }
+        setLoading(false);
+      });
+
+      document.getElementById('demo-admin').addEventListener('click', function () {
+        emailEl.value = (SC_CONFIG && SC_CONFIG.DEMO_ADMIN_EMAIL) || 'admin@smartcampus.local';
+        passEl.value = (SC_CONFIG && SC_CONFIG.DEMO_ADMIN_PASSWORD) || 'demo1234';
+        form.requestSubmit();
+      });
+
+      document.getElementById('demo-student').addEventListener('click', function () {
+        SC_Auth.logout();
+        SC_Auth.setStudentDemo();
+        window.location.href = 'student/dashboard.html';
+      });
+
+      if (redirect === 'student') {
+        /* après login échoué — pré-remplir optionnel */
+      }
+    })();
+  </script>
+</body>
+</html>

@@ -56,7 +56,7 @@ Compte admin démo : `admin@smartcampus.local` / `demo1234`
 
 Recréer les données : `python -m seeds.demo_data --reset`
 
-## Lancer l'API
+## Lancer l'API + frontend
 
 ```powershell
 uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
@@ -64,6 +64,10 @@ uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
 
 | URL | Attendu |
 |-----|---------|
+| http://localhost:8000/ | Landing frontend |
+| http://localhost:8000/pages/login.html | Connexion admin |
+| http://localhost:8000/pages/admin/dashboard.html | Dashboard admin |
+| http://localhost:8000/pages/demo/chat.html | Simulateur agent |
 | http://localhost:8000/health | `{"status":"ok","database":"connected"}` |
 | http://localhost:8000/docs | Swagger UI |
 

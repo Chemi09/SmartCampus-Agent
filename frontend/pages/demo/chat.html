@@ -1,0 +1,75 @@
+﻿<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Démo Agent IA — SmartCampus</title>
+  <script src="../../assets/js/theme-init.js"></script>
+  <script src="../../assets/js/i18n-init.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="../../assets/css/variables.css">
+  <link rel="stylesheet" href="../../assets/css/main.css">
+</head>
+<body class="sc-app d-flex flex-column min-vh-100">
+  <header class="border-bottom sc-card sticky-top" style="backdrop-filter: blur(12px); z-index: 100; background: color-mix(in srgb, var(--sc-card) 90%, transparent)">
+    <div class="d-flex align-items-center gap-2 p-3 mx-auto" style="max-width: 42rem">
+      <a href="../../index.html" class="btn btn-link text-reset p-2"><i class="bi bi-arrow-left fs-5"></i></a>
+      <div class="d-flex align-items-center gap-2 flex-grow-1 min-w-0">
+        <div class="rounded-circle bg-primary text-white d-flex align-items-center justify-content-center flex-shrink-0" style="width:2.5rem;height:2.5rem"><i class="bi bi-robot"></i></div>
+        <div class="min-w-0">
+          <h1 class="h6 fw-semibold mb-0 text-truncate" data-i18n="page.demo.title">SmartCampus AgentAI</h1>
+          <p class="small text-success mb-0 d-flex align-items-center gap-1"><span class="rounded-circle bg-success" style="width:6px;height:6px"></span><span data-i18n="common.online">En ligne</span></p>
+        </div>
+      </div>
+      <div data-sc-lang-mount data-sc-lang-compact="true"></div>
+      <button type="button" class="btn btn-sm sc-theme-toggle border" data-sc-theme-toggle data-i18n-aria="common.theme" aria-label="Thème">
+        <i class="bi bi-sun sc-theme-icon-light d-none"></i>
+        <i class="bi bi-moon-stars sc-theme-icon-dark"></i>
+      </button>
+      <div class="small text-muted d-flex align-items-center gap-1"><i class="bi bi-phone"></i> <span data-i18n="common.whatsapp">WhatsApp</span></div>
+    </div>
+  </header>
+
+  <div class="flex-grow-1 overflow-auto px-3 py-3 mx-auto w-100" style="max-width: 42rem" id="demo-msgs">
+    <div class="d-flex gap-2 mb-3">
+      <div class="rounded-circle bg-primary text-white d-flex align-items-center justify-content-center flex-shrink-0" style="width:2rem;height:2rem"><i class="bi bi-robot small"></i></div>
+      <div class="bg-white border rounded-4 rounded-tl-0 px-3 py-2 small" style="max-width: 85%; white-space: pre-wrap">Mbote! 👋 Je suis l'assistant SmartCampus AgentAI.
+
+Je réponds en **français** et **lingala**, 24h/24.
+
+Essayez:
+- "Quelle est ma moyenne?"
+- "Ai-je payé les frais?"
+- "Comment s'inscrire en Master?"</div>
+    </div>
+    <div id="demo-typing" class="d-none d-flex gap-2">
+      <div class="rounded-circle bg-primary text-white d-flex align-items-center justify-content-center" style="width:2rem;height:2rem"><i class="bi bi-robot small"></i></div>
+      <div class="bg-white border rounded px-3 py-2 d-flex gap-1 align-items-center"><span class="spinner-grow spinner-grow-sm text-secondary"></span><span class="small text-muted">…</span></div>
+    </div>
+  </div>
+
+  <footer class="border-top bg-white bg-opacity-90 p-3 sticky-bottom" style="backdrop-filter: blur(12px)">
+    <div class="mx-auto d-flex gap-2" style="max-width: 42rem">
+      <input type="text" class="form-control rounded-pill" id="demo-input" placeholder="Écrivez votre message...">
+      <button type="button" class="btn btn-primary rounded-circle flex-shrink-0 d-flex align-items-center justify-content-center" style="width: 2.75rem; height: 2.75rem" id="demo-send"><i class="bi bi-send-fill"></i></button>
+    </div>
+    <p class="text-center text-muted mb-0 mt-2" style="font-size: 10px">Simulateur WhatsApp — SmartCampus AgentAI Demo</p>
+  </footer>
+
+  <div class="position-fixed top-0 start-50 translate-middle-x w-100 h-100 pointer-events-none" style="z-index: -1">
+    <div class="position-absolute top-0 start-50 translate-middle-x bg-primary opacity-10 rounded-circle blur" style="width: 600px; height: 600px; filter: blur(80px)"></div>
+  </div>
+
+  <script src="../../assets/js/theme.js"></script>
+  <script>document.addEventListener('DOMContentLoaded', function () { if (window.SC_Theme) SC_Theme.wireToggles(); });</script>
+  <script src="../../assets/js/config.js"></script>
+  <script src="../../assets/js/utils.js"></script>
+  <script src="../../assets/js/mock-data.js"></script>
+  <script src="../../assets/js/api.js"></script>
+  <script src="../../assets/js/auth.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="../../assets/js/i18n.js"></script>
+  <script src="../../assets/js/demo/chat.js"></script>
+</body>
+</html>

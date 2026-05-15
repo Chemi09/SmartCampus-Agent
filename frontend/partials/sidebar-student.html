@@ -1,0 +1,38 @@
+<aside class="sc-student-sidebar" aria-label="Navigation étudiant">
+  <div class="d-flex h-100 flex-column sc-student-sidebar-inner border-end">
+    <div class="d-flex align-items-center justify-content-between border-bottom px-3" style="min-height: 4rem">
+      <a href="dashboard.html" class="d-flex align-items-center gap-2 text-decoration-none text-reset">
+        <div class="sc-sidebar-logo" style="width: 2rem; height: 2rem; font-size: 1rem"><i class="bi bi-mortarboard-fill"></i></div>
+        <span class="fw-semibold">SmartCampus</span>
+      </a>
+      <div class="d-flex align-items-center gap-1">
+        <div data-sc-lang-mount data-sc-lang-compact="true"></div>
+        <button type="button" class="btn btn-sm sc-theme-toggle border" data-sc-theme-toggle data-i18n-aria="common.theme" aria-label="Thème">
+          <i class="bi bi-sun sc-theme-icon-light d-none"></i>
+          <i class="bi bi-moon-stars sc-theme-icon-dark"></i>
+        </button>
+        <button type="button" class="btn btn-link d-lg-none p-0 text-reset" data-sc-student-close data-i18n-aria="common.close" aria-label="Fermer"><i class="bi bi-x-lg"></i></button>
+      </div>
+    </div>
+    <nav class="sc-student-nav flex-grow-1 nav flex-column p-3 gap-1">
+      <a class="nav-link sc-nav-link" data-sc-path="dashboard.html" href="dashboard.html"><i class="bi bi-grid-1x2 me-2"></i><span data-i18n="nav.dashboard">Tableau de Bord</span></a>
+      <a class="nav-link sc-nav-link" data-sc-path="grades.html" href="grades.html"><i class="bi bi-mortarboard me-2"></i><span data-i18n="nav.myGrades">Mes Notes</span></a>
+      <a class="nav-link sc-nav-link" data-sc-path="payments.html" href="payments.html"><i class="bi bi-credit-card me-2"></i><span data-i18n="nav.myPayments">Mes Paiements</span></a>
+      <a class="nav-link sc-nav-link" data-sc-path="chat.html" href="chat.html"><i class="bi bi-chat-dots me-2"></i><span data-i18n="nav.assistant">Assistant IA</span></a>
+      <a class="nav-link sc-nav-link d-flex align-items-center" data-sc-path="notifications.html" href="notifications.html">
+        <i class="bi bi-bell me-2"></i><span data-i18n="nav.notifications">Notifications</span>
+        <span class="badge bg-danger ms-auto">3</span>
+      </a>
+      <a class="nav-link sc-nav-link" data-sc-path="profile.html" href="profile.html"><i class="bi bi-gear me-2"></i><span data-i18n="nav.profile">Mon Profil</span></a>
+    </nav>
+    <div class="border-top p-3">
+      <div class="d-flex align-items-center gap-2 rounded p-2 sc-student-profile-box">
+        <div class="rounded-circle bg-primary text-white d-flex align-items-center justify-content-center fw-semibold" style="width: 2.5rem; height: 2.5rem; font-size: 0.8rem">JM</div>
+        <div class="small flex-grow-1 overflow-hidden">
+          <div class="fw-medium text-truncate">Jean Mukendi</div>
+          <div class="text-muted text-truncate">L2 Informatique</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</aside>

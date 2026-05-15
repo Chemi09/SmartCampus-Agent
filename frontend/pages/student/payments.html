@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mes Paiements — SmartCampus</title>
+  <script src="../../assets/js/theme-init.js"></script>
+  <script src="../../assets/js/i18n-init.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="../../assets/css/variables.css">
+  <link rel="stylesheet" href="../../assets/css/main.css">
+</head>
+<body class="sc-app">
+  <div class="sc-student-backdrop d-none" data-sc-student-backdrop></div>
+  <div id="sc-sidebar-host" data-partial="../../partials/sidebar-student.html"></div>
+  <div class="sc-main-student">
+    <header class="sc-student-header d-flex align-items-center justify-content-between px-3 px-lg-4">
+      <button type="button" class="btn btn-link text-dark d-lg-none p-2" data-sc-student-open><i class="bi bi-list fs-5"></i></button>
+      <span class="fw-semibold text-dark d-none d-lg-inline">Espace Étudiant</span>
+      <div class="dropdown">
+        <button type="button" class="btn btn-link text-dark dropdown-toggle" data-bs-toggle="dropdown"><span class="rounded-circle bg-primary text-white fw-semibold d-inline-flex align-items-center justify-content-center" style="width:2rem;height:2rem;font-size:.75rem">JM</span></button>
+        <ul class="dropdown-menu dropdown-menu-end">
+          <li><a class="dropdown-item" href="profile.html">Mon Profil</a></li>
+          <li><a class="dropdown-item text-danger" href="#" data-sc-logout>Déconnexion</a></li>
+        </ul>
+      </div>
+    </header>
+    <main class="p-3 p-lg-4">
+      <div class="d-flex flex-column flex-md-row justify-content-between gap-3 mb-4">
+        <div><h1 class="h3 fw-bold" data-i18n="page.st.payments.title">Mes Paiements</h1><p class="text-muted mb-0" id="sp-year-line">—</p></div>
+        <div class="d-flex gap-2">
+          <button type="button" class="btn btn-outline-secondary btn-sm"><i class="bi bi-download"></i> Reçus</button>
+          <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modal-pay"><i class="bi bi-wallet2"></i> Effectuer un paiement</button>
+        </div>
+      </div>
+      <div class="alert alert-warning border-warning d-flex justify-content-between align-items-center flex-wrap gap-2 mb-4">
+        <div><strong>Paiement en attente</strong><p class="small mb-0 text-muted" id="sp-alert-line"></p></div>
+        <button type="button" class="btn btn-dark btn-sm" data-bs-toggle="modal" data-bs-target="#modal-pay">Payer maintenant <i class="bi bi-arrow-right"></i></button>
+      </div>
+      <div class="row g-3 mb-4">
+        <div class="col-md-4"><div class="sc-card p-4"><p class="small text-muted">Total Frais</p><p class="display-6 fw-bold mb-0" id="sp-total">—</p><p class="small text-muted">Année académique</p></div></div>
+        <div class="col-md-4"><div class="sc-card p-4"><p class="small text-muted">Montant Payé</p><p class="display-6 fw-bold text-success mb-0" id="sp-paid">—</p><p class="small text-muted" id="sp-pct-line"></p><div class="progress mt-2" style="height:6px"><div class="progress-bar bg-success" id="sp-bar"></div></div></div></div>
+        <div class="col-md-4"><div class="sc-card p-4"><p class="small text-muted">Solde Restant</p><p class="display-6 fw-bold text-warning mb-0" id="sp-rem">—</p><p class="small text-muted" id="sp-deadline"></p></div></div>
+      </div>
+      <div class="row g-4 mb-4">
+        <div class="col-lg-6">
+          <div class="sc-card p-3"><h2 class="h5 fw-bold mb-3"><i class="bi bi-calendar3 me-1"></i>Échéancier de Paiement</h2><div id="sp-schedule"></div></div>
+        </div>
+        <div class="col-lg-6">
+          <div class="sc-card p-3">
+            <h2 class="h5 fw-bold">Méthodes de Paiement</h2>
+            <p class="small text-muted">Choisissez votre méthode préférée</p>
+            <div class="d-flex flex-column gap-2">
+              <div class="border rounded p-3 d-flex justify-content-between"><div class="d-flex gap-2"><div class="bg-warning bg-opacity-10 text-warning rounded p-2"><i class="bi bi-credit-card"></i></div><div><div class="fw-medium">Orange Money</div><div class="small text-muted">Paiement instantané</div></div></div><span class="badge bg-light text-dark border">Recommandé</span></div>
+              <div class="border rounded p-3 d-flex gap-2"><div class="bg-primary bg-opacity-10 text-primary rounded p-2"><i class="bi bi-credit-card"></i></div><div><div class="fw-medium">M-Pesa</div><div class="small text-muted">Vodacom Mobile Money</div></div></div>
+              <div class="border rounded p-3 d-flex gap-2"><div class="bg-secondary bg-opacity-10 rounded p-2"><i class="bi bi-wallet2"></i></div><div><div class="fw-medium">Carte Bancaire</div><div class="small text-muted">Visa, Mastercard</div></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="sc-card p-3">
+        <div class="d-flex justify-content-between mb-2"><div><h2 class="h5 fw-bold">Historique des Paiements</h2><p class="small text-muted mb-0">Tous vos paiements effectués</p></div><button type="button" class="btn btn-outline-secondary btn-sm"><i class="bi bi-download"></i> Exporter</button></div>
+        <div class="table-responsive"><table class="table sc-table mb-0"><thead><tr><th>Référence</th><th>Date</th><th>Description</th><th>Méthode</th><th class="text-end">Montant</th><th class="text-center">Statut</th><th></th></tr></thead><tbody id="sp-history"></tbody></table></div>
+      </div>
+    </main>
+  </div>
+
+  <div class="modal fade" id="modal-pay" tabindex="-1"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><h5 class="modal-title">Effectuer un paiement</h5><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><p class="small text-muted">Choisissez le montant et la méthode de paiement</p><div class="mb-3"><label class="form-label">Montant (USD)</label><input type="number" class="form-control" id="modal-amount" value="350"><p class="small text-muted mt-1" id="modal-solde"></p></div><label class="form-label">Méthode</label><div class="row g-2"><div class="col-6"><button type="button" class="btn btn-outline-secondary w-100 py-3"><i class="bi bi-credit-card d-block mb-1"></i><span class="small">Mobile Money</span></button></div><div class="col-6"><button type="button" class="btn btn-outline-secondary w-100 py-3"><i class="bi bi-wallet2 d-block mb-1"></i><span class="small">Carte Bancaire</span></button></div></div><label class="form-label mt-3">Numéro de téléphone</label><input type="tel" class="form-control" placeholder="+243 XXX XXX XXX"></div><div class="modal-footer"><button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Annuler</button><button type="button" class="btn btn-primary" data-bs-dismiss="modal">Confirmer le paiement</button></div></div></div></div>
+
+  <script src="../../assets/js/theme.js"></script>
+  <script src="../../assets/js/config.js"></script><script src="../../assets/js/utils.js"></script><script src="../../assets/js/mock-data.js"></script><script src="../../assets/js/api.js"></script><script src="../../assets/js/auth.js"></script><script src="../../assets/js/layout.js"></script><script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="../../assets/js/i18n.js"></script><script src="../../assets/js/student/payments.js"></script><script>
+    (function(){ var s = SC_MOCK.studentPaymentsPortal.summary; document.getElementById('sp-year-line').textContent = "Gérez vos frais académiques — Année " + s.academicYear; document.getElementById('sp-alert-line').textContent = "Prochaine échéance: " + s.nextDeadline + " — Montant: " + s.remaining + "$"; document.getElementById('sp-deadline').textContent = "Échéance: " + s.nextDeadline; document.getElementById('modal-solde').textContent = "Solde restant: " + s.remaining + "$"; document.getElementById('modal-amount').value = s.remaining; })();
+    SC_Layout.init({ role: 'student' });
+  </script>
+</body>
+</html>

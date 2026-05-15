@@ -1,0 +1,38 @@
+services:
+  db:
+    image: postgres:16-alpine
+    container_name: smartcampus-db
+    environment:
+      POSTGRES_USER: smartcampus
+      POSTGRES_PASSWORD: smartcampus
+      POSTGRES_DB: smartcampus
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U smartcampus"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  api:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: smartcampus-api
+    ports:
+      - "8000:8000"
+    environment:
+      DATABASE_URL: postgresql://smartcampus:smartcampus@db:5432/smartcampus
+      JWT_SECRET: change-me-in-docker
+      DEMO_MODE: "true"
+    depends_on:
+      db:
+        condition: service_healthy
+    volumes:
+      - ./backend:/app
+    command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
+
+volumes:
+  postgres-data:

@@ -16,7 +16,7 @@
 ### Phases
 
 - [ ] **Phase 0** — Cadrage commun (2–4 h)
-- [ ] **Phase 1** — Socle technique (4–6 h)
+- [x] **Phase 1** — Socle technique (4–6 h)
 - [ ] **Phase 2** — Base de données (6–8 h)
 - [ ] **Phase 3** — Authentification & sécurité (3–4 h)
 - [ ] **Phase 4** — Module ERP — Bradley (10–12 h)
@@ -31,7 +31,7 @@
 
 **Bradley**
 
-- [ ] Socle + auth terminés
+- [ ] Socle + auth terminés *(socle OK — auth phase 3)*
 - [ ] Module ERP terminé
 - [ ] Seeds académiques OK
 - [ ] API `summary` OK
@@ -45,8 +45,8 @@
 
 ### Jalon hackathon
 
-- [ ] `GET /health` → 200
-- [ ] `GET /docs` → Swagger OK
+- [x] `GET /health` → 200
+- [x] `GET /docs` → Swagger OK
 - [ ] Agent répond aux 5 phrases de test
 - [ ] Parcours démo 3 min sans erreur
 - [ ] Push sur `main` à jour
@@ -121,23 +121,23 @@ Fournir une **API REST unique** (`/api/v1`) qui :
 **Qui :** Bradley (lead)  
 **But :** FastAPI démarre, `/health` → 200.
 
-- [ ] **1.1** `requirements.txt` créé et installé (`venv`)
-- [ ] **1.2** `app/config.py` — `DATABASE_URL`, `JWT_SECRET`, `LLM_ENDPOINT`, `DEMO_MODE`
-- [ ] **1.3** `app/database.py` — engine + `SessionLocal` + `get_db`
-- [ ] **1.4** `app/main.py` — FastAPI + CORS (Laragon)
-- [ ] **1.5** Route `GET /health` → `{"status": "ok"}`
-- [ ] **1.6** Router `/api/v1` monté (vide pour l’instant)
-- [ ] **1.7** `StaticFiles` → `../frontend` (optionnel)
-- [ ] **1.8** `docker-compose.yml` (PostgreSQL si choisi)
-- [ ] **1.9** `backend/.env.example` + `backend/README.md` (install)
+- [x] **1.1** `requirements.txt` créé et installé (`venv`)
+- [x] **1.2** `app/config.py` — `DATABASE_URL`, `JWT_SECRET`, `LLM_ENDPOINT`, `DEMO_MODE`
+- [x] **1.3** `app/database.py` — engine + `SessionLocal` + `get_db`
+- [x] **1.4** `app/main.py` — FastAPI + CORS (Laragon)
+- [x] **1.5** Route `GET /health` → `{"status": "ok"}`
+- [x] **1.6** Router `/api/v1` monté (vide pour l’instant)
+- [x] **1.7** `StaticFiles` → `../frontend` (optionnel)
+- [x] **1.8** `docker-compose.yml` (PostgreSQL si choisi)
+- [x] **1.9** `backend/.env.example` + `backend/README.md` (install)
 
 **Vérification**
 
-- [ ] `uvicorn app.main:app --reload` démarre sans erreur
-- [ ] `http://localhost:8000/health` → 200
-- [ ] `http://localhost:8000/docs` → Swagger UI
+- [x] `uvicorn app.main:app --reload` démarre sans erreur
+- [x] `http://localhost:8000/health` → 200
+- [x] `http://localhost:8000/docs` → Swagger UI
 
-**Phase 1 terminée :** [ ]
+**Phase 1 terminée :** [x]
 
 ---
 

@@ -11,6 +11,20 @@ ERP universitaire + CRM campus + agent IA autonome — hackathon **OpenClaw** ·
 | BDD | PostgreSQL / SQLite |
 | IA | OpenClaw, LangChain, Yamify |
 
+## Démarrage rapide (backend)
+
+```powershell
+cd backend
+python -m venv venv
+.\venv\Scripts\Activate.ps1
+pip install -r requirements.txt
+copy .env.example .env
+uvicorn app.main:app --reload --port 8000
+```
+
+- API : http://localhost:8000/docs  
+- Health : http://localhost:8000/health  
+
 ## Documentation
 
 - [PROJET.md](docs/PROJET.md) — vision, équipe, pitch

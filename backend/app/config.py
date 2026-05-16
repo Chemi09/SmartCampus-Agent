@@ -24,6 +24,9 @@ class Settings(BaseSettings):
 
     database_url: str = DEFAULT_DATABASE_URL
 
+    # Origines CORS additionnelles (virgules) — ex. https://campus.yamify.cd
+    cors_origins: str = ""
+
     jwt_secret: str = "change-me-in-development"
     jwt_algorithm: str = "HS256"
     access_token_expire_minutes: int = 1440
@@ -38,6 +41,18 @@ class Settings(BaseSettings):
     @property
     def frontend_dir(self) -> Path:
         return PROJECT_ROOT / "frontend"
+
+    @property
+    def cors_origin_list(self) -> list[str]:
+        defaults = [
+            "http://localhost",
+            "http://localhost:8000",
+            "http://127.0.0.1",
+            "http://127.0.0.1:8000",
+            "http://smartcampus-agent.test",
+        ]
+        extra = [o.strip() for o in self.cors_origins.split(",") if o.strip()]
+        return list(dict.fromkeys(defaults + extra))
 
 
 @lru_cache

@@ -1,8 +1,16 @@
+### SmartCampus — fichier de requêtes manuelles (phase 9)
+# 1. Lancer : uvicorn app.main:app --reload --port 8000
+# 2. Login ci-dessous → copier access_token dans @token
+# 3. Remplacer TOKEN par la valeur ou utiliser @token si extension REST Client
+
+@baseUrl = http://localhost:8000
+@token = remplacer_apres_login
+
 ### Health
-GET http://localhost:8000/health
+GET {{baseUrl}}/health
 
 ### Login admin démo
-POST http://localhost:8000/api/v1/auth/login
+POST {{baseUrl}}/api/v1/auth/login
 Content-Type: application/json
 
 {
@@ -76,6 +84,15 @@ Content-Type: application/json
 
 ### CRM — communications
 GET http://localhost:8000/api/v1/crm/communications?student_id=1
+Authorization: Bearer TOKEN
+
+### Summary — fiche agrégée ERP+CRM (phase 7)
+# Remplacer ID par l'id de Jean Mukendi après seed (souvent 10)
+GET http://localhost:8000/api/v1/students/10/summary
+Authorization: Bearer TOKEN
+
+### Summary — par matricule via ERP puis summary
+GET http://localhost:8000/api/v1/erp/students/by-phone/+243810000001
 Authorization: Bearer TOKEN
 
 ### Agent — health

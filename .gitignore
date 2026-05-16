@@ -41,5 +41,10 @@ mysql-data/
 # Secrets
 .env.*
 !.env.example
+!.env.production.example
+backend/.env.production
+deploy/certs/*.pem
+deploy/certs/*.key
+!deploy/certs/.gitkeep
 # Local project configuration with secrets
 test-frontend/.project-config.json

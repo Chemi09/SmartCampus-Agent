@@ -13,7 +13,7 @@ from app.schemas.auth import LoginRequest, TokenResponse, UserRead
 router = APIRouter(prefix="/auth", tags=["auth"])
 
 
-@router.post("/login", response_model=TokenResponse)
+@router.post("/login", response_model=TokenResponse, summary="Connexion JWT")
 def login(body: LoginRequest, db: Annotated[Session, Depends(get_db)]) -> TokenResponse:
     user = db.scalar(select(User).where(User.email == body.email))
     if user is None or not verify_password(body.password, user.hashed_password):

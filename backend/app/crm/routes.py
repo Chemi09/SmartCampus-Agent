@@ -29,7 +29,7 @@ def crm_status(_: Annotated[User, Depends(require_admin)]) -> dict:
     return {"module": "crm", "status": "ok"}
 
 
-@router.get("/payments", response_model=list[PaymentRead])
+@router.get("/payments", response_model=list[PaymentRead], summary="Liste des paiements")
 def list_payments(
     service: Annotated[CrmService, Depends(get_crm_service)],
     _: Annotated[User, Depends(require_admin)],
@@ -42,7 +42,11 @@ def list_payments(
     return service.list_payments(status=status, student_id=student_id)
 
 
-@router.get("/students/{student_id}/balance", response_model=BalanceRead)
+@router.get(
+    "/students/{student_id}/balance",
+    response_model=BalanceRead,
+    summary="Solde frais semestre actif",
+)
 def get_student_balance(
     student_id: int,
     service: Annotated[CrmService, Depends(get_crm_service)],
@@ -70,12 +74,13 @@ def record_payment(
     return service.record_payment(payment_id, payload)
 
 
-@router.post("/relances", response_model=RelanceResponse)
+@router.post("/relances", response_model=RelanceResponse, summary="Envoyer relances impayés")
 def send_relances(
     payload: RelanceRequest,
     service: Annotated[CrmService, Depends(get_crm_service)],
     _: Annotated[User, Depends(require_admin)],
 ) -> RelanceResponse:
+    """Crée des entrées `communications` pour paiements impayés/partiels."""
     return service.send_relances(payload)
 
 

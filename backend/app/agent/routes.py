@@ -16,7 +16,7 @@ def get_orchestrator(db: Annotated[Session, Depends(get_db)]) -> AgentOrchestrat
     return AgentOrchestrator(db)
 
 
-@router.get("/health", response_model=AgentHealthResponse)
+@router.get("/health", response_model=AgentHealthResponse, summary="Santé agent + LLM")
 async def agent_health(
     orchestrator: Annotated[AgentOrchestrator, Depends(get_orchestrator)],
 ) -> AgentHealthResponse:
@@ -30,11 +30,12 @@ async def agent_health(
     )
 
 
-@router.post("/chat", response_model=ChatResponse)
+@router.post("/chat", response_model=ChatResponse, summary="Chat étudiant (WhatsApp mock)")
 async def agent_chat(
     payload: ChatRequest,
     orchestrator: Annotated[AgentOrchestrator, Depends(get_orchestrator)],
 ) -> ChatResponse:
+    """Identifie l'étudiant par téléphone, route l'intent, interroge ERP/CRM, répond en FR/Lingala."""
     return await orchestrator.chat(payload.phone, payload.message)
 
 

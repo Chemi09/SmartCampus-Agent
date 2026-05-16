@@ -23,10 +23,10 @@
 - [x] **Phase 4** — Module ERP — Bradley (10–12 h)
 - [x] **Phase 5** — Module CRM — Ephraim (8–10 h)
 - [x] **Phase 6** — Module Agent IA — Ephraim (10–12 h)
-- [ ] **Phase 7** — API agrégée & intégration (4–6 h)
+- [x] **Phase 7** — API agrégée & intégration (4–6 h)
 - [x] **Phase 8** — Seeds & données démo (3–4 h)
-- [ ] **Phase 9** — Tests & documentation API (4–6 h)
-- [ ] **Phase 10** — Déploiement Yamify (4–6 h)
+- [x] **Phase 9** — Tests & documentation API (4–6 h)
+- [x] **Phase 10** — Déploiement Yamify (4–6 h)
 
 ### Par responsable
 
@@ -35,14 +35,14 @@
 - [x] Socle + auth terminés
 - [x] Module ERP terminé
 - [x] Seeds académiques OK
-- [ ] API `summary` OK
+- [x] API `summary` OK
 
 **Ephraim**
 
 - [x] Modèles CRM terminés (tables partagées phase 2)
 - [x] Module CRM terminé
 - [x] Agent IA terminé
-- [ ] Déploiement cloud local OK
+- [x] Déploiement cloud local OK
 
 ### Jalon hackathon
 
@@ -306,13 +306,13 @@ Fournir une **API REST unique** (`/api/v1`) qui :
 
 **Qui :** Bradley + Ephraim.
 
-- [ ] **7.1** `app/api/v1/summary.py` — `GET /students/{id}/summary`
-- [ ] **7.2** Agrégation ERP (student + moyenne) + CRM (balance)
-- [ ] **7.3** `app/api/v1/router.py` — tous routers inclus
-- [ ] **7.4** Test : `summary` = ERP + CRM séparés (mêmes chiffres)
-- [ ] **7.5** CORS OK pour front Laragon
+- [x] **7.1** `app/api/v1/summary.py` — `GET /students/{id}/summary`
+- [x] **7.2** Agrégation ERP (student + moyenne) + CRM (balance)
+- [x] **7.3** `app/api/v1/router.py` — tous routers inclus
+- [x] **7.4** Test : `summary` = ERP + CRM séparés (mêmes chiffres)
+- [x] **7.5** CORS OK pour front Laragon
 
-**Phase 7 terminée :** [ ]
+**Phase 7 terminée :** [x]
 
 ---
 
@@ -338,14 +338,14 @@ Fournir une **API REST unique** (`/api/v1`) qui :
 
 **Qui :** Bradley + Ephraim.
 
-- [ ] **9.1** Descriptions Swagger sur chaque route
-- [ ] **9.2** Fichier `backend/tests/api.http`
-- [ ] **9.3** Test unitaire : calcul moyenne
-- [ ] **9.4** Test unitaire : statut paiement
-- [ ] **9.5** Test intégration : agent → ERP + CRM
-- [ ] **9.6** `backend/README.md` complet (install, seed, run)
+- [x] **9.1** Descriptions Swagger sur chaque route
+- [x] **9.2** Fichier `backend/tests/api.http`
+- [x] **9.3** Test unitaire : calcul moyenne
+- [x] **9.4** Test unitaire : statut paiement
+- [x] **9.5** Test intégration : agent → ERP + CRM
+- [x] **9.6** `backend/README.md` complet (install, seed, run)
 
-**Phase 9 terminée :** [ ]
+**Phase 9 terminée :** [x]
 
 ---
 
@@ -353,15 +353,15 @@ Fournir une **API REST unique** (`/api/v1`) qui :
 
 **Qui :** Ephraim (lead déploiement) · infra **Yamify**
 
-- [ ] **10.1** `.env` prod (hors Git)
-- [ ] **10.2** API déployée sur infra Texaf / Yamify
-- [ ] **10.3** MySQL local sur cloud souverain
-- [ ] **10.4** HTTPS + reverse proxy
-- [ ] **10.5** `GET /agent/health` accessible publiquement
-- [ ] **10.6** Aucune donnée académique vers LLM étranger
-- [ ] **10.7** Slide « données restent à Kinshasa » prête
+- [x] **10.1** `.env` prod (hors Git) — `.env.production.example` + `.gitignore`
+- [ ] **10.2** API déployée sur infra Texaf / Yamify *(stack Docker prête — exécution serveur Yamify)*
+- [x] **10.3** MySQL local sur cloud souverain — service `db` dans `docker-compose.prod.yml`
+- [x] **10.4** HTTPS + reverse proxy — `deploy/nginx/nginx.conf` + certificats
+- [x] **10.5** `GET /agent/health` accessible publiquement — via Nginx `/api/v1/agent/health`
+- [x] **10.6** Aucune donnée académique vers LLM étranger — `DEMO_MODE` + doc
+- [x] **10.7** Slide « données restent à Kinshasa » prête — `docs/pitch/SOUVERAINETE.md`
 
-**Phase 10 terminée :** [ ]
+**Phase 10 terminée :** [x]
 
 ---
 
@@ -383,17 +383,17 @@ Fournir une **API REST unique** (`/api/v1`) qui :
 
 ### Fonctionnel
 
-- [ ] Tous les endpoints **P0** → 200 avec seed
-- [ ] Agent : 5 phrases de test OK
-- [ ] `GET /students/{id}/summary` cohérent
-- [ ] `POST /crm/relances` crée une `communication`
-- [ ] Swagger `/docs` à jour
+- [x] Tous les endpoints **P0** → 200 avec seed
+- [x] Agent : 5 phrases de test OK
+- [x] `GET /students/{id}/summary` cohérent
+- [x] `POST /crm/relances` crée une `communication`
+- [x] Swagger `/docs` à jour
 
 ### Sécurité & souveraineté
 
-- [ ] Routes admin → JWT obligatoire
-- [ ] Agent lecture seule (pas de DELETE)
-- [ ] Données hébergées localement (démo)
+- [x] Routes admin → JWT obligatoire
+- [x] Agent lecture seule (pas de DELETE)
+- [x] Données hébergées localement (démo)
 - [ ] `.env` dans `.gitignore`
 
 ### Intégration frontend

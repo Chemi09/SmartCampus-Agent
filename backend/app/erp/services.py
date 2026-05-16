@@ -14,6 +14,17 @@ from app.erp.schemas import (
 from app.models.student import Student
 
 
+def compute_weighted_average(grades: list[tuple[float, int]]) -> float:
+    """Moyenne pondérée par crédits : [(score, credits), ...]."""
+    if not grades:
+        return 0.0
+    weighted_sum = sum(score * credits for score, credits in grades)
+    total_credits = sum(credits for _, credits in grades)
+    if total_credits == 0:
+        return 0.0
+    return round(weighted_sum / total_credits, 1)
+
+
 class ErpService:
     def __init__(self, db: Session) -> None:
         self.repo = ErpRepository(db)
@@ -75,16 +86,14 @@ class ErpService:
 
         rows = self.repo.list_grades_for_enrollment(enrollment.id)
         items: list[GradeItemRead] = []
-        weighted_sum = 0.0
-        total_credits = 0
+        grade_pairs: list[tuple[float, int]] = []
         for grade, course in rows:
             items.append(
                 GradeItemRead(course=course.name, score=grade.score, credits=course.credits)
             )
-            weighted_sum += grade.score * course.credits
-            total_credits += course.credits
+            grade_pairs.append((grade.score, course.credits))
 
-        average = round(weighted_sum / total_credits, 1) if total_credits else 0.0
+        average = compute_weighted_average(grade_pairs)
         return GradesSummaryRead(
             student_id=student.id,
             semester=semester.label,

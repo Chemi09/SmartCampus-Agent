@@ -37,7 +37,7 @@ def get_active_semester(
     return service.get_active_semester()
 
 
-@router.get("/students", response_model=list[StudentRead])
+@router.get("/students", response_model=list[StudentRead], summary="Liste des étudiants")
 def list_students(
     service: Annotated[ErpService, Depends(get_erp_service)],
     _: Annotated[User, Depends(require_admin)],
@@ -47,7 +47,11 @@ def list_students(
     return service.list_students(program_id=program_id, status=status)
 
 
-@router.get("/students/by-phone/{phone}", response_model=StudentRead)
+@router.get(
+    "/students/by-phone/{phone}",
+    response_model=StudentRead,
+    summary="Étudiant par téléphone (agent)",
+)
 def get_student_by_phone(
     phone: str,
     service: Annotated[ErpService, Depends(get_erp_service)],
@@ -65,7 +69,11 @@ def get_student(
     return service.get_student(student_id)
 
 
-@router.get("/students/{student_id}/grades", response_model=GradesSummaryRead)
+@router.get(
+    "/students/{student_id}/grades",
+    response_model=GradesSummaryRead,
+    summary="Notes et moyenne pondérée",
+)
 def get_student_grades(
     student_id: int,
     service: Annotated[ErpService, Depends(get_erp_service)],

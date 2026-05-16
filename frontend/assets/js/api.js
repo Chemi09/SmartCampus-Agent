@@ -143,6 +143,10 @@
     return getJson('/crm/students/' + encodeURIComponent(studentId) + '/payments');
   }
 
+  async function getStudentSummary(studentId) {
+    return getJson('/students/' + encodeURIComponent(studentId) + '/summary');
+  }
+
   async function crmListCommunications(studentId) {
     var q = studentId != null ? '?student_id=' + encodeURIComponent(studentId) : '';
     return getJson('/crm/communications' + q);
@@ -187,6 +191,7 @@
     crmGetStudentBalance: crmGetStudentBalance,
     crmListStudentPayments: crmListStudentPayments,
     crmListCommunications: crmListCommunications,
+    getStudentSummary: getStudentSummary,
     loadDemoStudentBundle: loadDemoStudentBundle,
     agentChat: agentChat,
   };

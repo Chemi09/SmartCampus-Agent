@@ -102,6 +102,92 @@ Mode démo : `DEMO_MODE=true` → réponses par templates (données ERP/CRM rée
 
 Téléphone démo : `+243810000001` (Jean Mukendi).
 
+## API Summary (phase 7)
+
+Agrégation ERP + CRM en un seul appel (JWT admin).
+
+| Méthode | Route | Description |
+|---------|-------|-------------|
+| GET | `/students/{id}/summary` | Matricule, moyenne, statut paiement, solde restant |
+
+## Tests (phase 9)
+
+```powershell
+cd backend
+.\venv\Scripts\Activate.ps1
+pip install -r requirements.txt
+
+# Unitaires uniquement (sans MySQL)
+pytest tests/test_erp_average.py tests/test_crm_payment_status.py -v
+
+# Tous les tests (MySQL + seed requis)
+pytest -v
+
+# Intégration seulement
+pytest -m integration -v
+```
+
+Fichier manuel : `backend/tests/api.http` (REST Client VS Code / Cursor).
+
+| Fichier | Contenu |
+|---------|---------|
+| `test_erp_average.py` | Moyenne pondérée (72,5 % démo) |
+| `test_crm_payment_status.py` | Statuts paid/partial/unpaid/overdue |
+| `test_agent_integration.py` | 5 phrases agent + ERP/CRM |
+| `test_api_integration.py` | Auth, summary, impayés |
+
+Swagger : http://localhost:8000/docs (résumés sur routes P0).
+
+## Déploiement production (phase 10 — Yamify)
+
+### Prérequis serveur
+
+- Docker + Docker Compose
+- Ports **80** et **443** ouverts
+- Fichier `backend/.env.production` (jamais dans Git) — modèle : `.env.production.example`
+
+### Stack conteneurs (`docker-compose.prod.yml`)
+
+| Service | Rôle |
+|---------|------|
+| `db` | MySQL 8 (données campus) |
+| `api` | FastAPI + migrations + seed |
+| `nginx` | HTTPS reverse proxy → API |
+
+### Déploiement local (simulation Kinshasa)
+
+```powershell
+# Depuis la racine du projet
+.\deploy\generate-certs.ps1
+copy backend\.env.production.example backend\.env.production
+# Éditer JWT_SECRET, MYSQL_PASSWORD
+
+.\deploy-prod.ps1 -Build
+```
+
+| URL | Description |
+|-----|-------------|
+| https://localhost/ | Frontend + API |
+| https://localhost/health | Santé API |
+| https://localhost/api/v1/agent/health | Agent (public via proxy) |
+| https://localhost/docs | Swagger |
+
+```powershell
+.\deploy-prod.ps1 -Logs
+.\deploy-prod.ps1 -Down
+```
+
+### Checklist Yamify (prod réelle)
+
+1. Copier le projet sur le serveur Texaf / Yamify
+2. `backend/.env.production` avec secrets forts + `CORS_ORIGINS` du domaine final
+3. `DEMO_MODE=true` ou `LLM_ENDPOINT` vers Ollama **local**
+4. Certificats Let's Encrypt (remplacer `deploy/certs/` auto-signés)
+5. `docker compose -f docker-compose.prod.yml up -d --build`
+6. Vérifier `GET /agent/health` depuis l’extérieur
+
+Slide pitch souveraineté : [docs/pitch/SOUVERAINETE.md](../docs/pitch/SOUVERAINETE.md)
+
 ## Plans
 
 - [PLAN-BACKEND.md](../docs/PLAN-BACKEND.md)

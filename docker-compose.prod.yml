@@ -1,0 +1,57 @@
+# Production / démo hackathon — MySQL + API + Nginx (HTTPS)
+# Usage :
+#   cp backend/.env.production.example backend/.env.production
+#   # éditer JWT_SECRET, mots de passe
+#   .\deploy\generate-certs.ps1
+#   docker compose -f docker-compose.prod.yml up -d --build
+
+services:
+  db:
+    image: mysql:8.0
+    container_name: smartcampus-mysql-prod
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-root}
+      MYSQL_DATABASE: smartcampus
+      MYSQL_USER: smartcampus
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD:-smartcampus}
+    volumes:
+      - mysql-prod-data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-uroot", "-p${MYSQL_ROOT_PASSWORD:-root}"]
+      interval: 10s
+      timeout: 5s
+      retries: 12
+
+  api:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: smartcampus-api-prod
+    restart: unless-stopped
+    env_file:
+      - ./backend/.env.production
+    environment:
+      DATABASE_URL: mysql+pymysql://smartcampus:${MYSQL_PASSWORD:-smartcampus}@db:3306/smartcampus?charset=utf8mb4
+    depends_on:
+      db:
+        condition: service_healthy
+    expose:
+      - "8000"
+    command: ["/app/deploy/entrypoint.sh"]
+
+  nginx:
+    image: nginx:1.27-alpine
+    container_name: smartcampus-nginx
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./deploy/nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./deploy/certs:/etc/nginx/certs:ro
+    depends_on:
+      - api
+
+volumes:
+  mysql-prod-data:

@@ -24,6 +24,11 @@ class NotFoundException(AppException):
         super().__init__(404, "not_found", message)
 
 
+class BadRequestException(AppException):
+    def __init__(self, message: str = "Requête invalide") -> None:
+        super().__init__(400, "bad_request", message)
+
+
 def register_exception_handlers(app: FastAPI) -> None:
     @app.exception_handler(AppException)
     async def app_exception_handler(_: Request, exc: AppException) -> JSONResponse:

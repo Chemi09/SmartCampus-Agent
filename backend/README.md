@@ -71,6 +71,37 @@ uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
 | http://localhost:8000/health | `{"status":"ok","database":"connected"}` |
 | http://localhost:8000/docs | Swagger UI |
 
+## API CRM (phase 5)
+
+Toutes les routes `/api/v1/crm/*` exigent `Authorization: Bearer <token>` (admin).
+
+| Méthode | Route | Description |
+|---------|-------|-------------|
+| GET | `/crm/status` | Santé du module |
+| GET | `/crm/payments?status=unpaid` | Liste des paiements (filtre statut) |
+| GET | `/crm/payments?status=outstanding` | Impayés + partiels + en retard |
+| GET | `/crm/students/{id}/balance` | Solde semestre actif (CDF) |
+| GET | `/crm/students/{id}/payments` | Historique paiements |
+| POST | `/crm/payments/{id}/record` | Enregistrer un paiement (mock Mobile Money) |
+| POST | `/crm/relances` | Relance WhatsApp/SMS → `communications` |
+| GET | `/crm/communications?student_id=` | Historique messages |
+
+Exemples dans `backend/tests/api.http`.
+
+## API Agent (phase 6)
+
+Routes publiques (simulateur WhatsApp / `demo/chat.html`) — pas de JWT.
+
+| Méthode | Route | Description |
+|---------|-------|-------------|
+| GET | `/agent/health` | Statut module + LLM |
+| POST | `/agent/chat` | `{ "phone": "+243...", "message": "..." }` |
+| POST | `/agent/webhook/whatsapp` | Même contrat (mock Joel) |
+
+Mode démo : `DEMO_MODE=true` → réponses par templates (données ERP/CRM réelles, sans appel LLM).
+
+Téléphone démo : `+243810000001` (Jean Mukendi).
+
 ## Plans
 
 - [PLAN-BACKEND.md](../docs/PLAN-BACKEND.md)

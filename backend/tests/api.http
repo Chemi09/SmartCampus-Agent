@@ -37,8 +37,97 @@ Authorization: Bearer TOKEN
 GET http://localhost:8000/api/v1/erp/students/1/grades
 Authorization: Bearer TOKEN
 
-### Agent chat (phase 6)
+### CRM protégé — status
+GET http://localhost:8000/api/v1/crm/status
+Authorization: Bearer TOKEN
+
+### CRM — liste impayés
+GET http://localhost:8000/api/v1/crm/payments?status=unpaid
+Authorization: Bearer TOKEN
+
+### CRM — solde Jean Mukendi (ETU-2026-001, id=1 après seed)
+GET http://localhost:8000/api/v1/crm/students/1/balance
+Authorization: Bearer TOKEN
+
+### CRM — paiements d'un étudiant
+GET http://localhost:8000/api/v1/crm/students/1/payments
+Authorization: Bearer TOKEN
+
+### CRM — enregistrer paiement mock
+POST http://localhost:8000/api/v1/crm/payments/1/record
+Authorization: Bearer TOKEN
+Content-Type: application/json
+
+{
+  "amount": 100000,
+  "method": "mobile_money",
+  "reference": "MM-DEMO-001"
+}
+
+### CRM — relance
+POST http://localhost:8000/api/v1/crm/relances
+Authorization: Bearer TOKEN
+Content-Type: application/json
+
+{
+  "student_ids": [1],
+  "channel": "whatsapp"
+}
+
+### CRM — communications
+GET http://localhost:8000/api/v1/crm/communications?student_id=1
+Authorization: Bearer TOKEN
+
+### Agent — health
+GET http://localhost:8000/api/v1/agent/health
+
+### Agent — moyenne (6.18)
 POST http://localhost:8000/api/v1/agent/chat
+Content-Type: application/json
+
+{
+  "phone": "+243810000001",
+  "message": "Quelle est ma moyenne du semestre ?"
+}
+
+### Agent — frais S2 (6.19)
+POST http://localhost:8000/api/v1/agent/chat
+Content-Type: application/json
+
+{
+  "phone": "+243810000001",
+  "message": "Ai-je payé mes frais S2 ?"
+}
+
+### Agent — inscription Master (6.20)
+POST http://localhost:8000/api/v1/agent/chat
+Content-Type: application/json
+
+{
+  "phone": "+243810000001",
+  "message": "Quand ferme l'inscription en Master ?"
+}
+
+### Agent — statut dossier (6.21)
+POST http://localhost:8000/api/v1/agent/chat
+Content-Type: application/json
+
+{
+  "phone": "+243810000001",
+  "message": "Mon dossier est-il actif ?"
+}
+
+### Agent — fallback (6.22)
+POST http://localhost:8000/api/v1/agent/chat
+Content-Type: application/json
+
+{
+  "phone": "+243810000001",
+  "message": "Bonjour"
+}
+
+### Agent — webhook WhatsApp (mock Joel)
+POST http://localhost:8000/api/v1/agent/webhook/whatsapp
 Content-Type: application/json
 
 {

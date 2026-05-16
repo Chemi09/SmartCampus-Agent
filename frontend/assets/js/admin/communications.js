@@ -1,15 +1,21 @@
 (function () {
   'use strict';
 
-  var announcements = SC_MOCK.announcements.slice();
-
   function typeBadge(t) {
     if (t === 'urgent') return { cls: 'sc-badge-status-unpaid', icon: 'bi-bell', lbl: 'Urgent' };
-    if (t === 'warning') return { cls: 'sc-badge-status-suspended', icon: 'bi-exclamation-triangle', lbl: 'Important' };
+    if (t === 'warning') return { cls: 'sc-badge-status-suspended', icon: 'bi-exclamation-triangle', lbl: 'Relance' };
     return { cls: 'bg-primary bg-opacity-10 text-primary border border-primary border-opacity-25', icon: 'bi-info-circle', lbl: 'Information' };
   }
 
-  document.addEventListener('DOMContentLoaded', function () {
+  async function load() {
+    var announcements = [];
+    try {
+      var raw = await SC_API.crmListCommunications();
+      announcements = raw.map(SC_API.mapApiCommunication);
+    } catch (e) {
+      announcements = SC_MOCK.announcements.slice();
+    }
+
     document.getElementById('ann-list').innerHTML = announcements
       .map(function (a) {
         var b = typeBadge(a.type);
@@ -28,5 +34,7 @@
         );
       })
       .join('');
-  });
+  }
+
+  document.addEventListener('DOMContentLoaded', load);
 })();

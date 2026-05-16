@@ -64,11 +64,14 @@
     bubble('user', text);
     var typing = document.getElementById('demo-typing');
     typing.classList.remove('d-none');
-    var out = getMock(text);
+    var out = '';
+    var phone = (window.SC_CONFIG && SC_CONFIG.DEMO_STUDENT_PHONE) || '+243810000001';
     try {
-      var data = await SC_API.agentChat({ message: text, phone: '+243810000001' });
-      if (data && (data.reply || data.response || data.message)) out = data.reply || data.response || data.message;
-    } catch (e) {}
+      var data = await SC_API.agentChat({ message: text, phone: phone });
+      out = (data && (data.reply || data.response || data.message)) || getMock(text);
+    } catch (e) {
+      out = getMock(text) + '\n\n_(hors ligne — démarrez le backend sur :8000)_';
+    }
     setTimeout(function () {
       typing.classList.add('d-none');
       bubble('assistant', out);

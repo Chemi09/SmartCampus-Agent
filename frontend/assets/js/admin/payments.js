@@ -1,8 +1,8 @@
 (function () {
   'use strict';
 
-  var payments = SC_MOCK.payments.slice();
-  var chartData = SC_MOCK.paymentChartByMonth;
+  var payments = [];
+  var chartData = [];
   var payChart = null;
 
   function chartPalette() {
@@ -11,13 +11,9 @@
       : { text: '#64748b', grid: 'rgba(226,232,240,0.8)' };
   }
 
-  var typeLabels = {
-    inscription: 'Inscription',
-    tranche1: 'Tranche 1',
-    tranche2: 'Tranche 2',
-    tranche3: 'Tranche 3',
-    exam: "Frais d'examen",
-  };
+  function formatAmt(n) {
+    return SC_API.formatMoney(n, 'CDF');
+  }
 
   function renderStats() {
     var total = payments.reduce(function (a, p) {
@@ -25,29 +21,29 @@
     }, 0);
     var col = payments
       .filter(function (p) {
-        return p.status === 'paid';
+        return p.rawStatus === 'paid';
       })
       .reduce(function (a, p) {
-        return a + p.amount;
+        return a + p.paidAmount;
       }, 0);
     var pend = payments
       .filter(function (p) {
-        return p.status === 'pending';
+        return p.rawStatus === 'partial' || p.rawStatus === 'unpaid';
       })
       .reduce(function (a, p) {
-        return a + p.amount;
+        return a + (p.amount - p.paidAmount);
       }, 0);
     var ov = payments
       .filter(function (p) {
-        return p.status === 'overdue';
+        return p.rawStatus === 'overdue';
       })
       .reduce(function (a, p) {
-        return a + p.amount;
+        return a + (p.amount - p.paidAmount);
       }, 0);
-    document.getElementById('stat-total').textContent = '$' + (total / 1000).toFixed(1) + 'K';
-    document.getElementById('stat-collected').textContent = '$' + (col / 1000).toFixed(1) + 'K';
-    document.getElementById('stat-pending').textContent = '$' + (pend / 1000).toFixed(1) + 'K';
-    document.getElementById('stat-overdue').textContent = '$' + (ov / 1000).toFixed(1) + 'K';
+    document.getElementById('stat-total').textContent = formatAmt(total);
+    document.getElementById('stat-collected').textContent = formatAmt(col);
+    document.getElementById('stat-pending').textContent = formatAmt(pend);
+    document.getElementById('stat-overdue').textContent = formatAmt(ov);
   }
 
   function badge(st) {
@@ -85,19 +81,48 @@
           '</code></td><td><span class="small fw-medium">' +
           SC_Utils.escapeHtml(p.studentName) +
           '</span></td><td class="d-none d-md-table-cell small">' +
-          SC_Utils.escapeHtml(typeLabels[p.type] || p.type) +
-          '</td><td class="text-end fw-bold">$' +
-          p.amount +
-          '<span class="text-muted fw-normal small"> ' +
-          SC_Utils.escapeHtml(p.currency) +
-          '</span></td><td class="d-none d-lg-table-cell small text-muted">' +
+          SC_Utils.escapeHtml(p.type) +
+          '</td><td class="text-end fw-bold">' +
+          formatAmt(p.amount) +
+          '</td><td class="d-none d-lg-table-cell small text-muted">' +
           SC_Utils.formatDateFr(p.dueDate) +
           '</td><td class="text-center">' +
           badge(p.status) +
-          '</td><td class="text-end"><button type="button" class="btn btn-sm btn-link text-muted"><i class="bi bi-three-dots"></i></button></td></tr>'
+          '</td><td class="text-end"><a class="btn btn-sm btn-link" href="student-detail.html?id=' +
+          encodeURIComponent(p.studentId) +
+          '"><i class="bi bi-eye"></i></a></td></tr>'
         );
       })
       .join('');
+  }
+
+  function buildChartData() {
+    chartData = [
+      {
+        month: 'Collectés',
+        paid: payments
+          .filter(function (p) {
+            return p.rawStatus === 'paid';
+          })
+          .reduce(function (a, p) {
+            return a + p.paidAmount;
+          }, 0),
+        pending: payments
+          .filter(function (p) {
+            return p.rawStatus === 'partial' || p.rawStatus === 'unpaid';
+          })
+          .reduce(function (a, p) {
+            return a + (p.amount - p.paidAmount);
+          }, 0),
+        overdue: payments
+          .filter(function (p) {
+            return p.rawStatus === 'overdue';
+          })
+          .reduce(function (a, p) {
+            return a + (p.amount - p.paidAmount);
+          }, 0),
+      },
+    ];
   }
 
   function renderChart() {
@@ -108,25 +133,38 @@
     payChart = new Chart(ctx, {
       type: 'bar',
       data: {
-        labels: chartData.map(function (d) {
-          return d.month;
-        }),
+        labels: ['Semestre actif'],
         datasets: [
-          { label: 'Payé', data: chartData.map(function (d) { return d.paid; }), backgroundColor: 'rgba(20, 184, 166, 0.85)', borderRadius: 4 },
-          { label: 'En attente', data: chartData.map(function (d) { return d.pending; }), backgroundColor: 'rgba(245, 158, 11, 0.75)', borderRadius: 4 },
-          { label: 'En retard', data: chartData.map(function (d) { return d.overdue; }), backgroundColor: 'rgba(225, 29, 72, 0.8)', borderRadius: 4 },
+          {
+            label: 'Payé',
+            data: [chartData[0] ? chartData[0].paid : 0],
+            backgroundColor: 'rgba(20, 184, 166, 0.85)',
+            borderRadius: 4,
+          },
+          {
+            label: 'En attente',
+            data: [chartData[0] ? chartData[0].pending : 0],
+            backgroundColor: 'rgba(245, 158, 11, 0.75)',
+            borderRadius: 4,
+          },
+          {
+            label: 'En retard',
+            data: [chartData[0] ? chartData[0].overdue : 0],
+            backgroundColor: 'rgba(225, 29, 72, 0.8)',
+            borderRadius: 4,
+          },
         ],
       },
       options: {
         responsive: true,
         maintainAspectRatio: false,
         scales: {
-          x: { stacked: false, grid: { display: false }, ticks: { color: c.text } },
+          x: { grid: { display: false }, ticks: { color: c.text } },
           y: {
             ticks: {
               color: c.text,
               callback: function (v) {
-                return '$' + v / 1000 + 'K';
+                return (v / 1000).toFixed(0) + 'K';
               },
             },
             grid: { color: c.grid },
@@ -137,17 +175,27 @@
     });
   }
 
-  document.addEventListener('DOMContentLoaded', function () {
+  async function load() {
+    try {
+      var raw = await SC_API.crmListPayments();
+      payments = raw.map(SC_API.mapApiPayment);
+    } catch (e) {
+      payments = SC_MOCK.payments.slice();
+    }
+    buildChartData();
+    renderStats();
     renderChart();
+    applyFilter();
+  }
+
+  document.addEventListener('DOMContentLoaded', function () {
+    document.getElementById('search-pay').addEventListener('input', SC_Utils.debounce(applyFilter, 200));
+    document.getElementById('filter-pay-status').addEventListener('change', applyFilter);
     window.addEventListener('sc-theme-change', renderChart);
     window.addEventListener('sc-lang-change', function () {
       applyFilter();
       renderChart();
     });
-
-    renderStats();
-    document.getElementById('search-pay').addEventListener('input', SC_Utils.debounce(applyFilter, 200));
-    document.getElementById('filter-pay-status').addEventListener('change', applyFilter);
-    applyFilter();
+    load();
   });
 })();

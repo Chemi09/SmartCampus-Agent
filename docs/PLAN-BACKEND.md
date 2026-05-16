@@ -21,8 +21,8 @@
 - [x] **Phase 2** — Base de données (6–8 h)
 - [x] **Phase 3** — Authentification & sécurité (3–4 h)
 - [x] **Phase 4** — Module ERP — Bradley (10–12 h)
-- [ ] **Phase 5** — Module CRM — Ephraim (8–10 h)
-- [ ] **Phase 6** — Module Agent IA — Ephraim (10–12 h)
+- [x] **Phase 5** — Module CRM — Ephraim (8–10 h)
+- [x] **Phase 6** — Module Agent IA — Ephraim (10–12 h)
 - [ ] **Phase 7** — API agrégée & intégration (4–6 h)
 - [x] **Phase 8** — Seeds & données démo (3–4 h)
 - [ ] **Phase 9** — Tests & documentation API (4–6 h)
@@ -40,15 +40,15 @@
 **Ephraim**
 
 - [x] Modèles CRM terminés (tables partagées phase 2)
-- [ ] Module CRM terminé
-- [ ] Agent IA terminé
+- [x] Module CRM terminé
+- [x] Agent IA terminé
 - [ ] Déploiement cloud local OK
 
 ### Jalon hackathon
 
 - [x] `GET /health` → 200
 - [x] `GET /docs` → Swagger OK
-- [ ] Agent répond aux 5 phrases de test
+- [x] Agent répond aux 5 phrases de test
 - [ ] Parcours démo 3 min sans erreur
 - [ ] Push sur `main` à jour
 
@@ -233,27 +233,27 @@ Fournir une **API REST unique** (`/api/v1`) qui :
 
 ### Fichiers module
 
-- [ ] **5.1** `crm/schemas.py` — Payment, Balance, Communication
-- [ ] **5.2** `crm/services.py` — statut `paid|partial|unpaid|overdue`
-- [ ] **5.3** `crm/services.py` — `record_payment` (mock Mobile Money)
-- [ ] **5.4** `crm/services.py` — `send_relance` → table `communications`
-- [ ] **5.5** `crm/routes.py` — router enregistré
+- [x] **5.1** `crm/schemas.py` — Payment, Balance, Communication
+- [x] **5.2** `crm/services.py` — statut `paid|partial|unpaid|overdue`
+- [x] **5.3** `crm/services.py` — `record_payment` (mock Mobile Money)
+- [x] **5.4** `crm/services.py` — `send_relance` → table `communications`
+- [x] **5.5** `crm/routes.py` — router enregistré
 
 ### Endpoints
 
-- [ ] **5.6** `GET /crm/students/{id}/balance` (P0 — agent)
-- [ ] **5.7** `GET /crm/payments?status=unpaid` (P0 — front Michée)
-- [ ] **5.8** `GET /crm/students/{id}/payments` (P1)
-- [ ] **5.9** `POST /crm/payments/{id}/record` (P1)
-- [ ] **5.10** `POST /crm/relances` (P1)
-- [ ] **5.11** `GET /crm/communications` (P2)
+- [x] **5.6** `GET /crm/students/{id}/balance` (P0 — agent)
+- [x] **5.7** `GET /crm/payments?status=unpaid` (P0 — front Michée)
+- [x] **5.8** `GET /crm/students/{id}/payments` (P1)
+- [x] **5.9** `POST /crm/payments/{id}/record` (P1)
+- [x] **5.10** `POST /crm/relances` (P1)
+- [x] **5.11** `GET /crm/communications` (P2)
 
 ### Tests
 
-- [ ] **5.12** Liste impayés retourne ≥ 2 étudiants (seed)
-- [ ] **5.13** `balance` cohérent pour `ETU-2026-001` (partial, 300 000 CDF restants)
+- [x] **5.12** Liste impayés retourne ≥ 2 étudiants (seed)
+- [x] **5.13** `balance` cohérent pour `ETU-2026-001` (partial, 300 000 CDF restants)
 
-**Phase 5 terminée :** [ ]
+**Phase 5 terminée :** [x]
 
 ---
 
@@ -263,42 +263,42 @@ Fournir une **API REST unique** (`/api/v1`) qui :
 
 ### Fichiers module
 
-- [ ] **6.1** `agent/prompts/system.txt` (FR / Lingala, pas d’hallucination)
-- [ ] **6.2** `agent/intents.py` — classifier
-- [ ] **6.3** `agent/handlers/grades.py`
-- [ ] **6.4** `agent/handlers/payment.py`
-- [ ] **6.5** `agent/handlers/enrollment.py`
-- [ ] **6.6** `agent/handlers/fallback.py`
-- [ ] **6.7** `agent/orchestrator.py`
-- [ ] **6.8** `agent/routes.py`
+- [x] **6.1** `agent/prompts/system.txt` (FR / Lingala, pas d’hallucination)
+- [x] **6.2** `agent/intents.py` — classifier
+- [x] **6.3** `agent/handlers/grades.py`
+- [x] **6.4** `agent/handlers/payment.py`
+- [x] **6.5** `agent/handlers/enrollment.py`
+- [x] **6.6** `agent/handlers/fallback.py`
+- [x] **6.7** `agent/orchestrator.py`
+- [x] **6.8** `agent/routes.py`
 
 ### Endpoints
 
-- [ ] **6.9** `POST /agent/chat`
-- [ ] **6.10** `POST /agent/webhook/whatsapp`
-- [ ] **6.11** `GET /agent/health`
+- [x] **6.9** `POST /agent/chat`
+- [x] **6.10** `POST /agent/webhook/whatsapp`
+- [x] **6.11** `GET /agent/health`
 
 ### Intents
 
-- [ ] **6.12** Intent `grades.average` fonctionnel
-- [ ] **6.13** Intent `payment.status` fonctionnel
-- [ ] **6.14** Intent `enrollment.dates` fonctionnel
-- [ ] **6.15** Intent `student.status` fonctionnel
-- [ ] **6.16** Intent `unknown` / fallback fonctionnel
+- [x] **6.12** Intent `grades.average` fonctionnel
+- [x] **6.13** Intent `payment.status` fonctionnel
+- [x] **6.14** Intent `enrollment.dates` fonctionnel
+- [x] **6.15** Intent `student.status` fonctionnel
+- [x] **6.16** Intent `unknown` / fallback fonctionnel
 
 ### Connexion LLM
 
-- [ ] **6.17** OpenClaw / LLM souverain connecté **ou** mock `DEMO_MODE=true`
+- [x] **6.17** OpenClaw / LLM souverain connecté **ou** mock `DEMO_MODE=true`
 
 ### Tests agent (5 phrases)
 
-- [ ] **6.18** « Quelle est ma moyenne du semestre ? »
-- [ ] **6.19** « Ai-je payé mes frais S2 ? »
-- [ ] **6.20** « Quand ferme l'inscription en Master ? »
-- [ ] **6.21** « Mon dossier est-il actif ? »
-- [ ] **6.22** « Bonjour » → fallback
+- [x] **6.18** « Quelle est ma moyenne du semestre ? »
+- [x] **6.19** « Ai-je payé mes frais S2 ? »
+- [x] **6.20** « Quand ferme l'inscription en Master ? »
+- [x] **6.21** « Mon dossier est-il actif ? »
+- [x] **6.22** « Bonjour » → fallback
 
-**Phase 6 terminée :** [ ]
+**Phase 6 terminée :** [x]
 
 ---
 

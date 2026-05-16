@@ -1,16 +1,16 @@
 import type { Metadata, Viewport } from 'next'
-import { Geist, Geist_Mono } from 'next/font/google'
+import { Inter, JetBrains_Mono } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
 import './globals.css'
 
-const geistSans = Geist({ 
-  subsets: ["latin"],
-  variable: "--font-geist-sans"
-});
-const geistMono = Geist_Mono({ 
-  subsets: ["latin"],
-  variable: "--font-geist-mono"
-});
+const fontSans = Inter({
+  subsets: ['latin'],
+  variable: '--font-inter',
+})
+const fontMono = JetBrains_Mono({
+  subsets: ['latin'],
+  variable: '--font-jetbrains-mono',
+})
 
 export const metadata: Metadata = {
   title: 'SmartCampus AgentAI | Gestion Universitaire Intelligente',
@@ -53,7 +53,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="fr" className="dark bg-background">
-      <body className={`${geistSans.variable} ${geistMono.variable} font-sans antialiased`}>
+      <body className={`${fontSans.variable} ${fontMono.variable} font-sans antialiased`}>
         {children}
         {process.env.NODE_ENV === 'production' && <Analytics />}
       </body>

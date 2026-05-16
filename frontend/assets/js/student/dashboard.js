@@ -1,19 +1,54 @@
 (function () {
   'use strict';
 
-  var d = SC_MOCK.studentPortal;
+  document.addEventListener('DOMContentLoaded', async function () {
+    var d = SC_MOCK.studentPortal;
+    var bundle = null;
+    if (window.SC_StudentAPI) {
+      bundle = await SC_StudentAPI.loadPortalData();
+    }
 
-  document.addEventListener('DOMContentLoaded', function () {
-    document.getElementById('st-welcome').textContent = "Bonjour, " + d.name.split(" ")[0] + " !";
-    document.getElementById('st-sub').textContent = d.faculty + ' - ' + d.level + ' | Année ' + d.academicYear;
+    if (bundle && bundle.student) {
+      var s = bundle.student;
+      var g = bundle.grades;
+      var bal = bundle.balance;
+      var prog = s.program || {};
+      d = {
+        name: s.first_name + ' ' + s.last_name,
+        faculty: prog.name || '—',
+        level: prog.level || '—',
+        academicYear: g.semester || '2025-2026',
+        gpa: g.average ? (g.average / 100) * 20 : 0,
+        totalCredits: (g.grades || []).reduce(function (a, x) {
+          return a + x.credits;
+        }, 0),
+        requiredCredits: 30,
+        amountPaid: Number(bal.paid),
+        totalFees: Number(bal.total_due),
+        coursesThisSemester: (g.grades || []).length,
+        recentGrades: (g.grades || []).slice(0, 4).map(function (x) {
+          return {
+            course: x.course,
+            credits: x.credits,
+            grade: SC_StudentAPI.scoreToGrade20(x.score),
+            maxGrade: 20,
+          };
+        }),
+        upcomingEvents: d.upcomingEvents,
+        notificationsPreview: d.notificationsPreview,
+      };
+    }
 
-    var payPct = (d.amountPaid / d.totalFees) * 100;
-    var credPct = (d.totalCredits / d.requiredCredits) * 100;
+    document.getElementById('st-welcome').textContent = 'Bonjour, ' + d.name.split(' ')[0] + ' !';
+    document.getElementById('st-sub').textContent = d.faculty + ' - ' + d.level + ' | ' + d.academicYear;
 
-    document.getElementById('st-gpa').textContent = String(d.gpa);
+    var payPct = d.totalFees > 0 ? (d.amountPaid / d.totalFees) * 100 : 0;
+    var credPct = d.requiredCredits > 0 ? (d.totalCredits / d.requiredCredits) * 100 : 0;
+
+    document.getElementById('st-gpa').textContent = d.gpa ? d.gpa.toFixed(1) : '—';
     document.getElementById('st-cred').textContent = String(d.totalCredits);
     document.getElementById('st-cred-bar').style.width = Math.min(credPct, 100) + '%';
-    document.getElementById('st-pay').textContent = d.amountPaid + '$';
+    document.getElementById('st-pay').textContent = SC_API.formatMoney(d.amountPaid, 'CDF');
     document.getElementById('st-pay-bar').style.width = Math.min(payPct, 100) + '%';
     document.getElementById('st-courses').textContent = String(d.coursesThisSemester);
 
@@ -28,7 +63,8 @@
           '<div class="text-end"><div class="fs-5 fw-bold">' + g.grade + '/' + g.maxGrade + '</div><span class="badge bg-' + cls + '">' + lb + '</span></div></div>'
         );
       })
-      .join('');
+      .join('')
+      .replace(/<\/?motion[^>]*>/g, '');
 
     document.getElementById('st-events').innerHTML = d.upcomingEvents
       .map(function (ev) {
@@ -42,7 +78,8 @@
           '<span class="badge border align-self-start">' + lb + '</span></div>'
         );
       })
-      .join('');
+      .join('')
+      .replace(/<\/?motion[^>]*>/g, '');
 
     document.getElementById('st-notifs').innerHTML = d.notificationsPreview
       .map(function (n) {
@@ -56,3 +93,5 @@
       .join('');
   });
 })();
+
+

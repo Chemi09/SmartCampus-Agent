@@ -82,26 +82,39 @@ def seed_demo_data(db: Session, *, reset: bool = False) -> None:
         print(f"Données démo déjà présentes ({DEMO_MATRICULE}). Utilisez --reset pour recréer.")
         return
 
-    faculty = Faculty(name="Faculté des Sciences et Technologies")
-    db.add(faculty)
-    db.flush()
-
-    program = Program(
-        faculty_id=faculty.id,
-        name="L2 Informatique",
-        level="L2",
+    faculty = db.scalar(
+        select(Faculty).where(Faculty.name == "Faculté des Sciences et Technologies")
     )
-    db.add(program)
-    db.flush()
+    if faculty is None:
+        faculty = Faculty(name="Faculté des Sciences et Technologies")
+        db.add(faculty)
+        db.flush()
 
-    semester = Semester(
-        label="S2 2025-2026",
-        start_date=date(2026, 1, 15),
-        end_date=date(2026, 6, 30),
-        is_active=True,
+    program = db.scalar(
+        select(Program).where(Program.name == "L2 Informatique", Program.faculty_id == faculty.id)
     )
-    db.add(semester)
-    db.flush()
+    if program is None:
+        program = Program(
+            faculty_id=faculty.id,
+            name="L2 Informatique",
+            level="L2",
+        )
+        db.add(program)
+        db.flush()
+
+    semester = db.scalar(select(Semester).where(Semester.is_active.is_(True)))
+    if semester is None:
+        semester = Semester(
+            label="S2 2025-2026",
+            start_date=date(2026, 1, 15),
+            end_date=date(2026, 6, 30),
+            is_active=True,
+        )
+        db.add(semester)
+        db.flush()
+    else:
+        semester.is_active = True
+        semester.label = "S2 2025-2026"
 
     courses: dict[str, Course] = {}
     for code, name, credits in COURSES_DATA:
@@ -157,7 +170,7 @@ def seed_demo_data(db: Session, *, reset: bool = False) -> None:
             )
         )
 
-    due = date(2026, 3, 31)
+    due = date(2026, 12, 31)
     fee_amount = Decimal("500000")
 
     for index, student in enumerate(students):

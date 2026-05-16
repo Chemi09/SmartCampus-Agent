@@ -50,9 +50,11 @@
     try {
       students = (await SC_API.erpListStudents()).map(mapStudent);
       payments = (await SC_API.crmListPayments()).map(SC_API.mapApiPayment);
+      if (SC_Utils.clearApiOfflineBanner) SC_Utils.clearApiOfflineBanner();
     } catch (e) {
       students = SC_MOCK.students.slice();
       payments = SC_MOCK.payments.slice();
+      if (SC_Utils.showApiOfflineBanner) SC_Utils.showApiOfflineBanner();
     }
 
     var active = students.filter(function (s) {

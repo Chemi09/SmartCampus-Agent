@@ -4,6 +4,7 @@
   var payments = [];
   var chartData = [];
   var payChart = null;
+  var usedMock = false;
 
   function chartPalette() {
     return window.SC_Theme
@@ -13,6 +14,12 @@
 
   function formatAmt(n) {
     return SC_API.formatMoney(n, 'CDF');
+  }
+
+  function outstandingPayments() {
+    return payments.filter(function (p) {
+      return p.rawStatus === 'partial' || p.rawStatus === 'unpaid' || p.rawStatus === 'overdue';
+    });
   }
 
   function renderStats() {
@@ -57,6 +64,23 @@
     return '<span class="badge sc-badge-status-unpaid d-inline-flex align-items-center gap-1"><i class="bi bi-exclamation-triangle"></i>' + overdue + '</span>';
   }
 
+  function actionButtons(p) {
+    var view =
+      '<a class="btn btn-sm btn-link" href="student-detail.html?id=' +
+      encodeURIComponent(p.studentId) +
+      '" title="Voir fiche"><i class="bi bi-eye"></i></a>';
+    if (usedMock || p.rawStatus === 'paid') return view;
+    var rest = p.amount - p.paidAmount;
+    return (
+      view +
+      '<button type="button" class="btn btn-sm btn-link text-success" data-record-pay="' +
+      p.paymentId +
+      '" data-record-amt="' +
+      rest +
+      '" title="Enregistrer paiement"><i class="bi bi-cash-coin"></i></button>'
+    );
+  }
+
   function applyFilter() {
     var q = (document.getElementById('search-pay').value || '').toLowerCase();
     var st = document.getElementById('filter-pay-status').value;
@@ -88,12 +112,69 @@
           SC_Utils.formatDateFr(p.dueDate) +
           '</td><td class="text-center">' +
           badge(p.status) +
-          '</td><td class="text-end"><a class="btn btn-sm btn-link" href="student-detail.html?id=' +
-          encodeURIComponent(p.studentId) +
-          '"><i class="bi bi-eye"></i></a></td></tr>'
+          '</td><td class="text-end text-nowrap">' +
+          actionButtons(p) +
+          '</td></tr>'
         );
       })
       .join('');
+
+    tb.querySelectorAll('[data-record-pay]').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        recordPayment(
+          Number(btn.getAttribute('data-record-pay')),
+          Number(btn.getAttribute('data-record-amt'))
+        );
+      });
+    });
+  }
+
+  async function recordPayment(paymentId, amount) {
+    if (usedMock) {
+      SC_Utils.showToast('Connectez l’API pour enregistrer un paiement.', 'warning');
+      return;
+    }
+    try {
+      var res = await SC_API.crmRecordPayment(paymentId, {
+        amount: amount,
+        method: 'mobile_money',
+        reference: 'DEMO-' + Date.now(),
+      });
+      SC_Utils.showToast(res.message || 'Paiement enregistré.', 'success');
+      await load();
+    } catch (e) {
+      SC_Utils.showToast(e.message || 'Erreur enregistrement', 'danger');
+    }
+  }
+
+  async function sendGroupRelance() {
+    if (usedMock) {
+      SC_Utils.showToast('Connectez l’API pour envoyer des relances.', 'warning');
+      return;
+    }
+    var targets = outstandingPayments();
+    if (!targets.length) {
+      SC_Utils.showToast('Aucun paiement impayé à relancer.', 'info');
+      return;
+    }
+    var btn = document.getElementById('btn-relance-group');
+    if (btn) btn.disabled = true;
+    try {
+      var res = await SC_API.crmSendRelances({
+        payment_ids: targets.map(function (p) {
+          return p.paymentId;
+        }),
+        channel: 'whatsapp',
+      });
+      SC_Utils.showToast(
+        res.sent + ' relance(s) envoyée(s) — voir Communications.',
+        'success'
+      );
+    } catch (e) {
+      SC_Utils.showToast(e.message || 'Erreur relance', 'danger');
+    } finally {
+      if (btn) btn.disabled = false;
+    }
   }
 
   function buildChartData() {
@@ -176,11 +257,15 @@
   }
 
   async function load() {
+    usedMock = false;
     try {
       var raw = await SC_API.crmListPayments();
       payments = raw.map(SC_API.mapApiPayment);
+      if (SC_Utils.clearApiOfflineBanner) SC_Utils.clearApiOfflineBanner();
     } catch (e) {
+      usedMock = true;
       payments = SC_MOCK.payments.slice();
+      if (SC_Utils.showApiOfflineBanner) SC_Utils.showApiOfflineBanner();
     }
     buildChartData();
     renderStats();
@@ -191,6 +276,8 @@
   document.addEventListener('DOMContentLoaded', function () {
     document.getElementById('search-pay').addEventListener('input', SC_Utils.debounce(applyFilter, 200));
     document.getElementById('filter-pay-status').addEventListener('change', applyFilter);
+    var relBtn = document.getElementById('btn-relance-group');
+    if (relBtn) relBtn.addEventListener('click', sendGroupRelance);
     window.addEventListener('sc-theme-change', renderChart);
     window.addEventListener('sc-lang-change', function () {
       applyFilter();

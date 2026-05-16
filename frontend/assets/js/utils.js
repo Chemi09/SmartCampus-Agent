@@ -79,6 +79,25 @@
     };
   }
 
+  function showApiOfflineBanner() {
+    var id = 'sc-api-offline-banner';
+    if (document.getElementById(id)) return;
+    var bar = document.createElement('div');
+    bar.id = id;
+    bar.className =
+      'alert alert-warning border-0 rounded-0 mb-0 text-center py-2 small';
+    bar.setAttribute('role', 'alert');
+    bar.innerHTML =
+      '<strong>Mode hors ligne.</strong> Données de démonstration affichées — démarrez l’API : <code>.\start-smartcampus.ps1</code> ou <code>uvicorn</code> sur le port <strong>8000</strong>.';
+    var host = document.querySelector('.sc-main-admin') || document.querySelector('.sc-main-student') || document.body;
+    host.insertBefore(bar, host.firstChild);
+  }
+
+  function clearApiOfflineBanner() {
+    var el = document.getElementById('sc-api-offline-banner');
+    if (el) el.remove();
+  }
+
   window.SC_Utils = {
     formatDateFr: formatDateFr,
     formatCDF: formatCDF,
@@ -86,5 +105,7 @@
     escapeHtml: escapeHtml,
     showToast: showToast,
     debounce: debounce,
+    showApiOfflineBanner: showApiOfflineBanner,
+    clearApiOfflineBanner: clearApiOfflineBanner,
   };
 })();

@@ -1,15 +1,29 @@
 (function () {
   'use strict';
-  var data = SC_MOCK.studentGradesDetail;
-  document.addEventListener('DOMContentLoaded', function () {
-    var totalCred = data.reduce(function (a, g) { return a + g.credits; }, 0);
-    var valCred = data.filter(function (g) { return g.status === 'validated'; }).reduce(function (a, g) { return a + g.credits; }, 0);
-    var avg = data.reduce(function (a, g) { return a + g.final * g.credits; }, 0) / totalCred;
+
+  function render(data) {
+    var totalCred = data.reduce(function (a, g) {
+      return a + g.credits;
+    }, 0);
+    var valCred = data
+      .filter(function (g) {
+        return g.status === 'validated';
+      })
+      .reduce(function (a, g) {
+        return a + g.credits;
+      }, 0);
+    var avg = totalCred
+      ? data.reduce(function (a, g) {
+          return a + g.final * g.credits;
+        }, 0) / totalCred
+      : 0;
     document.getElementById('sg-avg').textContent = avg.toFixed(2);
     document.getElementById('sg-val-cred').textContent = String(valCred);
-    document.getElementById('sg-cred-bar').style.width = (valCred / totalCred) * 100 + '%';
+    document.getElementById('sg-cred-bar').style.width = (totalCred ? (valCred / totalCred) * 100 : 0) + '%';
     document.getElementById('sg-total-cred').textContent = String(totalCred);
-    var ueVal = data.filter(function (g) { return g.status === 'validated'; }).length;
+    var ueVal = data.filter(function (g) {
+      return g.status === 'validated';
+    }).length;
     document.getElementById('sg-ue-count').textContent = String(ueVal);
     document.getElementById('sg-ue-foot').textContent = '/ ' + data.length + ' UE';
 
@@ -46,5 +60,14 @@
         );
       })
       .join('');
+  }
+
+  document.addEventListener('DOMContentLoaded', async function () {
+    var data = SC_MOCK.studentGradesDetail;
+    var bundle = await SC_StudentAPI.loadPortalData();
+    if (bundle && bundle.grades) {
+      data = SC_StudentAPI.gradesDetailFromApi(bundle.grades);
+    }
+    render(data);
   });
 })();

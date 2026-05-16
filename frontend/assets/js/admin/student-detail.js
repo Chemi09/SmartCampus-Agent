@@ -88,7 +88,7 @@
         pays = rawPays.map(SC_API.mapApiPayment);
       }
     } catch (e) {
-      /* mock */
+      if (SC_Utils.showApiOfflineBanner) SC_Utils.showApiOfflineBanner();
     }
 
     if (!student) {

@@ -152,6 +152,44 @@
     return getJson('/crm/communications' + q);
   }
 
+  async function crmSendRelances(payload) {
+    return postJson('/crm/relances', payload);
+  }
+
+  async function crmRecordPayment(paymentId, body) {
+    return postJson('/crm/payments/' + encodeURIComponent(paymentId) + '/record', body);
+  }
+
+  function scoreToGrade20(score) {
+    var n = Number(score) || 0;
+    if (n > 20) return Math.round((n / 100) * 20 * 10) / 10;
+    return n;
+  }
+
+  /** Toutes les notes (parcours étudiants seed). */
+  async function erpListAllGradesFlat() {
+    var students = await erpListStudents();
+    var rows = [];
+    for (var i = 0; i < students.length; i++) {
+      var s = students[i];
+      var summary = await erpGetStudentGrades(s.id);
+      (summary.grades || []).forEach(function (item, idx) {
+        var g20 = scoreToGrade20(item.score);
+        rows.push({
+          studentId: String(s.id),
+          studentName: s.first_name + ' ' + s.last_name,
+          studentMatricule: s.matricule,
+          courseName: item.course,
+          courseCode: 'UE' + String(idx + 1).padStart(2, '0'),
+          credits: item.credits,
+          grade: g20,
+          semester: summary.semester || 'S2 2025-2026',
+        });
+      });
+    }
+    return rows;
+  }
+
   /** Charge Jean Mukendi (démo) : ERP + CRM */
   async function loadDemoStudentBundle() {
     await ensureDemoAuth();
@@ -191,6 +229,10 @@
     crmGetStudentBalance: crmGetStudentBalance,
     crmListStudentPayments: crmListStudentPayments,
     crmListCommunications: crmListCommunications,
+    crmSendRelances: crmSendRelances,
+    crmRecordPayment: crmRecordPayment,
+    scoreToGrade20: scoreToGrade20,
+    erpListAllGradesFlat: erpListAllGradesFlat,
     getStudentSummary: getStudentSummary,
     loadDemoStudentBundle: loadDemoStudentBundle,
     agentChat: agentChat,

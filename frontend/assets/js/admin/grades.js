@@ -2,41 +2,6 @@
   'use strict';
 
   var enriched = [];
-  var nameById = {};
-
-  function enrich() {
-    enriched = SC_MOCK.grades.map(function (grade) {
-      var st = SC_MOCK.students.find(function (s) {
-        return s.id === grade.studentId;
-      });
-      return Object.assign({}, grade, {
-        studentName: st ? st.firstName + ' ' + st.lastName : 'Inconnu',
-        studentMatricule: st ? st.matricule : 'N/A',
-      });
-    });
-  }
-
-  async function tryApiNames() {
-    enrich();
-    try {
-      var list = await SC_API.erpListStudents();
-      list.forEach(function (s) {
-        nameById[String(s.id)] = {
-          name: s.first_name + ' ' + s.last_name,
-          matricule: s.matricule,
-        };
-      });
-      enriched = enriched.map(function (row) {
-        var m = nameById[row.studentId];
-        if (m) {
-          return Object.assign({}, row, { studentName: m.name, studentMatricule: m.matricule });
-        }
-        return row;
-      });
-    } catch (e) {
-      /* garder enrich() */
-    }
-  }
 
   function renderStats(rows) {
     var n = rows.length;
@@ -104,11 +69,34 @@
       .join('');
   }
 
-  document.addEventListener('DOMContentLoaded', async function () {
-    enrich();
-    await tryApiNames();
+  function enrichFromMock() {
+    enriched = SC_MOCK.grades.map(function (grade) {
+      var st = SC_MOCK.students.find(function (s) {
+        return s.id === grade.studentId;
+      });
+      return Object.assign({}, grade, {
+        studentName: st ? st.firstName + ' ' + st.lastName : 'Inconnu',
+        studentMatricule: st ? st.matricule : 'N/A',
+        courseName: grade.courseName,
+        courseCode: grade.courseCode,
+      });
+    });
+  }
+
+  async function load() {
+    try {
+      enriched = await SC_API.erpListAllGradesFlat();
+      if (SC_Utils.clearApiOfflineBanner) SC_Utils.clearApiOfflineBanner();
+    } catch (e) {
+      enrichFromMock();
+      if (SC_Utils.showApiOfflineBanner) SC_Utils.showApiOfflineBanner();
+    }
+    applyFilter();
+  }
+
+  document.addEventListener('DOMContentLoaded', function () {
     document.getElementById('search-grades').addEventListener('input', SC_Utils.debounce(applyFilter, 200));
     document.getElementById('filter-semester').addEventListener('change', applyFilter);
-    applyFilter();
+    load();
   });
 })();

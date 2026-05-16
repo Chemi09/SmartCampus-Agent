@@ -101,9 +101,9 @@ Fournir une **API REST unique** (`/api/v1`) qui :
 **But :** figer routes et schéma avant de coder.
 
 - [ ] **0.1** Valider ce plan + routes [PLAN-CONCEPTION §6](./PLAN-CONCEPTION.md)
-- [ ] **0.2** Créer dossier `backend/` ([arborescence](./architecture_et%20_structure_arboresente.md))
-- [ ] **0.3** BDD **MySQL** (Laragon) — base `smartcampus` + `.env.example`
-- [ ] **0.4** Convention : `student_id` + `phone` = clés de liaison ERP ↔ CRM ↔ agent
+- [x] **0.2** Créer dossier `backend/` ([arborescence](./architecture_et%20_structure_arboresente.md))
+- [x] **0.3** BDD **MySQL** (Laragon) — base `smartcampus` + `.env.example`
+- [x] **0.4** Convention : `student_id` + `phone` = clés de liaison ERP ↔ CRM ↔ agent
 - [ ] **0.5** Canal équipe pour bloquants API (Discord / WhatsApp)
 
 **Branches Git**
@@ -394,20 +394,20 @@ Fournir une **API REST unique** (`/api/v1`) qui :
 - [x] Routes admin → JWT obligatoire
 - [x] Agent lecture seule (pas de DELETE)
 - [x] Données hébergées localement (démo)
-- [ ] `.env` dans `.gitignore`
+- [x] `.env` dans `.gitignore`
 
 ### Intégration frontend
 
-- [ ] CORS Laragon OK
-- [ ] Joel : `/erp/*` OK
-- [ ] Michée : `/crm/*` OK
-- [ ] Joel : `/agent/chat` OK (simulateur)
+- [x] CORS Laragon OK
+- [x] Joel : `/erp/*` OK
+- [x] Michée : `/crm/*` OK (+ relances + enregistrement paiement)
+- [x] Joel : `/agent/chat` OK (simulateur)
 
 ### Pitch
 
-- [ ] Parcours 3 min sans erreur
-- [ ] `ETU-2026-001` prêt pour la démo
-- [ ] Slide souveraineté validée
+- [ ] Parcours 3 min sans erreur *(à valider en live avec `start-smartcampus.ps1`)*
+- [x] `ETU-2026-001` prêt pour la démo
+- [x] Slide souveraineté validée
 
 ---
 

@@ -12,8 +12,10 @@
     try {
       var raw = await SC_API.crmListCommunications();
       announcements = raw.map(SC_API.mapApiCommunication);
+      if (SC_Utils.clearApiOfflineBanner) SC_Utils.clearApiOfflineBanner();
     } catch (e) {
       announcements = SC_MOCK.announcements.slice();
+      if (SC_Utils.showApiOfflineBanner) SC_Utils.showApiOfflineBanner();
     }
 
     document.getElementById('ann-list').innerHTML = announcements

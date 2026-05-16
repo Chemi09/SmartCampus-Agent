@@ -45,8 +45,10 @@
     try {
       var raw = await SC_API.erpListStudents();
       all = raw.map(mapApiStudent);
+      if (SC_Utils.clearApiOfflineBanner) SC_Utils.clearApiOfflineBanner();
     } catch (e) {
       all = SC_MOCK.students.slice();
+      if (SC_Utils.showApiOfflineBanner) SC_Utils.showApiOfflineBanner();
     }
     renderStats();
     applyFilter();

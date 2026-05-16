@@ -14,38 +14,38 @@
 
 ### Phases
 
-- [ ] **Phase 0** — Cadrage & structure (2–3 h)
-- [ ] **Phase 1** — Shell app & assets communs (4–6 h)
-- [ ] **Phase 2** — Authentification UI (3–4 h)
-- [ ] **Phase 3** — Pages ERP — Joel (8–10 h)
-- [ ] **Phase 4** — Pages CRM — Michée (8–10 h)
-- [ ] **Phase 5** — Dashboard admin unifié (4–6 h)
-- [ ] **Phase 6** — Portail étudiant (3–4 h)
-- [ ] **Phase 7** — Simulateur WhatsApp / agent (4–6 h)
-- [ ] **Phase 8** — Intégration API & tests (4–6 h)
+- [x] **Phase 0** — Cadrage & structure (2–3 h)
+- [x] **Phase 1** — Shell app & assets communs (4–6 h)
+- [x] **Phase 2** — Authentification UI (3–4 h)
+- [x] **Phase 3** — Pages ERP — Joel (8–10 h)
+- [x] **Phase 4** — Pages CRM — Michée (8–10 h)
+- [x] **Phase 5** — Dashboard admin unifié (4–6 h)
+- [x] **Phase 6** — Portail étudiant (3–4 h)
+- [x] **Phase 7** — Simulateur WhatsApp / agent (4–6 h)
+- [x] **Phase 8** — Intégration API & tests (4–6 h)
 - [ ] **Phase 9** — Polish UI & démo hackathon (3–4 h)
 
 ### Par responsable
 
 **Joel**
 
-- [ ] Structure `frontend/` + `api.js` / `auth.js`
-- [ ] Pages ERP (étudiants, notes)
-- [ ] Login + dashboard admin (partie académique)
-- [ ] Simulateur `demo/chat.html`
+- [x] Structure `frontend/` + `api.js` / `auth.js`
+- [x] Pages ERP (étudiants, notes)
+- [x] Login + dashboard admin (partie académique)
+- [x] Simulateur `demo/chat.html`
 
 **Michée**
 
-- [ ] Pages CRM (paiements, communications)
-- [ ] Dashboard impayés + relances
-- [ ] Styles cohérents avec le thème campus
+- [x] Pages CRM (paiements, communications)
+- [x] Dashboard impayés + relances
+- [x] Styles cohérents avec le thème campus
 
 ### Jalon hackathon
 
-- [ ] Toutes les pages P0 navigables
-- [ ] Appels API backend OK (CORS)
-- [ ] Parcours démo 3 min fluide
-- [ ] Responsive mobile (étudiant sur smartphone)
+- [x] Toutes les pages P0 navigables
+- [x] Appels API backend OK (CORS)
+- [ ] Parcours démo 3 min fluide *(validation live)*
+- [x] Responsive mobile (étudiant sur smartphone)
 
 ---
 
@@ -348,11 +348,11 @@ async function apiGet(path) {
 
 ### Fonctionnel
 
-- [ ] Login / logout admin
-- [ ] Liste étudiants + fiche + notes
-- [ ] Liste impayés + relance + enregistrement paiement mock
-- [ ] Dashboard KPIs corrects
-- [ ] Simulateur agent 5/5 phrases
+- [x] Login / logout admin
+- [x] Liste étudiants + fiche + notes
+- [x] Liste impayés + relance + enregistrement paiement mock
+- [x] Dashboard KPIs corrects
+- [x] Simulateur agent 5/5 phrases
 
 ### UX
 
@@ -362,13 +362,13 @@ async function apiGet(path) {
 
 ### Intégration
 
-- [ ] Backend MySQL + API démarrés
-- [ ] Pas d’erreur CORS en console
-- [ ] Token JWT sur routes protégées
+- [x] Backend MySQL + API démarrés
+- [x] Pas d’erreur CORS en console
+- [x] Token JWT sur routes protégées
 
 ### Pitch
 
-- [ ] Parcours 3 min rodé
+- [ ] Parcours 3 min rodé *(test manuel)*
 - [ ] Onglets pré-ouverts pour la démo (optionnel)
 
 ---

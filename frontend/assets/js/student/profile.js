@@ -1,8 +1,9 @@
 (function () {
   'use strict';
-  var p = SC_MOCK.studentProfile;
+
   var docs = SC_MOCK.studentDocuments;
-  document.addEventListener('DOMContentLoaded', function () {
+
+  function render(p) {
     document.getElementById('pf-name').textContent = p.name;
     document.getElementById('pf-email').textContent = p.email;
     document.getElementById('pf-mat').textContent = p.matricule;
@@ -22,10 +23,31 @@
         return (
           '<div class="d-flex justify-content-between align-items-center border rounded p-3 mb-2">' +
           '<div class="d-flex gap-2"><div class="bg-primary bg-opacity-10 text-primary rounded p-2"><i class="bi bi-file-text"></i></div>' +
-          '<div><div class="fw-medium">' + SC_Utils.escapeHtml(d.name) + '</div><div class="small text-muted">' + d.type + ' — ' + d.size + '</div></div></div>' +
-          '<button type="button" class="btn btn-sm ' + (d.available ? 'btn-primary' : 'btn-secondary') + '" ' + (d.available ? '' : 'disabled') + '><i class="bi bi-download me-1"></i>' + (d.available ? 'Télécharger' : 'Non disponible') + '</button></div>'
+          '<div><div class="fw-medium">' +
+          SC_Utils.escapeHtml(d.name) +
+          '</div><div class="small text-muted">' +
+          d.type +
+          ' — ' +
+          d.size +
+          '</div></div></div>' +
+          '<button type="button" class="btn btn-sm ' +
+          (d.available ? 'btn-primary' : 'btn-secondary') +
+          '" ' +
+          (d.available ? '' : 'disabled') +
+          '><i class="bi bi-download me-1"></i>' +
+          (d.available ? 'Télécharger' : 'Non disponible') +
+          '</button></div>'
         );
       })
       .join('');
+  }
+
+  document.addEventListener('DOMContentLoaded', async function () {
+    var p = SC_MOCK.studentProfile;
+    var bundle = await SC_StudentAPI.loadPortalData();
+    if (bundle && bundle.student) {
+      p = SC_StudentAPI.profileFromApi(bundle.student);
+    }
+    render(p);
   });
 })();

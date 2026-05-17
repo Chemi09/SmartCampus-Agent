@@ -11,19 +11,24 @@ ERP universitaire + CRM campus + agent IA autonome — hackathon **OpenClaw** ·
 | BDD | MySQL (Laragon) |
 | IA | OpenClaw, LangChain, Yamify |
 
-## Démarrage rapide (backend)
+## Démarrage rapide
 
 ```powershell
-cd backend
-python -m venv venv
-.\venv\Scripts\Activate.ps1
-pip install -r requirements.txt
-copy .env.example .env
-uvicorn app.main:app --reload --port 8000
+cd "c:\laragon\www\SmartCampus Agent"
+
+# Première fois
+.\start-smartcampus.ps1 -Setup
+
+# Chaque session (PowerShell ou double-clic)
+.\start-smartcampus.ps1 -OpenBrowser
+start-smartcampus.bat
 ```
 
-- API : http://localhost:8000/docs  
+- Site : http://localhost:8000/pages/login.html  
+- API / Swagger : http://localhost:8000/docs  
 - Health : http://localhost:8000/health  
+
+Liste complète des commandes : **[docs/LANCEMENT.md](docs/LANCEMENT.md)**
 
 ## Documentation
 
@@ -33,6 +38,7 @@ uvicorn app.main:app --reload --port 8000
 - [architecture_et _structure_arboresente.md](docs/architecture_et%20_structure_arboresente.md) — arborescence complète
 - [PLAN-BACKEND.md](docs/PLAN-BACKEND.md) — conception backend (Bradley & Ephraim)
 - [PLAN-FRONTEND.md](docs/PLAN-FRONTEND.md) — conception frontend (Joel & Michée)
+- [LANCEMENT.md](docs/LANCEMENT.md) — commandes et script de démarrage
 
 ## Équipe
 
